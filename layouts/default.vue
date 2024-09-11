@@ -104,6 +104,77 @@
               </li>
             </ul>
           </nav>
+
+          <div class="catalog">
+            <div class="container">
+              <!-- catalog-header blogi mediada ishlaydi -->
+              <div class="catalog-header">
+                <h2>Kategoriyalar</h2>
+                <button>
+                  <closeSvg />
+                </button>
+              </div>
+              <!--  -->
+
+              <ul class="catalog-menu">
+                <div class="catalog-wrapper">
+                  <li class="catalog-wrapper__item">
+                    <span>
+                      <img
+                        src="https://api.mtdmarket.uz/uploads/images/parentCategory/1/65c6000c44bcb.png"
+                        alt="icon"
+                      />
+                      " Aravachalar "
+
+                      <rightArrowSvg />
+                    </span>
+                    <ul class="catalog-wrapper__sub-menu">
+                      <div class="catalog-wrapper__sub-menu-wrapper">
+                        <!-- media da ishlaydigan tugma -->
+                        <button>
+                          <rightArrowSvg />
+                          " ortga qaytish "
+                        </button>
+                        <!--  -->
+
+                        <a href="#" class="cotalog-wrapper__sub-menu__title"
+                          >Aravachalar</a
+                        >
+
+                        <li>
+                          <div class="cotalog-wrapper__sub-menu__name">
+                            <a href="#">Mexanik nogironlar aravachalari</a>
+                          </div>
+                        </li>                
+                        <li>
+                          <div class="cotalog-wrapper__sub-menu__name">
+                            <a href="#">Mexanik nogironlar aravachalari</a>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="cotalog-wrapper__sub-menu__name">
+                            <a href="#">Mexanik nogironlar aravachalari</a>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="cotalog-wrapper__sub-menu__name">
+                            <a href="#">Mexanik nogironlar aravachalari</a>
+                          </div>
+                        </li>
+                      </div>
+                    </ul>
+                  </li>
+
+                  <!-- 
+                  <li class="catalog-wrapper__item"></li>
+                  <li class="catalog-wrapper__item"></li>
+                  <li class="catalog-wrapper__item"></li>
+                  <li class="catalog-wrapper__item"></li> 
+                  -->
+                </div>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -119,6 +190,8 @@ import phoneTelVue from "~/components/icons/phoneTel.vue";
 import UserSvgVue from "~/components/icons/UserSvg.vue";
 import likeSvgVue from "~/components/icons/likeSvg.vue";
 import cartSvgVue from "~/components/icons/cartSvg.vue";
+import closeSvg from "~/components/icons/closeSvg.vue";
+import rightArrowSvg from "~/components/icons/rightArrowSvg.vue";
 
 // import store
 import { useStore } from "~/store/store";
