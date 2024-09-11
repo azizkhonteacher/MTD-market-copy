@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: $siteFont;
+}
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  height: 100%;
+}
+.container {
+  width: 100%;
+  max-width: 1580px !important;
+  margin: 0 auto;
+  padding: 0 20px;
+}

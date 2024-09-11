@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// default style
+
+@import "./fonts/gothamPro";
+// @import "./defaultStyle/fonts";
+@import "./defaultStyle/varibles";
+@import "./defaultStyle/extent";
+@import "./defaultStyle/mixin";
+@import "./defaultStyle/reset";
+@import "./defaultStyle/class";
+
+// pages styles
+
+@import "./pagesStyles/header";
