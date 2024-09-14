@@ -45,12 +45,15 @@
       <!-- HEADER TOP END -->
 
       <!-- HEADER MENU START -->
-      <div class="header__menu" :class="{'openBurger': store.openHeaderMenu}">
+      <div class="header__menu" :class="{ openBurger: store.openHeaderMenu }">
         <div class="header__menu-top">
           <NuxtLink to="/" class="header__menu-logo">
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
-          <button class="header__menu-close-btn" @click="store.openHeaderMenu = false">
+          <button
+            class="header__menu-close-btn"
+            @click="store.openHeaderMenu = false"
+          >
             <closeSvg />
           </button>
         </div>
@@ -101,7 +104,10 @@
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
-          <button class="header__center-burger-btn" @click="store.openHeaderMenu = true">
+          <button
+            class="header__center-burger-btn"
+            @click="store.openHeaderMenu = true"
+          >
             <img src="~/assets/images/svg/Menu.svg" alt="" />
           </button>
 
@@ -164,7 +170,7 @@
             </ul>
           </nav>
 
-          <div class="catalog" :class="{'openKategory': store.openKategory}">
+          <div class="catalog" :class="{ openKategory: store.openKategory }">
             <div class="container">
               <!-- catalog-header blogi mediada ishlaydi -->
               <div class="catalog-header">
@@ -299,7 +305,162 @@
     <!-- MOBILE MENU END -->
 
     <main></main>
-    <footer></footer>
+
+    <!-- FOOTER START -->
+    <footer>
+      <div class="container">
+        <div class="footer-info">
+          <NuxtLink class="footer-logo">
+            <img src="~/assets/images/logo.svg" alt="logo" />
+          </NuxtLink>
+
+          <p class="footer-desc">Dushanba - Shanba: 9:00-18:00</p>
+          <p class="footer-desc">Колл-центр: +998991013010</p>
+
+          <ul class="footer-social">
+            <!-- telegram -->
+            <li>
+              <a href="#" target="_blank">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_14599_191)">
+                    <path
+                      d="M5.27748 8.4226L5.05948 11.4943C5.37138 11.4943 5.50646 11.3601 5.66844 11.1989L7.13071 9.79892L10.1607 12.0218C10.7164 12.3321 11.1079 12.1687 11.2578 11.5097L13.2467 2.17357L13.2472 2.17302C13.4235 1.35008 12.9501 1.02828 12.4087 1.23016L0.718248 5.71395C-0.0796041 6.0242 -0.0675238 6.46978 0.582618 6.67166L3.5714 7.60296L10.5138 3.2512C10.8405 3.03446 11.1375 3.15438 10.8932 3.37112L5.27748 8.4226Z"
+                      fill="#8F8E94"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_14599_191">
+                      <rect
+                        width="13.1786"
+                        height="13.2022"
+                        fill="#8F8E94"
+                        transform="translate(0.106445 0.0717773)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <!-- instagram -->
+            <li>
+              <a href="#" target="_blank">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_14599_195)">
+                    <path
+                      d="M9.54658 0.0717773H4.60463C2.3305 0.0717773 0.486328 1.88396 0.486328 4.11864V8.97486C0.486328 11.2095 2.3305 13.0217 4.60463 13.0217H9.54658C11.8207 13.0217 13.6649 11.2095 13.6649 8.97486V4.11864C13.6649 1.88396 11.8207 0.0717773 9.54658 0.0717773ZM12.4294 8.97486C12.4294 10.537 11.1362 11.8077 9.54658 11.8077H4.60463C3.01496 11.8077 1.72182 10.537 1.72182 8.97486V4.11864C1.72182 2.55655 3.01496 1.28583 4.60463 1.28583H9.54658C11.1362 1.28583 12.4294 2.55655 12.4294 4.11864V8.97486Z"
+                      fill="#8F8E94"
+                    />
+                    <path
+                      d="M7.07589 3.30933C5.25642 3.30933 3.78125 4.75891 3.78125 6.54681C3.78125 8.33472 5.25642 9.7843 7.07589 9.7843C8.89535 9.7843 10.3705 8.33472 10.3705 6.54681C10.3705 4.75891 8.89535 3.30933 7.07589 3.30933ZM7.07589 8.57024C5.94089 8.57024 5.01674 7.66213 5.01674 6.54681C5.01674 5.43069 5.94089 4.52338 7.07589 4.52338C8.21089 4.52338 9.13504 5.43069 9.13504 6.54681C9.13504 7.66213 8.21089 8.57024 7.07589 8.57024Z"
+                      fill="#8F8E94"
+                    />
+                    <path
+                      d="M10.6177 3.4978C10.8602 3.4978 11.0567 3.30466 11.0567 3.0664C11.0567 2.82815 10.8602 2.63501 10.6177 2.63501C10.3753 2.63501 10.1787 2.82815 10.1787 3.0664C10.1787 3.30466 10.3753 3.4978 10.6177 3.4978Z"
+                      fill="#8F8E94"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_14599_195">
+                      <rect
+                        width="13.1786"
+                        height="12.9499"
+                        fill="white"
+                        transform="translate(0.486328 0.0717773)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <!-- facebook -->
+            <li>
+              <a href="#" target="_blank">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_14599_210)">
+                    <path
+                      d="M10.3137 0.0745243L8.60471 0.0717773C6.68477 0.0717773 5.44401 1.34704 5.44401 3.32085V4.81889H3.72575C3.57727 4.81889 3.45703 4.93948 3.45703 5.08823V7.25872C3.45703 7.40746 3.5774 7.52791 3.72575 7.52791H5.44401V13.0047C5.44401 13.1535 5.56425 13.2739 5.71273 13.2739H7.95458C8.10306 13.2739 8.2233 13.1534 8.2233 13.0047V7.52791H10.2324C10.3808 7.52791 10.5011 7.40746 10.5011 7.25872L10.5019 5.08823C10.5019 5.01681 10.4735 4.94841 10.4232 4.89786C10.3729 4.84732 10.3043 4.81889 10.233 4.81889H8.2233V3.54898C8.2233 2.93861 8.36848 2.62876 9.16215 2.62876L10.3134 2.62835C10.4617 2.62835 10.582 2.50776 10.582 2.35915V0.343724C10.582 0.195252 10.4619 0.074799 10.3137 0.0745243Z"
+                      fill="#8F8E94"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_14599_210">
+                      <rect
+                        width="13.1786"
+                        height="13.2022"
+                        fill="white"
+                        transform="translate(0.429688 0.0717773)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+            <!-- youtobe -->
+            <li>
+              <a href="#" target="_blank">
+                <svg
+                  width="14"
+                  height="13"
+                  viewBox="0 0 14 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_14599_207)">
+                    <path
+                      d="M13.1357 3.48707C12.9943 2.97069 12.58 2.56363 12.0546 2.42458C11.0947 2.1665 7.2551 2.1665 7.2551 2.1665C7.2551 2.1665 3.41565 2.1665 2.45577 2.4148C1.94045 2.5537 1.51603 2.97076 1.37467 3.48707C1.12207 4.43023 1.12207 6.38621 1.12207 6.38621C1.12207 6.38621 1.12207 8.35205 1.37467 9.28535C1.51617 9.80166 1.93034 10.2087 2.45584 10.3478C3.42576 10.6059 7.25525 10.6059 7.25525 10.6059C7.25525 10.6059 11.0947 10.6059 12.0546 10.3576C12.5801 10.2186 12.9943 9.81159 13.1358 9.29528C13.3883 8.35205 13.3883 6.39614 13.3883 6.39614C13.3883 6.39614 13.3985 4.43023 13.1357 3.48707ZM6.03265 8.19321V4.5792L9.22547 6.38621L6.03265 8.19321Z"
+                      fill="#8F8E94"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_14599_207">
+                      <rect
+                        width="13.0841"
+                        height="12.8571"
+                        fill="white"
+                        transform="translate(0.719727 0.0712891)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-list">
+          <h4 class="footer-list-title">Kategoriyalar</h4>
+          <li v-for="i in 4" :key="i">
+            <NuxtLink to="/">Aravachalar</NuxtLink>
+          </li>
+        </div>
+        <div class="footer-list">
+          <h4 class="footer-list-title">Umumiy Ma'lumot</h4>
+          <li v-for="i in 2" :key="i">
+            <NuxtLink to="/">Aravachalar</NuxtLink>
+          </li>
+        </div>
+      </div>
+    </footer>
+
+    <!-- FOOTER END -->
   </div>
 </template>
 
