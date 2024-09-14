@@ -1,0 +1,11 @@
+.openBurger {
+  transform: translate(0) !important;
+  transition: all 0.3s ease;
+}
+.openKategory {
+  display: flex !important;
+  transition: all 0.3s ease !important;
+  opacity: 1 !important;
+  transform: translate(0) !important;
+  z-index: 100 !important; 
+}
