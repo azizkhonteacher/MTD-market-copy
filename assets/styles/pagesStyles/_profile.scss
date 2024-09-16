@@ -1,0 +1,156 @@
+//      PROFILE STYLE START
+.profile {
+  padding: 30px 0 80px;
+  .container {
+    display: flex;
+    gap: 30px;
+
+    @include media(1130px) {
+      flex-direction: column-reverse;
+    }
+    @include media(1024px) {
+      max-width: 1024px;
+    }
+    @include media(768px) {
+      max-width: 768px;
+    }
+    @include media(640px) {
+      max-width: 640px;
+    }
+    @include media(470px) {
+      padding: 0;
+    }
+  }
+
+  .profile-nav {
+    border-right: 1px solid #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+
+    @include media(1130px) {
+      width: 230px;
+    }
+  }
+  .profile-item {
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    gap: 10px;
+    padding: 20px 10px;
+    transition: all 0.3s ease;
+    width: 100%;
+
+    @include media(1130px) {
+      padding: 0 20px;
+    }
+  }
+  .profile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f7f7;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    svg {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+  }
+  h4 {
+    color: $title;
+    @include font(500, 14px, 1.5);
+    text-transform: capitalize;
+  }
+
+  .profile-main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 75%;
+    @include media(1130px) {
+      width: 100%;
+    }
+  }
+  .user-info {
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+    .profile-item {
+      cursor: default !important;
+      padding: 0;
+    }
+  }
+  .user-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .user-info-main {
+    padding: 20px;
+    h4 {
+      color: $title;
+      @include font(500, 14px, 1.5);
+      margin-bottom: 14px;
+    }
+    h5 {
+      color: #626364;
+      @include font(400, 14px, 1.5);
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        @include font(400, 14px, 1.2);
+        gap: 15px;
+
+        @include media(470px) {
+          border-bottom: 1px solid #f2f2f2;
+          gap: 10px;
+          grid-template-columns: 1fr;
+        }
+        span {
+          color: #000;
+          @include font(400, 14px);
+        }
+
+        .value {
+          grid-column: 2 / 4;
+          text-align: right;
+          @include media(470px) {
+            grid-column: auto;
+            padding-bottom: 10px;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+  .user-info-order-images {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    img {
+      width: 70px;
+    }
+  }
+  button {
+    background: $siteColor;
+    border: 1px solid $siteColor;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    @include font(500, 16px, 1.2);
+    padding: 12px 24px;
+    transition: all 0.3s ease;
+  }
+}

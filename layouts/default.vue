@@ -304,7 +304,9 @@
 
     <!-- MOBILE MENU END -->
 
-    <main></main>
+    <main>
+      <NuxtPage />
+    </main>
 
     <!-- FOOTER START -->
     <footer>

@@ -9,3 +9,15 @@
   transform: translate(0) !important;
   z-index: 100 !important; 
 }
+.activeOrderBtn{
+  background: #fff !important;
+  color: $siteColor !important;
+}
+.cards{
+  display: grid !important;
+  gap: 20px !important;
+  grid-template-columns: 1fr 1fr !important;
+  @include media(810px){
+    grid-template-columns: 1fr !important;
+  }
+}
