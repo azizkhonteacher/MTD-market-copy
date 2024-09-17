@@ -3,6 +3,7 @@ export const useStore = defineStore("store", () => {
   const openLang = ref(false);
   const openKategory = ref(false);
   const openHeaderMenu = ref(false);
+  const openPage = ref(false);
   const phone = ref("");
   const code = ref("");
   const token = ref("");
@@ -16,5 +17,6 @@ export const useStore = defineStore("store", () => {
     code,
     token,
     userInfo,
+    openPage,
   };
 });

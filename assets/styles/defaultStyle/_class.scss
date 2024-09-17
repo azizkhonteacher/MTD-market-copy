@@ -7,17 +7,20 @@
   transition: all 0.3s ease !important;
   opacity: 1 !important;
   transform: translate(0) !important;
-  z-index: 100 !important; 
+  z-index: 100 !important;
 }
-.activeOrderBtn{
+.activeOrderBtn {
   background: #fff !important;
   color: $siteColor !important;
 }
-.cards{
+.cards {
   display: grid !important;
   gap: 20px !important;
   grid-template-columns: 1fr 1fr !important;
-  @include media(810px){
+  @include media(810px) {
     grid-template-columns: 1fr !important;
   }
+}
+.active {
+  transform: translate(0) !important;
 }
