@@ -147,7 +147,7 @@
                     </span>
                   </li>
                   <div class="user-info-order-images">
-                    <img src="~/assets/images/logo.svg" alt="img" />
+                    <img src="https://picsum.photos/70" alt="img" />
                   </div>
                   <li>
                     <span>Order Amount:</span>
@@ -171,3 +171,12 @@ import UserSvg from "~/components/icons/UserSvg.vue";
 </script>
 
 <style lang="scss" scoped></style>
+
+
+<!-- 
+    PROFILE DAGI BUTTON LAR BOSILGANDAGI HOLATLAR VA CLASSLARNI QO'YIB CHIQISH KERAK
+
+    QOLGAN LOGIN QISMLARINI YIG'ISHNI BOSHLAYVER
+
+    OLDIN BARCHA qismlarni yasab ol
+-->
