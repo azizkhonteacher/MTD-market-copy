@@ -19,4 +19,14 @@
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
   }
+
+  .not-available {
+    display: grid;
+    height: 300px;
+    place-items: center;
+
+    h2 {
+      @include font(700, 25px);
+    }
+  }
 }
