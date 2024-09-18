@@ -1,0 +1,106 @@
+.product-card {
+  border: 1px solid #f2f2f2;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  position: relative;
+
+  &:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  }
+
+  &__discount {
+    background: $siteColor;
+    border-radius: 50%;
+    color: #fff;
+    display: grid;
+    @include font(300, 14px);
+    height: 40px;
+    width: 40px;
+    place-items: center;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  &__img {
+    display: grid;
+    padding: 20px;
+    place-items: center;
+    text-decoration: none;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: 144px;
+      object-fit: contain;
+    }
+  }
+  &__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 11px 20px;
+    text-align: center;
+  }
+  &__price-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px;
+  }
+  &__price {
+    color: $siteColor;
+    @include font(300, 18px, 0.9);
+  }
+  &__fullPrice {
+    color: #909090;
+    @include font(300, 14px, 1.1);
+    padding-right: 11px;
+    text-decoration: line-through;
+  }
+  &__title {
+    color: #000;
+    @include font(700, 16px, 1.6);
+    transition: all 0.3s ease;
+    &:hover {
+      color: $siteColor;
+      opacity: 0.8;
+    }
+  }
+  &__footer {
+    border-top: 1px solid #f2f2f2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 15px 30px;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      cursor: pointer;
+
+      &:nth-child(2) {
+        border-left: 1px solid #f2f2f2;
+      }
+      &:hover {
+        svg {
+          path {
+            fill: $siteColor;
+            stroke: $siteColor;
+          }
+        }
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+}

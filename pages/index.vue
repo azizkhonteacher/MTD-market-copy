@@ -1,6 +1,6 @@
 <template>
     <div>
-        salom
+       <product-card/>
     </div>
 </template>
 

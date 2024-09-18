@@ -1,0 +1,22 @@
+.products {
+  padding: 80px 0;
+
+  &__title {
+    color: $title;
+    @include font(500, 24px, 0.9);
+    margin-bottom: 40px;
+  }
+  &__wrapper {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 268px));
+
+    @include media(1560px) {
+      place-content: center;
+    }
+    @include media(768px) {
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+}
