@@ -1,6 +1,6 @@
 <template>
     <div>
-       <product-card/>
+       <product-card v-for="i in 12" :key="i" />
     </div>
 </template>
 

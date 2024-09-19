@@ -1,0 +1,218 @@
+.basked-modal {
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  left: 50%;
+  padding: 50px;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 20;
+  max-width: 1146px;
+
+  @include media(1140px) {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    transform: translate(0);
+  }
+  @include media(1040px) {
+    padding: 20px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  &__title {
+    color: $title;
+    @include font(700, 20px);
+  }
+  &__close-btn {
+    background: #fff;
+    border: 1px solid #bdbdbd;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    svg {
+      width: 15px;
+      height: 15px;
+      path {
+        stroke: #bdbdbd;
+      }
+    }
+  }
+  &__main {
+    height: 70%;
+    margin-bottom: auto;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+
+    button {
+      background: $siteColor;
+      border: 1px solid $siteColor;
+      border-radius: 6px;
+      color: #fff;
+      @include font(700, 16px, 1.2);
+      padding: 12px 24px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: transparent;
+        color: $siteColor;
+      }
+    }
+  }
+  &__footer-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      color: $title;
+      @include font(400, 16px, 1.6);
+    }
+    h2 {
+      color: $title;
+      @include font(700, 24px, 1.6);
+    }
+  }
+}
+//              BASKED MODAL CARD STYLE
+
+.basket-modal__card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+  gap: 10px;
+  padding: 40px 0;
+
+  @include media(540px) {
+    flex-wrap: wrap;
+  }
+
+  &-img {
+    height: 100px;
+    width: 216px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @include media(840px) {
+      width: 100px;
+    }
+  }
+  &-text-wrapper {
+    width: 55%;
+  }
+  &-title {
+    color: #909090;
+    display: block;
+    @include font(500, 16px, 1.6);
+    margin-bottom: 13px;
+    transition: all 0.3s ease;
+    &:hover {
+      color: $siteColor;
+      opacity: 0.8;
+    }
+  }
+  &-price {
+    color: $title;
+    @include font(500, 18px);
+  }
+  &-btn-wrapper {
+    @include media(540px) {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      gap: 14px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+  &-btn-wrapper__top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+
+    @include media(540px) {
+      margin: 0;
+    }
+
+    button {
+      background: #fff;
+      border: 1px solid #bdbdbd;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: #bdbdbd;
+      @include font(300, 20px);
+
+      @include media(840px) {
+        width: 25px;
+        height: 25px;
+        font-size: 15px;
+      }
+    }
+
+    .quantity-carts {
+      background: #fff;
+      border: 1px solid #bdbdbd;
+      border-radius: 8px;
+      color: $siteColor;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      @include font(500, 14px);
+
+      @include media(840px) {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+    }
+  }
+  &-btn-wrapper__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;
+
+    button {
+      width: 26px;
+      height: 26px;
+      border: none;
+      background: transparent;
+
+      svg {
+        path {
+          stroke: #aaaaaa;
+        }
+      }
+    }
+  }
+}

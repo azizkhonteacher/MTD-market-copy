@@ -4,6 +4,8 @@ export const useStore = defineStore("store", () => {
   const openKategory = ref(false);
   const openHeaderMenu = ref(false);
   const openPage = ref(false);
+  const viewCategory = ref(false);
+  const viewAccardion = ref(false);
   const phone = ref("");
   const code = ref("");
   const token = ref("");
@@ -18,5 +20,7 @@ export const useStore = defineStore("store", () => {
     token,
     userInfo,
     openPage,
+    viewCategory,
+    viewAccardion,
   };
 });

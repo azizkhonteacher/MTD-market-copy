@@ -10,7 +10,6 @@
 @import "./defaultStyle/extent";
 @import "./defaultStyle/mixin";
 @import "./defaultStyle/reset";
-@import "./defaultStyle/class";
 
 // pages styles
 
@@ -19,3 +18,9 @@
 @import "./pagesStyles/profile";
 @import "./pagesStyles/help";
 @import "./pagesStyles/productsWrapper";
+@import "./pagesStyles/baskedModel";
+@import "./pagesStyles/category";
+
+
+// alohida qo'shiladigan class lar
+@import "./defaultStyle/class";

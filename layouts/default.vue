@@ -112,6 +112,8 @@
           </button>
 
           <form class="header__center-form">
+
+            <!--      SEARCH INPUT     -->
             <div class="header__center-form-top">
               <input
                 type="text"
@@ -124,6 +126,14 @@
                 <img src="~/assets/images/svg/search.svg" alt="search" />
                 <span>Qidirish</span>
               </button>
+            </div>
+
+            <!--      SEARCH ITEM LIST     -->
+            <div class="search-items-wrapper" v-if="false">
+              <NuxtLink to="/" class="search-item">
+                <img src="~/assets/images/def.jpg" alt="img">
+                <span>Eshitish moslamasi uchun  Nozik naycha (2B o'lchamdagi o'ng tomon uchun)</span>
+              </NuxtLink>
             </div>
           </form>
 
