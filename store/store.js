@@ -7,6 +7,8 @@ export const useStore = defineStore("store", () => {
   const viewCategory = ref(false);
   const viewAccardion = ref(false);
   const overlay = ref(false);
+  const paymentMethod = ref(false);
+  const paymentMethodCheck = ref(false);
   const phone = ref("");
   const code = ref("");
   const token = ref("");
@@ -23,5 +25,8 @@ export const useStore = defineStore("store", () => {
     openPage,
     viewCategory,
     viewAccardion,
+    overlay,
+    paymentMethod,
+    paymentMethodCheck,
   };
 });

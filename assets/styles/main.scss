@@ -7,8 +7,8 @@
 @import "./fonts/gothamPro";
 // @import "./defaultStyle/fonts";
 @import "./defaultStyle/varibles";
-@import "./defaultStyle/extent";
 @import "./defaultStyle/mixin";
+@import "./defaultStyle/extent";
 @import "./defaultStyle/reset";
 
 // pages styles
@@ -21,7 +21,8 @@
 @import "./pagesStyles/baskedModel";
 @import "./pagesStyles/category";
 @import "./pagesStyles/homePage";
-
+@import "./pagesStyles/detailPage";
+@import "./pagesStyles/payment.scss";
 
 // alohida qo'shiladigan class lar
 @import "./defaultStyle/class";

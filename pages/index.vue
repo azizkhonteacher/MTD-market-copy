@@ -1,5 +1,32 @@
 <template>
   <div>
+    <!--  HERO  -->
+    <div class="hero">
+      <div class="container">
+        <div class="hero__swiper-wrapper">
+          <Swiper
+            :modules="[SwiperNavigation, SwiperAutoplay, SwiperPagination]"
+            :loop="true"
+            :slides-per-view="1"
+            :pagination="{ clickable: true }"
+            navigation
+            :speed="2000"
+            :autoplay="{
+              delay: 3000,
+              disableOnInteraction: true,
+            }"
+            :space-between="10"
+          >
+            <SwiperSlide v-for="item in 6" :key="item" class="hero-card">
+              <a href="#" class="hero-img">
+                <img src="/assets/images/def.jpg" alt="item?.name" class="desctop"/>
+              </a>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+      </div>
+    </div>
+
     <!--  LATEST NEWS OUREFFERS -->
     <div class="products">
       <div class="container">
