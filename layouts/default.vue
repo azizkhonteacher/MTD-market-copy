@@ -112,7 +112,6 @@
           </button>
 
           <form class="header__center-form">
-
             <!--      SEARCH INPUT     -->
             <div class="header__center-form-top">
               <input
@@ -131,8 +130,11 @@
             <!--      SEARCH ITEM LIST     -->
             <div class="search-items-wrapper" v-if="false">
               <NuxtLink to="/" class="search-item">
-                <img src="~/assets/images/def.jpg" alt="img">
-                <span>Eshitish moslamasi uchun  Nozik naycha (2B o'lchamdagi o'ng tomon uchun)</span>
+                <img src="~/assets/images/def.jpg" alt="img" />
+                <span
+                  >Eshitish moslamasi uchun Nozik naycha (2B o'lchamdagi o'ng
+                  tomon uchun)</span
+                >
               </NuxtLink>
             </div>
           </form>
@@ -472,6 +474,8 @@
       </div>
     </footer>
 
+    <div class="overlay" v-show="store.overlay"></div>
+
     <!-- FOOTER END -->
   </div>
 </template>
@@ -490,10 +494,20 @@ import { useStore } from "~/store/store";
 const store = useStore();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.overlay {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed;
+  z-index: 15;
+  background: rgba(32, 32, 32, 0.3);
+}
+</style>
 
 <!-- 
 
-mobile menu ni iconlarini to'g'irla
+overlay click bo'lganda function orqali true - false bo'lsin
 
 -->

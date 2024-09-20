@@ -6,6 +6,7 @@ export const useStore = defineStore("store", () => {
   const openPage = ref(false);
   const viewCategory = ref(false);
   const viewAccardion = ref(false);
+  const overlay = ref(false);
   const phone = ref("");
   const code = ref("");
   const token = ref("");

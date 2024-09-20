@@ -1,5 +1,5 @@
-const baseURL = "https://vadalar.uz/api"
+const baseURL = "https://vadalar.uz/api";
 
-export default{
-    
-}
+export default {
+
+};
