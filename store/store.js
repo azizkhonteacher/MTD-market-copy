@@ -41,6 +41,7 @@ export const useStore = defineStore("store", () => {
     updateUserInfo.value = false;
     updateUserPhone.value = false;
     updateUserPhoneCode.value = false;
+    openHeaderMenu.value = false;
   }
 
   return {

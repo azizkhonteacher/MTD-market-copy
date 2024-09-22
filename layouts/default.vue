@@ -52,13 +52,18 @@
           </NuxtLink>
           <button
             class="header__menu-close-btn"
-            @click="store.openHeaderMenu = false"
+            @click="(store.openHeaderMenu = false), (store.overlay = false)"
           >
             <closeSvg />
           </button>
         </div>
         <div class="header__menu-main">
-          <NuxtLink to="/" class="header__menu-registration-wrapper">
+          <NuxtLink
+            @click="store.openHeaderMenu = false"
+            to="/profile"
+            v-if="store.userInfo"
+            class="header__menu-registration-wrapper"
+          >
             <div class="profile-icon">
               <UserSvgVue />
             </div>
@@ -70,12 +75,39 @@
                   white-space: nowrap;
                 "
               >
-                Esonov Azizxon055
+                {{
+                  store.userInfo
+                    ? store.userInfo?.lastname + " " + store.userInfo?.firstname
+                    : "Name"
+                }}
               </h4>
 
               <h4 v-if="false">Shaxsiy Ma'lumot</h4>
             </div>
           </NuxtLink>
+
+          <button
+            v-else
+            @click="store.loginModal = true"
+            class="header__menu-registration-wrapper"
+          >
+            <div class="profile-icon">
+              <UserSvgVue />
+            </div>
+            <div class="profile-info">
+              <h4
+                style="
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                "
+              >
+                Personal Information
+              </h4>
+
+              <h4 v-if="false">Shaxsiy Ma'lumot</h4>
+            </div>
+          </button>
 
           <div class="header__menu-nav">
             <ul>
@@ -106,7 +138,7 @@
 
           <button
             class="header__center-burger-btn"
-            @click="store.openHeaderMenu = true"
+            @click="(store.openHeaderMenu = true), (store.overlay = true)"
           >
             <img src="~/assets/images/svg/Menu.svg" alt="" />
           </button>
