@@ -30,8 +30,8 @@
     max-height: 1000px !important;
   }
 
-  .category-filter__chekbox-list-title{
-    svg{
+  .category-filter__chekbox-list-title {
+    svg {
       transform: rotate(90deg);
     }
   }
@@ -111,10 +111,16 @@
   }
 }
 
-.view-active-btn{
-  svg{
-    path{
+.view-active-btn {
+  svg {
+    path {
       stroke: $siteColor;
     }
   }
+}
+
+.fcs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

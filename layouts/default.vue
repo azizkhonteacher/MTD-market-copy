@@ -140,7 +140,32 @@
           </form>
 
           <ul class="header__center-list">
-            <li>
+            <li v-if="store.userInfo">
+              <NuxtLink to="/profile" class="flex flex-col items-center">
+                <UserSvgVue />
+                <span
+                  style="
+                    width: 80px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  "
+                >
+                  {{
+                    store.userInfo
+                      ? store.userInfo?.firstname +
+                        " " +
+                        store.userInfo?.lastname
+                      : "Войти"
+                  }}
+                </span>
+              </NuxtLink>
+            </li>
+
+            <li
+              v-else
+              @click="(store.loginModal = true)((store.overlay = true))"
+            >
               <UserSvgVue />
               <span>Kirish</span>
             </li>
@@ -307,12 +332,50 @@
           <span>Sevimlilar</span>
         </li>
         <!-- user -->
-        <li class="mobile-menu__wrapper-item">
+        <li v-if="store.userInfo" class="mobile-menu__wrapper-item">
+          <NuxtLink to="/profile" class="flex flex-col items-center">
+            <UserSvgVue />
+            <span
+              style="
+                width: 80px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              "
+            >
+              {{
+                store.userInfo
+                  ? store.userInfo?.firstname + " " + store.userInfo?.lastname
+                  : "Войти"
+              }}
+            </span>
+          </NuxtLink>
+        </li>
+
+        <li
+          v-else
+          @click="(store.loginModal = true)((store.overlay = true))"
+          class="mobile-menu__wrapper-item"
+        >
           <UserSvgVue />
           <span>Kirish</span>
         </li>
       </ul>
     </div>
+
+    <!-- USER LOGIN AND REGISTER -->
+    <login v-if="store.loginModal" />
+    <register
+      v-if="store.enterPhone || store.enterPhoneReset || store.updateUserPhone"
+    />
+    <verify-code
+      v-if="
+        store.verifyCode || store.verifyCodeReset || store.updateUserPhoneCode
+      "
+    />
+    <sign-up v-if="store.signUp" />
+    <new-reset-password v-if="store.CodeReset" />
+    <update-user-info v-if="store.updateUserInfo" />
 
     <!-- MOBILE MENU END -->
 
@@ -474,7 +537,11 @@
       </div>
     </footer>
 
-    <div class="overlay" v-show="store.overlay"></div>
+    <div
+      class="overlay"
+      v-show="store.overlay"
+      @click="store.closeModal()"
+    ></div>
 
     <!-- FOOTER END -->
   </div>
@@ -491,7 +558,10 @@ import rightArrowSvg from "~/components/icons/rightArrowSvg.vue";
 import homeSvg from "~/components/icons/homeSvg.vue";
 // import store
 import { useStore } from "~/store/store";
+import Register from "~/components/register.vue";
 const store = useStore();
+
+// function
 </script>
 
 <style lang="scss" scoped>
@@ -508,6 +578,6 @@ const store = useStore();
 
 <!-- 
 
-overlay click bo'lganda function orqali true - false bo'lsin
+main qismidagi elementlarni api bilan to'ldirib chiq
 
 -->

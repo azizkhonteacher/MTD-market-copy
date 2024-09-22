@@ -1,0 +1,145 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  max-width: 550px;
+  width: 100%;
+  z-index: 20;
+  border-radius: 6px;
+  transition: all 1s ease-in-out !important;
+
+  @include media(710px) {
+    height: 100%;
+    max-width: 100%;
+    top: 0;
+    left: 0;
+    transform: translate(0);
+  }
+
+  &-top {
+    @extend %fcs;
+    background: $siteColor;
+    border-radius: 6px 6px 0 0;
+    padding: 15px 40px;
+  }
+  &-title {
+    color: #fff;
+    @include font(500, 18, 1.2);
+  }
+  &-close {
+    @extend %fcc;
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: transparent;
+    background-image: none;
+    svg {
+      background: #fff;
+      border-radius: 50%;
+      width: 19.5px;
+      height: 19.5px;
+    }
+    &:active {
+      opacity: 0.8;
+    }
+  }
+  &-bottom {
+    background: #fff;
+    border-radius: 0 0 6px 6px;
+    padding: 20px 30px 30px;
+  }
+  &-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  &-label {
+    color: $title;
+    @include font(400, 14, 1.2);
+  }
+  .input__wrap {
+    display: flex;
+    width: 100%;
+    margin-top: 4px;
+  }
+  &-input {
+    border: 1px solid #c9c9c9;
+    border-radius: 6px;
+    @include font(500, 16, 1.2);
+    padding: 12px 24px;
+    color: #000;
+    width: 100%;
+  }
+  &-label__btn {
+    @extend %fcc;
+    border: none;
+    background: transparent;
+  }
+  &-login-btn {
+    background-color: $siteColor;
+    color: #fff;
+    @extend %modal-btn;
+    &:hover {
+      background-color: #fff;
+      color: $siteColor;
+    }
+  }
+  &-register {
+    @extend %modal-btn;
+    background-color: #fff;
+    color: $siteColor;
+    &:hover {
+      background-color: $siteColor;
+      color: #fff;
+    }
+  }
+  &-p {
+    @include font(400, 18, 1.4);
+    color: #000;
+    span {
+      font-weight: 500;
+    }
+  }
+  &-otp__inputs {
+    display: flex;
+    margin-top: 10px;
+    .otp-input {
+      border: 1px solid #202020;
+      border-radius: 4px;
+      @include font(300, 20, 2);
+      margin: 0 10px;
+      padding: 5px;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      outline: none;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    .is-complete {
+      border-color: $siteColor;
+    }
+    .otp-input.is-complete {
+      background-color: #fff;
+    }
+  }
+  .waiting-time {
+    display: block;
+    @include font(500, 18, 2);
+    color: #000;
+    margin-bottom: 20px;
+  }
+  &-error {
+    display: flex;
+    color: red;
+    @include font(400, 14, 1);
+  }
+}

@@ -9,10 +9,39 @@ export const useStore = defineStore("store", () => {
   const overlay = ref(false);
   const paymentMethod = ref(false);
   const paymentMethodCheck = ref(false);
+  const userCurrent = ref(true);
+  // varibles
   const phone = ref("");
   const code = ref("");
   const token = ref("");
   const userInfo = ref("");
+
+  // modal's
+  const loginModal = ref(false);
+  const enterPhone = ref(false);
+  const enterPhoneReset = ref(false);
+  const verifyCode = ref(false);
+  const verifyCodeReset = ref(false);
+  const CodeReset = ref(false);
+  const signUp = ref(false);
+  const updateUserInfo = ref(false);
+  const updateUserPhone = ref(false);
+  const updateUserPhoneCode = ref(false);
+
+  // function
+  function closeModal() {
+    loginModal.value = false;
+    overlay.value = false;
+    enterPhone.value = false;
+    enterPhoneReset.value = false;
+    verifyCode.value = false;
+    verifyCodeReset.value = false;
+    CodeReset.value = false;
+    signUp.value = false;
+    updateUserInfo.value = false;
+    updateUserPhone.value = false;
+    updateUserPhoneCode.value = false;
+  }
 
   return {
     openLang,
@@ -28,5 +57,19 @@ export const useStore = defineStore("store", () => {
     overlay,
     paymentMethod,
     paymentMethodCheck,
+    userCurrent,
+
+    // model's
+    closeModal,
+    loginModal,
+    enterPhone,
+    enterPhoneReset,
+    verifyCode,
+    verifyCodeReset,
+    CodeReset,
+    signUp,
+    updateUserInfo,
+    updateUserPhone,
+    updateUserPhoneCode,
   };
 });

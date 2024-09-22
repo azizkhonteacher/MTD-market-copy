@@ -3,7 +3,7 @@
     <div class="container">
       <!-- PROFILE NAV START -->
       <div class="profile-nav">
-        <div class="profile-item">
+        <div class="profile-item" @click="logOut()">
           <div class="profile-icon">
             <svg
               width="24"
@@ -44,7 +44,7 @@
 
       <!-- PROFILE MAIN START -->
       <div class="profile-main">
-        <!-- USER INFO 1 -->
+        <!-- USER INFO 1  user information  -->
         <div class="user-info">
           <div class="user-info-header">
             <div class="profile-item">
@@ -55,14 +55,30 @@
                 <h4>Personal Information</h4>
               </div>
             </div>
-            <button>Change</button>
+            <button
+              @click="(store.overlay = true), (store.updateUserInfo = true)"
+            >
+              Change
+            </button>
           </div>
+
           <div class="user-info-main">
-            <h4>Esonov Azizxon</h4>
-            <h4>Phone Number: +998901235487</h4>
+            <h4>
+              {{
+                store.userInfo
+                  ? store.userInfo?.lastname + " " + store.userInfo?.firstname
+                  : "Name"
+              }}
+            </h4>
+            <h4>
+              Phone Number: +{{
+                store.userInfo ? store.userInfo?.username : ""
+              }}
+            </h4>
           </div>
         </div>
-        <!-- USER INFO 2 -->
+
+        <!-- USER INFO 2  user orders -->
         <div class="user-info">
           <div class="user-info-header">
             <div class="profile-item">
@@ -115,12 +131,58 @@
                 <h4>My orders</h4>
               </div>
             </div>
-            <button class="activeOrderBtn mr-4">Current</button>
-            <button>All</button>
+            <button :class="{'activeOrderBtn': store.userCurrent}" class="mr-4" @click="store.userCurrent = true">Current</button>
+
+            <button :class="{'activeOrderBtn': !store.userCurrent}" @click="store.userCurrent = false">All</button>
           </div>
-          <div class="user-info-main cards">
+
+          <!-- current -->
+          <div class="user-info-main cards" v-if="store.userCurrent">
             <!--        CARD START -->
             <div class="user-info">
+              <div class="user-info-header">
+                <div class="profile-item">
+                  <h4>#342</h4>
+                </div>
+              </div>
+              <div class="user-info-main">
+                <ul>
+                  <li>
+                    <span>Status</span>
+                    <span class="value">Kutoish xolatida</span>
+                  </li>
+                  <li>
+                    <span>Delivery Date:</span>
+                    <span class="value"></span>
+                  </li>
+                  <li>
+                    <span>Recipient</span>
+                    <span class="value">Azizxon Esonov</span>
+                  </li>
+                  <li>
+                    <span>Delivery Address</span>
+                    <span class="value"
+                      >Qoraqalpog‘iston RespublikasiAmudaryo tumani
+                    </span>
+                  </li>
+                  <div class="user-info-order-images">
+                    <img src="https://picsum.photos/70" alt="img" />
+                  </div>
+                  <li>
+                    <span>Order Amount:</span>
+                    <span class="value">1 220 000 so'm </span>
+                  </li>
+                  <button class="mt-2">Qayta to'lov qilish</button>
+                </ul>
+              </div>
+            </div>
+            <!--        CARD END -->
+          </div>
+
+          <!-- all -->
+          <div class="user-info-main cards" v-if="!store.userCurrent">
+            <!--        CARD START -->
+            <div class="user-info" v-if="false">
               <div class="user-info-header">
                 <div class="profile-item">
                   <h4>#342</h4>
@@ -167,16 +229,20 @@
 </template>
 
 <script setup>
+// import's
 import UserSvg from "~/components/icons/UserSvg.vue";
+import { useStore } from "~/store/store";
+// varible's
+const store = useStore();
+// function
+async function logOut() {
+  localStorage.clear();
+  window.location = "/";
+}
 </script>
 
 <style lang="scss" scoped></style>
 
-
 <!-- 
-    PROFILE DAGI BUTTON LAR BOSILGANDAGI HOLATLAR VA CLASSLARNI QO'YIB CHIQISH KERAK
-
-    QOLGAN LOGIN QISMLARINI YIG'ISHNI BOSHLAYVER
-
-    OLDIN BARCHA qismlarni yasab ol
+    current va all ichidagi cardlar ichiga ma'limotlar qayerdan keladi
 -->
