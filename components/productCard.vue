@@ -1,18 +1,20 @@
 <template>
   <div class="product-card">
-    <div class="product-card__discount">21%</div>
+    <div v-if="product?.discount" class="product-card__discount">
+      {{ product?.discount?.toFixed() }}%
+    </div>
 
-    <NuxtLink to="/" class="product-card__img">
-      <img src="~/assets/images/def.jpg" alt="img" />
+    <NuxtLink :to="`/detail/${product?.slug}`" class="product-card__img">
+      <img :src="product?.imageUrl" alt="img" />
     </NuxtLink>
 
     <div class="product-card__text-wrapper">
       <div class="product-card__price-wrapper">
-        <h3 class="product-card__price">1 500 000 so'm</h3>
-        <del class="product-card__fullPrice">1 900 000 so'm</del>
+        <h3 class="product-card__price">{{ product?.priceFormat }}</h3>
+        <del class="product-card__fullPrice" v-if="product?.oldPrice">{{ product?.oldPriceFormat }}</del>
       </div>
 
-      <NuxtLink to="/" class="product-card__title">Tog' manzarasi</NuxtLink>
+      <NuxtLink to="/" class="product-card__title">{{ product?.name }}</NuxtLink>
     </div>
 
     <div class="product-card__footer">
@@ -29,6 +31,7 @@
 <script setup>
 import cartSvg from "./icons/cartSvg.vue";
 import likeSvg from "./icons/likeSvg.vue";
+const { product } = defineProps(["product"]);
 </script>
 
 <style lang="scss" scoped></style>

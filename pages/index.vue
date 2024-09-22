@@ -17,9 +17,13 @@
             }"
             :space-between="10"
           >
-            <SwiperSlide v-for="item in 6" :key="item" class="hero-card">
+            <SwiperSlide
+              v-for="item in heroBanner"
+              :key="item"
+              class="hero-card"
+            >
               <a href="#" class="hero-img">
-                <img src="/assets/images/def.jpg" alt="item?.name" class="desctop"/>
+                <img :src="item?.imageUrl" :alt="item?.name" class="desctop" />
               </a>
             </SwiperSlide>
           </Swiper>
@@ -33,7 +37,7 @@
         <h3 class="products__title">Sevimlilar</h3>
 
         <div class="products__wrapper">
-          <product-card v-for="i in 8" :key="i" />
+          <product-card v-for="i in ourEffers" :key="i" :product="i" />
         </div>
       </div>
     </div>
@@ -58,11 +62,14 @@
               disableOnInteraction: true,
             }"
           >
-            <SwiperSlide v-for="item in 6" :key="item">
-              <NuxtLink to="/" class="popularCategories__card">
-                <p class="popularCategories__card-title">Aravacha</p>
+            <SwiperSlide v-for="item in popularCategory" :key="item">
+              <NuxtLink
+                :to="`/category/${item?.slug}`"
+                class="popularCategories__card"
+              >
+                <p class="popularCategories__card-title">{{ item?.name }}</p>
                 <div class="popularCategories__card-img">
-                  <img src="~/assets/images/def.jpg" alt="item?.name" />
+                  <img :src="item?.iconUrl" alt="item?.name" />
                 </div>
               </NuxtLink>
             </SwiperSlide>
@@ -89,29 +96,34 @@
               disableOnInteraction: true,
             }"
           >
-            <SwiperSlide v-for="item in 3" :key="item" class="addversting-card">
+            <SwiperSlide
+              v-for="item in bodyBanner"
+              :key="item"
+              class="addversting-card"
+            >
               <div class="addversting-card__about">
-                <h3 class="product-title">Nogironlar aravachasi KKSV-2</h3>
+                <h3 class="product-title">
+                  {{ item?.title }}
+                </h3>
                 <p class="product-desc">
-                  Qo’l uzatmali nogironlar aravachasi KKSV-2 imkoniyati
-                  cheklangan insonlar uchun qisqa masofalarga, uy ichida va
-                  xovlida, xarakatlanish uchun mo’ljallangan. Aravachaning
-                  tirsak qo’ygich va oyoq qo’ygichlarini xarakatlantirish
-                  xususiyati nogironni aravachaga joylashishi va undan boshqa
-                  joyga o’rin almashtirishi uchun, yig’ilish xususiyati esa
-                  avtomobilda tashish uchun qulaylik yaratadi. Ushbu aravacha
-                  orqa suyanchig’i gradusi o’zgarishi umurtqada, belida muammosi
-                  bor nogironlar uchun qo’shimcha qulaylik yaratadi.
+                  {{ item?.description }}
                 </p>
               </div>
+
               <div class="addversting-card__img">
-                <img src="~/assets/images/def.jpg" alt="img" />
+                <img :src="item?.imageUrl" alt="img" />
               </div>
+
               <div class="addversting-card__price">
                 <div class="addversting-card__price-wrapper">
-                  <h3 class="product-price">1 900 000 so'm</h3>
+                  <h3 class="product-price">
+                    {{ item?.price }}
+                  </h3>
                 </div>
-                <a href="#" class="product-more-btn">Batafsil</a>
+
+                <NuxtLink :to="item?.url" class="product-more-btn">
+                  {{ item?.button_label }}
+                </NuxtLink>
               </div>
             </SwiperSlide>
           </Swiper>
@@ -125,7 +137,7 @@
         <h3 class="products__title">Arzon Maxsulotlar</h3>
 
         <div class="products__wrapper">
-          <product-card v-for="i in 8" :key="i" />
+          <product-card v-for="i in cheapProducts" :key="i" :product="i" />
         </div>
       </div>
     </div>
@@ -149,8 +161,12 @@
               disableOnInteraction: true,
             }"
           >
-            <SwiperSlide v-for="item in 8" :key="item" class="brends__card">
-              <img src="/assets/images/def.jpg" alt="item?.name" />
+            <SwiperSlide
+              v-for="item in brands"
+              :key="item"
+              class="brends__card"
+            >
+              <img :src="item?.imageUrl" :alt="item?.name" />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -159,6 +175,55 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// import's
+import { useStore } from "~/store/store";
+import services from "~/services/services";
+// varible's
+const store = useStore();
+const heroBanner = ref({});
+const ourEffers = ref({});
+const popularCategory = ref({});
+const bodyBanner = ref({});
+const cheapProducts = ref({});
+const brands = ref({});
+
+// fetch
+async function HeroBanner() {
+  const res = await services.getHeroBanner();
+  heroBanner.value = res?.data;
+}
+async function OurEffers() {
+  const res = await services.getOurEffers();
+  ourEffers.value = res?.data;
+}
+async function PopulalCategory() {
+  const res = await services.getPopularCategory();
+  popularCategory.value = res?.data;
+}
+async function Addversting() {
+  const res = await services.getBodyBanner();
+  bodyBanner.value = res?.data;
+}
+async function CheapProducts() {
+  const res = await services.getCheapProducts();
+  cheapProducts.value = res?.data;
+}
+async function Brands() {
+  const res = await services.getBrands();
+  brands.value = res?.data;
+}
+// function
+HeroBanner();
+OurEffers();
+PopulalCategory();
+Addversting();
+CheapProducts();
+Brands();
+</script>
 
 <style lang="scss" scoped></style>
+
+<!-- 
+pages dagi detailPage, categoryPage olindi
+-->
