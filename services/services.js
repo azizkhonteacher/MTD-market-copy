@@ -21,4 +21,10 @@ export default {
   getBrands() {
     return $fetch(`${baseURL}/brand/index`);
   },
+  getProductDetail(productKey){
+    return $fetch(`${baseURL}/product-manager/product/detail?productKey=${productKey}`)
+  },
+  getPageInfoCategory() {
+    return $fetch(`${baseURL}/page-info/category`);
+  },
 };

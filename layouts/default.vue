@@ -5,16 +5,20 @@
       <!-- HEADER TOP START -->
       <div class="header__top">
         <div class="container">
+          <!-- logo -->
           <NuxtLink to="/" class="header__top-logo">
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
           <ul class="header__top-nav">
-            <li class="header__top-nav__item">
-              <a href="#">Tezkor Yetkazib berish</a>
-            </li>
-            <li class="header__top-nav__item">
-              <a href="#">Buyurtmalarni rasmiylashtirish</a>
+            <li
+              class="header__top-nav__item"
+              v-for="category in pageCategory"
+              :key="category"
+            >
+              <NuxtLink :to="`/page/${category?.id}`">
+                {{ category?.name }}
+              </NuxtLink>
             </li>
           </ul>
 
@@ -111,11 +115,10 @@
 
           <div class="header__menu-nav">
             <ul>
-              <li>
-                <NuxtLink to="/"> Tezkor Yetkazib berish</NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/"> Buyurtmalarni rasmiylashtirish</NuxtLink>
+              <li v-for="category in pageCategory" :key="category">
+                <NuxtLink :to="`/page/${category?.id}`">
+                  {{ category?.name }}
+                </NuxtLink>
               </li>
             </ul>
           </div>
@@ -562,8 +565,10 @@
         </div>
         <div class="footer-list">
           <h4 class="footer-list-title">Umumiy Ma'lumot</h4>
-          <li v-for="i in 2" :key="i">
-            <NuxtLink to="/">Aravachalar</NuxtLink>
+          <li v-for="category in pageCategory" :key="category">
+            <NuxtLink :to="`/page/${category?.id}`">
+              {{ category?.name }}
+            </NuxtLink>
           </li>
         </div>
       </div>
@@ -591,9 +596,17 @@ import homeSvg from "~/components/icons/homeSvg.vue";
 // import store
 import { useStore } from "~/store/store";
 import Register from "~/components/register.vue";
+import services from "~/services/services";
+// varible's
 const store = useStore();
-
+const pageCategory = ref({});
+// fetch
+async function getPageCategory() {
+  const res = await services.getPageInfoCategory();
+  pageCategory.value = res?.data;
+}
 // function
+getPageCategory();
 </script>
 
 <style lang="scss" scoped>

@@ -225,5 +225,5 @@ Brands();
 <style lang="scss" scoped></style>
 
 <!-- 
-pages dagi detailPage, categoryPage olindi
+pages dagi detailPage, categoryPage, Page1 olindi
 -->

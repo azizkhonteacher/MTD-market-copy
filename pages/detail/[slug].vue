@@ -6,17 +6,24 @@
       <div class="product__about-left">
         <!--            img swiper -->
         <div class="product__about-left__swiper">
+          <!--    BIG SWIPER   -->
           <div>
             <Swiper :slides-per-view="1">
-              <SwiperSlide class="big" v-for="images in 3" :key="images">
+              <SwiperSlide
+                class="big"
+                v-for="images in detail?.product?.images"
+                :key="images"
+              >
                 <img
                   class="big-swiper"
-                  src="~/assets/images/def.jpg"
+                  :src="detail?.product?.images[index]"
                   alt="img"
                 />
               </SwiperSlide>
             </Swiper>
           </div>
+
+          <!-- LITTLE SWIPER -->
           <Swiper
             :modules="[SwiperNavigation]"
             :slides-per-view="4"
@@ -24,9 +31,13 @@
             :loop="false"
             class="product__thumbs"
           >
-            <SwiperSlide v-for="(images, i) in 3" :key="images">
+            <SwiperSlide
+              v-for="(images, i) in detail?.product?.images"
+              :key="images"
+            >
               <img
-                src="~/assets/images/def.jpg"
+                class="opacity-70"
+                :src="images"
                 alt=""
                 @click="index = i"
                 :class="{ 'active-img': i === index }"
@@ -37,16 +48,18 @@
 
         <!-- product information -->
         <div class="product__about-center">
-          <h3 class="product__about-center-title">
-            Elektor uzatmali nogironlar aravachasi
+          <h3 class="product__about-center-title text-3xl">
+            {{ detail?.product?.name }}
           </h3>
           <div class="product__about-center__price-wr">
             <!--        PRICE        -->
             <div class="product__about-center_price-wr-left">
-              <h4 class="product__about-center__price-wr__price">
-                18 400 000 SO'M
+              <h4 class="product__about-center__price-wr__price text-xl" style="font-weight: 700;">
+                {{ detail?.product?.priceFormat }}
               </h4>
-              <p class="product__about-count">Sotuvda : <span>10TA</span></p>
+              <p class="product__about-count">Sotuvda : <span style="font-weight: 700;">
+                {{ detail?.product?.residue_store }} ta
+              </span></p>
             </div>
 
             <!--        active buttons       -->
@@ -66,9 +79,8 @@
               <ul class="product__about-center__info-items-wrapper information">
                 <li>
                   <h4>Umumiy ma'lumot</h4>
-                  <h5 style="text-align: justify">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Autem, optio.
+                  <h5  v-if="detail?.product?.description" style="text-align: justify">
+                    {{ detail?.product?.description }}
                   </h5>
                 </li>
               </ul>
@@ -76,16 +88,17 @@
 
             <div
               class="product__about-center__info-items"
-              v-for="item in 2"
+              v-show="detail?.characterInfo"
+              v-for="item in detail?.characterInfo"
               :key="item"
             >
               <h3 class="product__about-center__info-items-title">
-                Lorem, ipsum dolor.
+                {{ item?.groupName }}
               </h3>
               <ul class="product__about-center__info-items-wrapper">
-                <li v-for="characters in 2" :key="characters">
-                  <h4>zaryadlash vaqti</h4>
-                  <h5>8 soat</h5>
+                <li v-for="characters in item?.characters" :key="characters">
+                  <h4>{{ characters?.name }}i</h4>
+                  <h5>{{ characters?.value }}</h5>
                 </li>
               </ul>
             </div>
@@ -170,8 +183,26 @@
 </template>
 
 <script setup>
+// import's
 import cartSvg from "~/components/icons/cartSvg.vue";
+import closeSvgVue from "~/components/icons/closeSvg.vue";
 import likeSvg from "~/components/icons/likeSvg.vue";
+import services from "~/services/services";
+import { useStore } from "~/store/store";
+// varible's
+const store = useStore();
+const route = useRoute();
+const detail = ref({});
+const index = ref(0);
+// fetch
+async function getdetail() {
+  const res = await services.getProductDetail(route.params.slug);
+  detail.value = res?.data;
+}
+// function
+getdetail();
 </script>
 
 <style lang="scss" scoped></style>
+
+<!-- swiperlarni to'g'irlash kerak -->

@@ -124,3 +124,28 @@
   align-items: center;
   justify-content: space-between;
 }
+
+// swiper button style's
+.swiper-button-prev,
+.swiper-button-next {
+  background: white !important;
+  border-radius: 50% !important;
+  border: 2px solid $siteColor !important;
+  width: 50px !important;
+  height: 50px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  &::after {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+  }
+  @include media(1200px) {
+    border-width: 1px;
+    width: 35px !important;
+    height: 35px !important;
+  }
+}
+
+.active-img{
+  opacity: 1 !important;
+}

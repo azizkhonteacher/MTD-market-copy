@@ -14,7 +14,7 @@
         <del class="product-card__fullPrice" v-if="product?.oldPrice">{{ product?.oldPriceFormat }}</del>
       </div>
 
-      <NuxtLink to="/" class="product-card__title">{{ product?.name }}</NuxtLink>
+      <NuxtLink :to="`/detail/${product?.slug}`" class="product-card__title">{{ product?.name }}</NuxtLink>
     </div>
 
     <div class="product-card__footer">
