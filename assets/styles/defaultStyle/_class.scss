@@ -146,6 +146,15 @@
   }
 }
 
-.active-img{
+.active-img {
   opacity: 1 !important;
+}
+
+.active-svg {
+  svg {
+    path {
+      stroke: $siteColor !important;
+      fill: $siteColor !important;
+    }
+  }
 }

@@ -15,6 +15,7 @@ export const useStore = defineStore("store", () => {
   const code = ref("");
   const token = ref("");
   const userInfo = ref("");
+  const like = ref({});
 
   // modal's
   const loginModal = ref(false);
@@ -27,6 +28,7 @@ export const useStore = defineStore("store", () => {
   const updateUserInfo = ref(false);
   const updateUserPhone = ref(false);
   const updateUserPhoneCode = ref(false);
+  const cartPage = ref(false);
 
   // function
   function closeModal() {
@@ -42,6 +44,8 @@ export const useStore = defineStore("store", () => {
     updateUserPhone.value = false;
     updateUserPhoneCode.value = false;
     openHeaderMenu.value = false;
+    openKategory.value = false;
+    cartPage.value = false;
   }
 
   return {
@@ -59,6 +63,8 @@ export const useStore = defineStore("store", () => {
     paymentMethod,
     paymentMethodCheck,
     userCurrent,
+    like,
+    cartPage,
 
     // model's
     closeModal,

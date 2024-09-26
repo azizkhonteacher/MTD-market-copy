@@ -34,21 +34,13 @@
         </button>
 
         <ul class="help__info">
-          <li class="help__info-item">
-            <h3>Yekazib berishni qanday usullari mavjud</h3>
-            <p>
-              Mahsulot tarqatish punktiga yetkzib berish : MTD market buyurtma
-              tarqatish punktigacha yetkazib berish bepul
-            </p>
-          </li>
-          <li class="help__info-item">
-            <h3>
-              Belgilangan mahsulot tarqatish punktini qanday o’zgartirish mumkun
-            </h3>
-            <p>
-              Mahsulot tarqatish punktiga yetkzib berish : MTD market buyurtma
-              tarqatish punktigacha yetkazib berish bepul
-            </p>
+          <li
+            class="help__info-item"
+            v-for="page in pageDetail?.data"
+            :key="page"
+          >
+            <h3>{{ page?.title }}</h3>
+            <p class="leading-8" style="line-height: 30px;">{{ page?.content }}</p>
           </li>
         </ul>
       </div>
@@ -58,8 +50,20 @@
 
 <script setup>
 import closeSvgVue from "~/components/icons/closeSvg.vue";
-
 import { useStore } from "~/store/store";
+import services from "~/services/services";
+// varibles
 const store = useStore();
+const route = useRoute();
+const pageDetail = ref({});
+
+// fetch
+async function PagesDetail() {
+  const res = await services.getPageInfoCategoryDetail(route.params?.id);
+  console.log(res);
+  pageDetail.value = res;
+}
+// function
+PagesDetail();
 </script>
 <style lang="scss" scoped></style>

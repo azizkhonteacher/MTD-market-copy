@@ -129,7 +129,19 @@
           @extend %pro_btns;
           border-left: 1px solid #f2f2f2;
           border-right: 1px solid #f2f2f2;
+          transition: all 0.3s ease;
+
+          &:hover {
+            svg {
+              path {
+                stroke: $siteColor;
+                fill: $siteColor;
+              }
+            }
+          }
+
           svg {
+            transition: all 0.3s ease;
             path {
               stroke: #bdbdbd;
             }

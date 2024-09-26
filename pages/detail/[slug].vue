@@ -54,12 +54,18 @@
           <div class="product__about-center__price-wr">
             <!--        PRICE        -->
             <div class="product__about-center_price-wr-left">
-              <h4 class="product__about-center__price-wr__price text-xl" style="font-weight: 700;">
+              <h4
+                class="product__about-center__price-wr__price text-xl"
+                style="font-weight: 700"
+              >
                 {{ detail?.product?.priceFormat }}
               </h4>
-              <p class="product__about-count">Sotuvda : <span style="font-weight: 700;">
-                {{ detail?.product?.residue_store }} ta
-              </span></p>
+              <p class="product__about-count">
+                Sotuvda :
+                <span style="font-weight: 700">
+                  {{ detail?.product?.residue_store }} ta
+                </span>
+              </p>
             </div>
 
             <!--        active buttons       -->
@@ -67,7 +73,11 @@
               <button class="cart">
                 <cartSvg />
               </button>
-              <button class="like">
+              <button
+                class="like"
+                @click="checkLikeBtn()"
+                :class="{ 'active-svg': checkLike }"
+              >
                 <likeSvg />
               </button>
             </div>
@@ -79,7 +89,10 @@
               <ul class="product__about-center__info-items-wrapper information">
                 <li>
                   <h4>Umumiy ma'lumot</h4>
-                  <h5  v-if="detail?.product?.description" style="text-align: justify">
+                  <h5
+                    v-if="detail?.product?.description"
+                    style="text-align: justify"
+                  >
                     {{ detail?.product?.description }}
                   </h5>
                 </li>
@@ -188,6 +201,7 @@ import cartSvg from "~/components/icons/cartSvg.vue";
 import closeSvgVue from "~/components/icons/closeSvg.vue";
 import likeSvg from "~/components/icons/likeSvg.vue";
 import services from "~/services/services";
+import login from "~/services/login";
 import { useStore } from "~/store/store";
 // varible's
 const store = useStore();
@@ -199,7 +213,38 @@ async function getdetail() {
   const res = await services.getProductDetail(route.params.slug);
   detail.value = res?.data;
 }
+async function getLikeProduct() {
+  if (store.token) {
+    const res = await login.getLikeProduct(store.token);
+    store.like = res?.data;
+  } else {
+    console.log("NO PRODUCT");
+  }
+}
+async function postLike() {
+  const res = await login.postLikeProduct(route.params.slug, store.token);
+  getLikeProduct();
+}
 // function
+const checkLike = computed(() => {
+  const itemLike = store.like?.items.find(
+    (el) => el.id == detail.value?.product?.id
+  );
+  if (itemLike) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+function checkLikeBtn() {
+  if (store.token) {
+    postLike();
+  } else {
+    store.overlay = true;
+    store.loginModal = true;
+  }
+}
 getdetail();
 </script>
 

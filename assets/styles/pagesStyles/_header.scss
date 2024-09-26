@@ -252,6 +252,9 @@ header {
         padding: 5px 10px;
         width: 100%;
         transition: all 0.3s ease;
+        &:hover{
+          background: #ECF1FF;
+        }
 
         img {
           width: 50px;
@@ -278,7 +281,7 @@ header {
         display: none;
       }
 
-      li {
+      li, a {
         display: flex;
         align-items: center;
         cursor: pointer;

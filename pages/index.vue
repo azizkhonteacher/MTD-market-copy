@@ -18,7 +18,7 @@
             :space-between="10"
           >
             <SwiperSlide
-              v-for="item in heroBanner"
+              v-for="item in heroBanner?.data"
               :key="item"
               class="hero-card"
             >
@@ -37,7 +37,11 @@
         <h3 class="products__title">Sevimlilar</h3>
 
         <div class="products__wrapper">
-          <product-card v-for="i in ourEffers" :key="i" :product="i" />
+          <product-card
+            v-for="item in ourEffers?.data"
+            :key="item"
+            :product="item"
+          />
         </div>
       </div>
     </div>
@@ -62,7 +66,7 @@
               disableOnInteraction: true,
             }"
           >
-            <SwiperSlide v-for="item in popularCategory" :key="item">
+            <SwiperSlide v-for="item in popularCategory?.data" :key="item">
               <NuxtLink
                 :to="`/category/${item?.slug}`"
                 class="popularCategories__card"
@@ -97,7 +101,7 @@
             }"
           >
             <SwiperSlide
-              v-for="item in bodyBanner"
+              v-for="item in bodyBanner?.data"
               :key="item"
               class="addversting-card"
             >
@@ -152,7 +156,7 @@
           <Swiper
             :modules="[SwiperNavigation, SwiperAutoplay]"
             :loop="true"
-            :slides-per-view="4"
+            :slides-per-view="3"
             :space-between="30"
             navigation
             :speed="1500"
@@ -162,7 +166,7 @@
             }"
           >
             <SwiperSlide
-              v-for="item in brands"
+              v-for="item in brands?.data"
               :key="item"
               class="brends__card"
             >
@@ -191,19 +195,20 @@ const brands = ref({});
 // fetch
 async function HeroBanner() {
   const res = await services.getHeroBanner();
-  heroBanner.value = res?.data;
+  heroBanner.value = res;
 }
 async function OurEffers() {
   const res = await services.getOurEffers();
-  ourEffers.value = res?.data;
+  ourEffers.value = res;
 }
 async function PopulalCategory() {
   const res = await services.getPopularCategory();
-  popularCategory.value = res?.data;
+  popularCategory.value = res;
 }
+
 async function Addversting() {
   const res = await services.getBodyBanner();
-  bodyBanner.value = res?.data;
+  bodyBanner.value = res;
 }
 async function CheapProducts() {
   const res = await services.getCheapProducts();
@@ -211,7 +216,7 @@ async function CheapProducts() {
 }
 async function Brands() {
   const res = await services.getBrands();
-  brands.value = res?.data;
+  brands.value = res;
 }
 // function
 HeroBanner();
@@ -225,5 +230,5 @@ Brands();
 <style lang="scss" scoped></style>
 
 <!-- 
-pages dagi detailPage, categoryPage, Page1 olindi
+pages dagi detailPage, categoryPage, Page1, cartPage olindi
 -->

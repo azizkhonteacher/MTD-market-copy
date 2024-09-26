@@ -13,7 +13,7 @@
           <ul class="header__top-nav">
             <li
               class="header__top-nav__item"
-              v-for="category in pageCategory"
+              v-for="category in pageCategory?.data"
               :key="category"
             >
               <NuxtLink :to="`/page/${category?.id}`">
@@ -154,6 +154,8 @@
                 required
                 class="header__center-form__input"
                 placeholder="Qidirish..."
+                v-model="searchKey"
+                @input="searchProduct()"
               />
 
               <button type="submit" class="header__center-form-btn">
@@ -163,18 +165,22 @@
             </div>
 
             <!--      SEARCH ITEM LIST     -->
-            <div class="search-items-wrapper" v-if="false">
-              <NuxtLink to="/" class="search-item">
-                <img src="~/assets/images/def.jpg" alt="img" />
-                <span
-                  >Eshitish moslamasi uchun Nozik naycha (2B o'lchamdagi o'ng
-                  tomon uchun)</span
-                >
+            <div class="search-items-wrapper" v-if="searchItem?.items">
+              <NuxtLink
+                :to="`/detail/${item?.slug}`"
+                class="search-item"
+                v-for="item in searchItem?.items"
+                :key="item"
+                @click="searchProductClear()"
+              >
+                <img :src="item?.imageUrl" alt="img" />
+                <span>{{ item?.name }}</span>
               </NuxtLink>
             </div>
           </form>
 
           <ul class="header__center-list">
+            <!--  USER BTN -->
             <li v-if="store.userInfo">
               <NuxtLink to="/profile" class="flex flex-col items-center">
                 <UserSvgVue />
@@ -196,22 +202,41 @@
                 </span>
               </NuxtLink>
             </li>
-
             <li
-              v-else
+              v-if="!store.userInfo"
               @click="(store.loginModal = true)((store.overlay = true))"
             >
               <UserSvgVue />
               <span>Kirish</span>
             </li>
-            <li>
+
+            <!-- LIKE BTN -->
+            <li v-if="store.userInfo">
+              <NuxtLink to="/saved">
+                <div class="img">
+                  <span class="header__center-list__quantity">
+                    {{ itemCount }}
+                  </span>
+                  <likeSvgVue />
+                </div>
+                <span>Sevimlilar</span>
+              </NuxtLink>
+            </li>
+            <li
+              v-if="!store.userInfo"
+              @click="(store.loginModal = true)((store.overlay = true))"
+            >
               <div class="img">
-                <span class="header__center-list__quantity">10</span>
+                <span class="header__center-list__quantity">
+                  {{ itemCount }}
+                </span>
                 <likeSvgVue />
               </div>
               <span>Sevimlilar</span>
             </li>
-            <li>
+
+            <!-- CART BTN -->
+            <li @click="(store.cartPage = true), (store.overlay = true)">
               <div class="img">
                 <span class="header__center-list__quantity">10</span>
                 <cartSvgVue />
@@ -236,8 +261,10 @@
 
           <nav class="header__bottom-nav">
             <ul class="header__bottom-nav__list">
-              <li v-for="i in 5" :key="i">
-                <a href="#">Aravachalar</a>
+              <li v-for="item in headerBottomNav" :key="item">
+                <NuxtLink :to="`/category/${item?.slug}`">
+                  {{ item?.name }}
+                </NuxtLink>
               </li>
             </ul>
           </nav>
@@ -247,67 +274,60 @@
               <!-- catalog-header blogi mediada ishlaydi -->
               <div class="catalog-header">
                 <h2>Kategoriyalar</h2>
-                <button @click="store.openKategory = false">
+                <button
+                  @click="(store.openKategory = false), (store.overlay = false)"
+                >
                   <closeSvg />
                 </button>
               </div>
               <!--  -->
 
+              <!-- katalog category's -->
               <ul class="catalog-menu">
                 <div class="catalog-wrapper">
-                  <li class="catalog-wrapper__item">
+                  <li
+                    class="catalog-wrapper__item"
+                    v-for="catalog in katalog"
+                    :key="catalog"
+                  >
                     <span>
-                      <img
-                        src="https://api.mtdmarket.uz/uploads/images/parentCategory/1/65c6000c44bcb.png"
-                        alt="icon"
-                      />
-                      " Aravachalar "
+                      <img :src="catalog?.iconUrl" alt="icon" />
+                      {{ catalog?.name }}
 
                       <rightArrowSvg />
                     </span>
-                    <ul class="catalog-wrapper__sub-menu">
+                    <ul class="catalog-wrapper__sub-menu" v-if="false">
                       <div class="catalog-wrapper__sub-menu-wrapper">
                         <!-- media da ishlaydigan tugma -->
                         <button>
                           <rightArrowSvg />
-                          " ortga qaytish "
+                          ortga qaytish
                         </button>
                         <!--  -->
 
-                        <a href="#" class="cotalog-wrapper__sub-menu__title"
-                          >Aravachalar</a
+                        <NuxtLink
+                          :to="`/category/${catalog?.slug}`"
+                          class="cotalog-wrapper__sub-menu__title"
                         >
+                          {{ catalog?.name }}
+                        </NuxtLink>
 
-                        <li>
+                        <li
+                          v-for="categories in catalog?.categories"
+                          :key="categories"
+                        >
                           <div class="cotalog-wrapper__sub-menu__name">
-                            <a href="#">Mexanik nogironlar aravachalari</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="cotalog-wrapper__sub-menu__name">
-                            <a href="#">Mexanik nogironlar aravachalari</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="cotalog-wrapper__sub-menu__name">
-                            <a href="#">Mexanik nogironlar aravachalari</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="cotalog-wrapper__sub-menu__name">
-                            <a href="#">Mexanik nogironlar aravachalari</a>
+                            <NuxtLink
+                              :to="`/category/${categories?.slug}`"
+                              @click="closeCategory()"
+                            >
+                              {{ categories?.name }}
+                            </NuxtLink>
                           </div>
                         </li>
                       </div>
                     </ul>
                   </li>
-
-                  <!-- 
-                  <li class="catalog-wrapper__item"></li>
-                  <li class="catalog-wrapper__item"></li>
-                  <li class="catalog-wrapper__item"></li>
-                  <li class="catalog-wrapper__item"></li> 
-                  -->
                 </div>
               </ul>
             </div>
@@ -332,7 +352,7 @@
         <!-- category -->
         <li
           class="mobile-menu__wrapper-item"
-          @click="store.openKategory = true"
+          @click="(store.openKategory = true), (store.overlay = true)"
         >
           <svg
             width="25"
@@ -351,7 +371,10 @@
           <span>Kategoriyalar</span>
         </li>
         <!-- cart -->
-        <li class="mobile-menu__wrapper-item">
+        <li
+          class="mobile-menu__wrapper-item"
+          @click="(store.cartPage = true), (store.overlay = true)"
+        >
           <div class="img">
             <cartSvgVue />
             <span class="header__center-list__quantity">12</span>
@@ -359,10 +382,25 @@
           <span>Savat</span>
         </li>
         <!-- like  -->
-        <li class="mobile-menu__wrapper-item">
+        <li class="mobile-menu__wrapper-item" v-if="store.userInfo">
+          <NuxtLink to="/saved" class="mobile-menu__wrapper-item">
+            <div class="img">
+              <span class="header__center-list__quantity">
+                {{ itemCount }}
+              </span>
+              <likeSvgVue />
+            </div>
+            <span>Sevimlilar</span>
+          </NuxtLink>
+        </li>
+        <li
+          class="mobile-menu__wrapper-item"
+          v-if="!store.userInfo"
+          @click="(store.loginModal = true)((store.overlay = true))"
+        >
           <div class="img">
             <likeSvgVue />
-            <span class="header__center-list__quantity">12</span>
+            <span class="header__center-list__quantity"> {{ itemCount }}</span>
           </div>
           <span>Sevimlilar</span>
         </li>
@@ -411,8 +449,11 @@
     <sign-up v-if="store.signUp" />
     <new-reset-password v-if="store.CodeReset" />
     <update-user-info v-if="store.updateUserInfo" />
+    <cart-page v-if="store.cartPage" />
 
     <!-- MOBILE MENU END -->
+
+    <!-- <pre>{{ store.like }}</pre> -->
 
     <main>
       <NuxtPage />
@@ -600,13 +641,44 @@ import services from "~/services/services";
 // varible's
 const store = useStore();
 const pageCategory = ref({});
+const headerBottomNav = ref({});
+const katalog = ref({});
+const searchKey = ref("");
+const searchItem = ref({});
+// like count
+const itemCount = computed(() => {
+  return store.like?.items?.length || 0;
+});
 // fetch
 async function getPageCategory() {
   const res = await services.getPageInfoCategory();
-  pageCategory.value = res?.data;
+  pageCategory.value = res;  
 }
+async function getHeaderBottomCategorys() {
+  const res = await services.getHeaderBottomCategories();
+  headerBottomNav.value = res?.data;
+}
+async function getCatalogCategorys() {
+  const res = await services.getCatalogCategories();
+  katalog.value = res?.data;
+}
+async function searchProduct() {
+  const res = await services.getSearch(searchKey.value.trim());
+  searchItem.value = res?.data;
+}
+async function searchProductClear() {
+  const res = await services.getSearch("");
+  searchItem.value = res?.data;
+}
+
 // function
 getPageCategory();
+getHeaderBottomCategorys();
+getCatalogCategorys();
+
+function closeCategory() {
+  store.openKategory = false;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -623,6 +695,6 @@ getPageCategory();
 
 <!-- 
 
-main qismidagi elementlarni api bilan to'ldirib chiq
+search qismi, like, cart, til ni biritirish
 
 -->

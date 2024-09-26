@@ -11,7 +11,6 @@ import login from "./services/login";
 
 const store = useStore();
 
-
 async function getUserInfoFetch() {
   if (store.token) {
     try {
@@ -24,18 +23,30 @@ async function getUserInfoFetch() {
   }
 }
 
-
+async function getLikeProduct() {
+  if (store.token) {
+    try {
+      const res = await login.getLikeProduct(store.token);
+      store.like = res.data;
+    } catch (error) {
+      console.error("Failed to fetch user info:", error);
+      // Handle error (e.g., show a notification or redirect)
+    }
+  }
+}
 
 onMounted(() => {
   if (process.client) {
     store.token = localStorage.getItem("authKey") || null;
   }
   getUserInfoFetch();
+  getLikeProduct();
 });
 watch(
   () => store.token,
   () => {
     getUserInfoFetch();
+    getLikeProduct();
   }
 );
 </script>

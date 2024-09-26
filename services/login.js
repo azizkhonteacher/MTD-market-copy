@@ -110,4 +110,23 @@ export default {
       },
     });
   },
+  // like
+  getLikeProduct(token) {
+    return $fetch(`${baseURL}/product-manager/product-save/index`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  postLikeProduct(productSlug, token) {
+    return $fetch(
+      `${baseURL}/product-manager/product-save/create?productKey=${productSlug}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  },
 };
