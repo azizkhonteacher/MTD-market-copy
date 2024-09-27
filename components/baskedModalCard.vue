@@ -26,11 +26,17 @@
 
       <!-- bottom -->
       <div class="basket-modal__card-btn-wrapper__bottom">
-        <button class="fvrt-btn">
+        <!-- like -->
+        <button
+          class="fvrt-btn"
+          :class="{ 'active-svg': checkLike }"
+          @click="checkLikeBtn()"
+        >
           <likeSvg />
         </button>
+        <!-- trash -->
         <button class="delete-btn">
-          <trashSvg />
+          <trashSvg @click="trash(cartItem)" />
         </button>
       </div>
     </div>
@@ -44,10 +50,11 @@ import trashSvg from "./icons/trashSvg.vue";
 import { add } from "~/composables/addCartProduct";
 import { remove } from "~/composables/remCartProduct";
 import { useStore } from "~/store/store";
+import login from "~/services/login";
 // varible's
 const store = useStore();
 const { product } = defineProps(["product"]);
-
+//    LOCALSTORE GA SAQLASH
 const cartItem = computed(() => {
   const item = {
     id: product?.id,
@@ -60,8 +67,55 @@ const cartItem = computed(() => {
   };
   return item;
 });
+//    LIKE
+async function getLikeProduct() {
+  if (store.token) {
+    try {
+      const res = await login.getLikeProduct(store.token);
+      store.like = res.data;
+    } catch (error) {
+      console.error("Failed to fetch user info:", error);
+      // Handle error (e.g., show a notification or redirect)
+    }
+  }
+}
+async function postLike() {
+  const res = await login.postLikeProduct(product?.slug, store.token);
+  getLikeProduct();
+}
+const checkLike = computed(() => {
+  const productId = product?.id;
+  const likeItems = store.like?.items;
 
-// func
+  if (likeItems && Array.isArray(likeItems) && productId) {
+    const itemLike = likeItems.find((el) => el.id == productId);
+    return !!itemLike; // Agar 'itemLike' mavjud bo'lsa true, aks holda false qaytaradi
+  } else {
+    return false;
+  }
+});
+function checkLikeBtn() {
+  if (store.token) {
+    postLike();
+  } else {
+    store.overlay = true;
+    store.loginModal = true;
+  }
+}
+//    TRASH
+const trash = (product) => {
+  // Savatdan mahsulotni qidiramiz
+  const item = toRaw(store.cart).find((el) => el.id == product.id);
+  // Agar mahsulot savatda bo'lsa, uni olib tashlaymiz
+  if (item) {
+    let index = store.cart.indexOf(item);
+    store.cart.splice(index, 1); // Mahsulotni savatdan olib tashlash
+  }
+  // Yangilangan savatni localStorage'ga saqlash
+  localStorage.setItem("cart", JSON.stringify(store.cart));
+};
+
+// function
 // cart product quantity count
 const productCart = computed(() => {
   const item = store.cart.find((el) => el.id == product?.id);

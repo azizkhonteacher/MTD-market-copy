@@ -76,8 +76,9 @@
             color: #626364;
           }
           h5 {
-            @include font(700, 18px, 1.4);
-            color: #000;
+            @include font(600, 16px, 1.2);
+            color: #333;
+            letter-spacing: 0.5px;
           }
         }
       }

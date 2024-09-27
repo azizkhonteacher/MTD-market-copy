@@ -63,6 +63,7 @@ async function postLike() {
 }
 
 // function
+//          like
 const checkLike = computed(() => {
   const productId = product?.id;
   const likeItems = store.like?.items;
