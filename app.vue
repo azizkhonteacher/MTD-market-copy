@@ -34,7 +34,11 @@ async function getLikeProduct() {
     }
   }
 }
-
+onMounted(() => {
+  if(process.client){
+    store.cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+  }
+})
 onMounted(() => {
   if (process.client) {
     store.token = localStorage.getItem("authKey") || null;

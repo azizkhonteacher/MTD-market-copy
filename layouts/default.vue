@@ -238,7 +238,9 @@
             <!-- CART BTN -->
             <li @click="(store.cartPage = true), (store.overlay = true)">
               <div class="img">
-                <span class="header__center-list__quantity">10</span>
+                <span class="header__center-list__quantity">{{
+                  cartTotalQuantity
+                }}</span>
                 <cartSvgVue />
               </div>
               <span>Savat</span>
@@ -377,7 +379,7 @@
         >
           <div class="img">
             <cartSvgVue />
-            <span class="header__center-list__quantity">12</span>
+            <span class="header__center-list__quantity">{{cartTotalQuantity}}</span>
           </div>
           <span>Savat</span>
         </li>
@@ -652,7 +654,7 @@ const itemCount = computed(() => {
 // fetch
 async function getPageCategory() {
   const res = await services.getPageInfoCategory();
-  pageCategory.value = res;  
+  pageCategory.value = res;
 }
 async function getHeaderBottomCategorys() {
   const res = await services.getHeaderBottomCategories();
@@ -679,6 +681,10 @@ getCatalogCategorys();
 function closeCategory() {
   store.openKategory = false;
 }
+//    CART COUNT
+const cartTotalQuantity = computed(() => {
+  return store.cart.reduce((total, item) => total + item.quantity, 0);
+});
 </script>
 
 <style lang="scss" scoped>

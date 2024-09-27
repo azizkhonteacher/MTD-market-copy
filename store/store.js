@@ -16,6 +16,7 @@ export const useStore = defineStore("store", () => {
   const token = ref("");
   const userInfo = ref("");
   const like = ref({});
+  const cart = ref([]);
 
   // modal's
   const loginModal = ref(false);
@@ -65,6 +66,7 @@ export const useStore = defineStore("store", () => {
     userCurrent,
     like,
     cartPage,
+    cart,
 
     // model's
     closeModal,

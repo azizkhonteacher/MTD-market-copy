@@ -70,9 +70,16 @@
 
             <!--        active buttons       -->
             <div class="product__about-center__price-wr-btns">
-              <button class="cart">
+              <!-- cart -->
+              <button
+                class="cart"
+                @click="addOrRemoveFromCart(cartItem)"
+                :class="{ 'active-svg': isProductInCart }"
+              >
                 <cartSvg />
               </button>
+
+              <!-- like -->
               <button
                 class="like"
                 @click="checkLikeBtn()"
@@ -82,7 +89,9 @@
               </button>
             </div>
           </div>
-          <button class="buy-now-btn">Hozir sotib olish</button>
+          <button class="buy-now-btn" @click="addOrRemoveFromCart(cartItem)">
+            Hozir sotib olish
+          </button>
 
           <div class="product__about-center__info">
             <div class="product__about-center__info-items">
@@ -208,6 +217,7 @@ const store = useStore();
 const route = useRoute();
 const detail = ref({});
 const index = ref(0);
+const product = ref(detail.value);
 // fetch
 async function getdetail() {
   const res = await services.getProductDetail(route.params.slug);
@@ -226,15 +236,16 @@ async function postLike() {
   getLikeProduct();
 }
 // function
+getdetail();
+
 const checkLike = computed(() => {
-  const itemLike = store.like?.items.find(
-    (el) => el.id == detail.value?.product?.id
-  );
-  if (itemLike) {
-    return true;
-  } else {
-    return false;
+  // store, store.like yoki store.like.items mavjudligini tekshirish
+  if (!store || !store.like || !store.like.items) {
+    return false; // Agar yo'q bo'lsa, false qaytaramiz
   }
+
+  // like items orasida mahsulot ID ni qidiramiz
+  return store.like.items.some((el) => el.id === detail.value.product?.id);
 });
 
 function checkLikeBtn() {
@@ -245,7 +256,46 @@ function checkLikeBtn() {
     store.loginModal = true;
   }
 }
-getdetail();
+//                          cart
+const cartItem = computed(() => {
+  const item = {
+    id: product?.id,
+    title: product?.name,
+    image: product?.imageUrl,
+    price: product?.price,
+    priceFormat: product?.priceFormat,
+    slug: product?.slug,
+    productCount: product?.residue_store,
+    quantity: 1,
+  };
+  return item;
+});
+
+// localga saqlash
+const addOrRemoveFromCart = (product) => {
+  const item = toRaw(store.cart).find((el) => el.id == product.id);
+
+  // Agar mahsulot savatda bo'lsa, uni olib tashlaymiz
+  if (item) {
+    let index = store.cart.indexOf(item);
+    store.cart.splice(index, 1); // Mahsulotni savatdan olib tashlash
+  } else {
+    // Agar mahsulot savatda bo'lmasa, uni savatga qo'shamiz
+    store.cart.push(product);
+  }
+
+  // Savatdagi ma'lumotlarni localStorage'ga yozish
+  localStorage.setItem("cart", JSON.stringify(store.cart));
+};
+// Mahsulot savatda bormi yoki yo'qligini tekshirish
+const isProductInCart = computed(() => {
+  let item = store.cart.find((el) => el.id === product?.id);
+  if (item) {
+    return true;
+  } else {
+    return false;
+  }
+});
 </script>
 
 <style lang="scss" scoped></style>

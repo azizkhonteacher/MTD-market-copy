@@ -10,14 +10,18 @@
 
     <!-- BASKED MODAL MAIN -->
     <div class="basked-modal__main">
-      <baskedModalCard />
+      <baskedModalCard
+        v-for="cartItem in store.cart"
+        :key="cartItem"
+        :product="cartItem"
+      />
     </div>
 
     <!-- BASKED MODAL FOOTER -->
     <div class="basked-modal__footer">
       <div class="basked-modal__footer-top">
-        <span>Jami 2 Mahsulot</span>
-        <h2>3 500 000 so'm</h2>
+        <span>Jami {{ totalQuantity }} Mahsulot</span>
+        <h2>{{ totalPriceFormat }} so'm</h2>
       </div>
 
       <button>Xarid Qilish</button>
@@ -31,6 +35,27 @@ import closeSvg from "~/components/icons/closeSvg.vue";
 import { useStore } from "~/store/store";
 // varibles
 const store = useStore();
+
+// maxsulotlar umumiy soni
+const totalQuantity = computed(() => {
+  return store.cart.reduce((total, item) => total + item.quantity, 0);
+});
+
+// maxsulotlarni umumiy narxi
+
+const totalPrice = computed(() => {
+  return store.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+});
+
+const totalPriceFormat = computed(() => {
+  const total = store.cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  return total.toLocaleString("en-US").replace(/,/g, " ");
+});
+
+console.log(totalQuantity);
 </script>
 
 <style lang="scss" scoped></style>
