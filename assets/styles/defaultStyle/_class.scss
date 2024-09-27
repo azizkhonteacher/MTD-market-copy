@@ -159,3 +159,11 @@
     }
   }
 }
+.activeLink {
+  display: none !important;
+  @include media(1230px){
+    display: block !important;
+    background: $siteColor !important;
+    color: #fff !important;
+  }
+}

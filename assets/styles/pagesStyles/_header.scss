@@ -47,6 +47,10 @@ header {
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
+
+        @include media(1230px){
+          color: $title;
+        }
       }
 
       @include media(1230px) {
@@ -120,11 +124,22 @@ header {
         top: 100%;
         width: 100%;
         z-index: 5;
-        li {
+        border: 1px solid $siteColor;
+        &-link {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
           color: $title;
           cursor: pointer;
-          padding: 4px;
+          padding: 8px 4px;
           text-transform: capitalize;
+          transition: all 0.3s ease;
+          border-radius: 6px;
+
+          &:hover {
+            background: $siteColor;
+            color: #fff;
+          }
         }
       }
 
@@ -252,8 +267,8 @@ header {
         padding: 5px 10px;
         width: 100%;
         transition: all 0.3s ease;
-        &:hover{
-          background: #ECF1FF;
+        &:hover {
+          background: #ecf1ff;
         }
 
         img {
@@ -281,7 +296,8 @@ header {
         display: none;
       }
 
-      li, a {
+      li,
+      a {
         display: flex;
         align-items: center;
         cursor: pointer;

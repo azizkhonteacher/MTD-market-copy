@@ -1,5 +1,7 @@
 <template>
   <div>
+    <language />
+
     <!-- HEADER STAR -->
     <header>
       <!-- HEADER TOP START -->
@@ -32,16 +34,25 @@
               class="header__lang-top"
               @click="store.openLang = !store.openLang"
             >
-              <span>Uz</span>
+              <span>{{ locale }}</span>
               <img
                 src="https://www.mtdmarket.uz/_nuxt/Arrow.29b2f6a3.svg"
                 alt="img"
               />
             </div>
             <div class="header__lang-list" v-if="store.openLang">
-              <li><a href="#">Uz</a></li>
-              <li><a href="#">Ru</a></li>
-              <li><a href="#">Eng</a></li>
+              <li>
+                <NuxtLink
+                  class="header__lang-list-link"
+                  v-for="{ code, name } in locales"
+                  @click="closeLang()"
+                  :key="code"
+                  :to="switchLocalePath(code)"
+                  :class="{ activeLink: code === locale }"
+                >
+                  {{ name }}
+                </NuxtLink>
+              </li>
             </div>
           </div>
         </div>
@@ -52,7 +63,11 @@
       <div class="header__menu" :class="{ openBurger: store.openHeaderMenu }">
         <div class="header__menu-top">
           <NuxtLink to="/" class="header__menu-logo">
-            <img src="~/assets/images/logo.svg" alt="logo" />
+            <img
+              @click="store.closeModal()"
+              src="~/assets/images/logo.svg"
+              alt="logo"
+            />
           </NuxtLink>
           <button
             class="header__menu-close-btn"
@@ -115,8 +130,15 @@
 
           <div class="header__menu-nav">
             <ul>
-              <li v-for="category in pageCategory" :key="category">
-                <NuxtLink :to="`/page/${category?.id}`">
+              <li
+                class="header__top-nav__item"
+                v-for="category in pageCategory?.data"
+                :key="category"
+              >
+                <NuxtLink
+                  @click="store.closeModal()"
+                  :to="`/page/${category?.id}`"
+                >
                   {{ category?.name }}
                 </NuxtLink>
               </li>
@@ -124,9 +146,15 @@
           </div>
 
           <div class="header__menu-lang-btns">
-            <li><a href="#">Uz</a></li>
-            <li><a href="#">Ru</a></li>
-            <li><a href="#">Eng</a></li>
+            <NuxtLink
+              v-for="{ code, name } in locales"
+              :key="code"
+              :to="switchLocalePath(code)"
+              :class="{ activeLink: code === locale }"
+              @click="store.closeModal()"
+            >
+              {{ name }}
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -379,7 +407,9 @@
         >
           <div class="img">
             <cartSvgVue />
-            <span class="header__center-list__quantity">{{cartTotalQuantity}}</span>
+            <span class="header__center-list__quantity">{{
+              cartTotalQuantity
+            }}</span>
           </div>
           <span>Savat</span>
         </li>
@@ -647,6 +677,10 @@ const headerBottomNav = ref({});
 const katalog = ref({});
 const searchKey = ref("");
 const searchItem = ref({});
+const { locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
+const localePath = useLocalePath(); // to="/" -> :to="localePath('/')"
+
 // like count
 const itemCount = computed(() => {
   return store.like?.items?.length || 0;
@@ -685,6 +719,9 @@ function closeCategory() {
 const cartTotalQuantity = computed(() => {
   return store.cart.reduce((total, item) => total + item.quantity, 0);
 });
+function closeLang() {
+  store.openLang = false;
+}
 </script>
 
 <style lang="scss" scoped>
