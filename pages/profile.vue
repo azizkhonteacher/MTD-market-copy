@@ -71,7 +71,7 @@
               }}
             </h4>
             <h4>
-              {{ $t('tRaqam') }} +{{
+              {{ $t('tRaqam') }} : +{{
                 store.userInfo ? store.userInfo?.username : ""
               }}
             </h4>

@@ -2,7 +2,7 @@
   <div class="login modal">
     <!--        TOP      -->
     <div class="modal-top">
-      <h2 class="modal-title">Update Password</h2>
+      <h2 class="modal-title">{{ $t('updatePass') }}</h2>
       <button @click="store.closeModal()" class="modal-close">
         <closeSvg />
       </button>
@@ -14,8 +14,8 @@
         <!-- password -->
         <div>
           <div class="fcs">
-            <label class="modal-label" for="password">Password</label>
-            <p v-if="false" class="modal-error">parol 8 ta belgidan kam!</p>
+            <label class="modal-label" for="password">{{ $t('parol') }}</label>
+            <p v-if="false" class="modal-error">{{ $t('p1') }}</p>
           </div>
           <div class="input__wrap">
             <input
@@ -32,9 +32,9 @@
         <div>
           <div class="fcs">
             <label class="modal-label" for="password_repeat"
-              >Confirm Password</label
+              >{{ $t('tParol') }}</label
             >
-            <p v-if="false" class="modal-error">parollar mos emas!</p>
+            <p v-if="false" class="modal-error">{{ $t('p2') }}</p>
           </div>
           <div class="input__wrap">
             <input

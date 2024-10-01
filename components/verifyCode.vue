@@ -2,7 +2,7 @@
   <div class="modal">
     <!--        TOP      -->
     <div class="modal-top">
-      <h2 class="modal-title">Register</h2>
+      <h2 class="modal-title">{{ $t('Register') }}</h2>
       <button class="modal-close" @click="store.closeModal()">
         <closeSvg />
       </button>
@@ -11,7 +11,7 @@
     <div class="modal-bottom">
       <form class="modal-form" @submit.prevent="VerifyCode()">
         <p class="model-p">
-          A 4-Digit Code Has Been Sent For Phone Verification
+          {{ $t('verifyText') }}
           <span class="fw500">{{ store.phone }}</span>
         </p>
         <!-- code -->
@@ -48,7 +48,7 @@
           "
           class="modal-login-btn"
         >
-          Back
+          {{$t('back')}}
         </button>
       </form>
     </div>

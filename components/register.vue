@@ -3,7 +3,7 @@
     <!--        TOP      -->
     <div class="modal-top">
       <h2 class="modal-title">
-        {{ store.updateUserPhone ? "Dial a phone number" : "Register" }}
+        {{ store.updateUserPhone ? $t('telRaqam') : $t('Register') }}
       </h2>
       <button @click="store.closeModal()" class="modal-close">
         <closeSvg />
@@ -15,7 +15,7 @@
       <form class="modal-form" @submit.prevent="postPhoneNumber()">
         <!-- number -->
         <div>
-          <label class="modal-label" for="phone">Phone Number</label>
+          <label class="modal-label" for="phone">{{ $t('tRaqam') }}</label>
           <div class="input__wrap">
             <input
               v-model="phone"
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <button class="modal-login-btn">Next</button>
+        <button class="modal-login-btn">{{ $t('next') }}</button>
       </form>
     </div>
   </div>

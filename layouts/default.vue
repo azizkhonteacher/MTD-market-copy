@@ -332,7 +332,7 @@
                         <!-- media da ishlaydigan tugma -->
                         <button>
                           <rightArrowSvg />
-                          ortga qaytish
+                          {{ $t('back') }}
                         </button>
                         <!--  -->
 
