@@ -1,14 +1,14 @@
 <template>
   <div class="products">
     <div class="container">
-      <h3 class="products__title">Sevimlilar</h3>
+      <h3 class="products__title">{{ $t('Sevimlilar') }}</h3>
 
-      <div class="products__wrapper" v-if="likePro">
+      <div class="products__wrapper" v-if="likePro.length">
         <product-card v-for="i in likePro" :key="i" :product="i" />
       </div>
 
-      <div class="not-available" v-else>
-        <h2>Sizning Tanlanganlar Ro'yxati Bo'sh</h2>
+      <div class="not-available" v-if="!likePro.length">
+        <h2>{{ $t('bosh') }}</h2>
       </div>
     </div>
   </div>

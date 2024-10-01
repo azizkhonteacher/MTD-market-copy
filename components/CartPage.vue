@@ -2,7 +2,7 @@
   <div class="basked-modal">
     <!-- BASKED MODAL HEADER -->
     <div class="basked-modal__header">
-      <div class="basked-modal__title">Savat</div>
+      <div class="basked-modal__title">{{ $t('savat') }}</div>
       <button class="basked-modal__close-btn" @click="store.closeModal()">
         <closeSvg />
       </button>
@@ -20,11 +20,11 @@
     <!-- BASKED MODAL FOOTER -->
     <div class="basked-modal__footer">
       <div class="basked-modal__footer-top">
-        <span>Jami {{ totalQuantity }} Mahsulot</span>
+        <span>{{ $t('jami') }} {{ totalQuantity }} {{ $t('maxsulot') }}</span>
         <h2>{{ totalPriceFormat }} so'm</h2>
       </div>
 
-      <button>Xarid Qilish</button>
+      <button>{{ $t('xarid') }}</button>
     </div>
   </div>
 </template>

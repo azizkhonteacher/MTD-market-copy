@@ -10,10 +10,11 @@ export default {
       },
     });
   },
-  getUserInfo(token) {
+  getUserInfo(token, lang) {
     return $fetch(`${baseURL}/profile-manager/profile/index`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Accept-Language": lang,
       },
     });
   },
@@ -111,20 +112,22 @@ export default {
     });
   },
   // like
-  getLikeProduct(token) {
+  getLikeProduct(token, lang) {
     return $fetch(`${baseURL}/product-manager/product-save/index`, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Accept-Language": lang,
       },
     });
   },
-  postLikeProduct(productSlug, token) {
+  postLikeProduct(productSlug, token, lang) {
     return $fetch(
       `${baseURL}/product-manager/product-save/create?productKey=${productSlug}`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Accept-Language": lang,
         },
       }
     );

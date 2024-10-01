@@ -8,7 +8,7 @@
     <!-- TEXT WRAPPER -->
     <div class="basket-modal__card-text-wrapper">
       <NuxtLink
-        :to="`/detail/${product?.slug}`"
+        :to="localePath(`/detail/${product?.slug}`)"
         class="basket-modal__card-title"
         >{{ product?.title }}</NuxtLink
       >
@@ -54,6 +54,7 @@ import login from "~/services/login";
 // varible's
 const store = useStore();
 const { product } = defineProps(["product"]);
+const localePath = useLocalePath();
 //    LOCALSTORE GA SAQLASH
 const cartItem = computed(() => {
   const item = {

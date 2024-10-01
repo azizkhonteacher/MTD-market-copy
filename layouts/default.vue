@@ -1,14 +1,12 @@
 <template>
   <div>
-    <language />
-
     <!-- HEADER STAR -->
     <header>
       <!-- HEADER TOP START -->
       <div class="header__top">
         <div class="container">
           <!-- logo -->
-          <NuxtLink to="/" class="header__top-logo">
+          <NuxtLink :to="localePath('/')" class="header__top-logo">
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
@@ -18,7 +16,7 @@
               v-for="category in pageCategory?.data"
               :key="category"
             >
-              <NuxtLink :to="`/page/${category?.id}`">
+              <NuxtLink :to="localePath(`/page/${category?.id}`)">
                 {{ category?.name }}
               </NuxtLink>
             </li>
@@ -45,7 +43,7 @@
                 <NuxtLink
                   class="header__lang-list-link"
                   v-for="{ code, name } in locales"
-                  @click="closeLang()"
+                  @click="closeLang(), reload()"
                   :key="code"
                   :to="switchLocalePath(code)"
                   :class="{ activeLink: code === locale }"
@@ -62,7 +60,7 @@
       <!-- HEADER MENU START -->
       <div class="header__menu" :class="{ openBurger: store.openHeaderMenu }">
         <div class="header__menu-top">
-          <NuxtLink to="/" class="header__menu-logo">
+          <NuxtLink :to="localePath('/')" class="header__menu-logo">
             <img
               @click="store.closeModal()"
               src="~/assets/images/logo.svg"
@@ -79,7 +77,7 @@
         <div class="header__menu-main">
           <NuxtLink
             @click="store.openHeaderMenu = false"
-            to="/profile"
+            :to="localePath('/profile')"
             v-if="store.userInfo"
             class="header__menu-registration-wrapper"
           >
@@ -137,7 +135,7 @@
               >
                 <NuxtLink
                   @click="store.closeModal()"
-                  :to="`/page/${category?.id}`"
+                  :to="localePath(`/page/${category?.id}`)"
                 >
                   {{ category?.name }}
                 </NuxtLink>
@@ -151,7 +149,7 @@
               :key="code"
               :to="switchLocalePath(code)"
               :class="{ activeLink: code === locale }"
-              @click="store.closeModal()"
+              @click="store.closeModal(), reload()"
             >
               {{ name }}
             </NuxtLink>
@@ -163,7 +161,7 @@
       <!-- HEADER CENTER START -->
       <div class="header__center">
         <div class="container">
-          <NuxtLink to="/" class="header__center-logo">
+          <NuxtLink :to="localePath('/')" class="header__center-logo">
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
@@ -181,21 +179,21 @@
                 type="text"
                 required
                 class="header__center-form__input"
-                placeholder="Qidirish..."
+                :placeholder="$t('qidirish')"
                 v-model="searchKey"
                 @input="searchProduct()"
               />
 
               <button type="submit" class="header__center-form-btn">
                 <img src="~/assets/images/svg/search.svg" alt="search" />
-                <span>Qidirish</span>
+                <span>{{ $t('qidirish') }}</span>
               </button>
             </div>
 
             <!--      SEARCH ITEM LIST     -->
             <div class="search-items-wrapper" v-if="searchItem?.items">
               <NuxtLink
-                :to="`/detail/${item?.slug}`"
+                :to="localePath(`/detail/${item?.slug}`)"
                 class="search-item"
                 v-for="item in searchItem?.items"
                 :key="item"
@@ -210,7 +208,10 @@
           <ul class="header__center-list">
             <!--  USER BTN -->
             <li v-if="store.userInfo">
-              <NuxtLink to="/profile" class="flex flex-col items-center">
+              <NuxtLink
+                :to="localePath('/profile')"
+                class="flex flex-col items-center"
+              >
                 <UserSvgVue />
                 <span
                   style="
@@ -235,19 +236,19 @@
               @click="(store.loginModal = true)((store.overlay = true))"
             >
               <UserSvgVue />
-              <span>Kirish</span>
+              <span>{{ $t("kirish") }}</span>
             </li>
 
             <!-- LIKE BTN -->
             <li v-if="store.userInfo">
-              <NuxtLink to="/saved">
+              <NuxtLink :to="localePath('/saved')">
                 <div class="img">
                   <span class="header__center-list__quantity">
                     {{ itemCount }}
                   </span>
                   <likeSvgVue />
                 </div>
-                <span>Sevimlilar</span>
+                <span>{{ $t("Sevimlilar") }}</span>
               </NuxtLink>
             </li>
             <li
@@ -260,7 +261,7 @@
                 </span>
                 <likeSvgVue />
               </div>
-              <span>Sevimlilar</span>
+              <span>{{ $t("Sevimlilar") }}</span>
             </li>
 
             <!-- CART BTN -->
@@ -271,7 +272,7 @@
                 }}</span>
                 <cartSvgVue />
               </div>
-              <span>Savat</span>
+              <span>{{ $t("savat") }}</span>
             </li>
           </ul>
         </div>
@@ -286,13 +287,13 @@
             @click="store.openKategory = !store.openKategory"
           >
             <img src="~/assets/images/svg/list.svg" alt="list" />
-            <span>Kategoriyalar</span>
+            <span>{{ $t('kategoriyalar') }}</span>
           </div>
 
           <nav class="header__bottom-nav">
             <ul class="header__bottom-nav__list">
               <li v-for="item in headerBottomNav" :key="item">
-                <NuxtLink :to="`/category/${item?.slug}`">
+                <NuxtLink :to="localePath(`/category/${item?.slug}`)">
                   {{ item?.name }}
                 </NuxtLink>
               </li>
@@ -303,7 +304,7 @@
             <div class="container">
               <!-- catalog-header blogi mediada ishlaydi -->
               <div class="catalog-header">
-                <h2>Kategoriyalar</h2>
+                <h2>{{ $t('kategoriyalar') }}</h2>
                 <button
                   @click="(store.openKategory = false), (store.overlay = false)"
                 >
@@ -336,7 +337,7 @@
                         <!--  -->
 
                         <NuxtLink
-                          :to="`/category/${catalog?.slug}`"
+                          :to="localePath(`/category/${catalog?.slug}`)"
                           class="cotalog-wrapper__sub-menu__title"
                         >
                           {{ catalog?.name }}
@@ -348,7 +349,7 @@
                         >
                           <div class="cotalog-wrapper__sub-menu__name">
                             <NuxtLink
-                              :to="`/category/${categories?.slug}`"
+                              :to="localePath(`/category/${categories?.slug}`)"
                               @click="closeCategory()"
                             >
                               {{ categories?.name }}
@@ -374,9 +375,12 @@
       <ul class="mobile-menu__wrapper">
         <!-- home -->
         <li>
-          <NuxtLink class="mobile-menu__wrapper-item home-menu" to="/">
+          <NuxtLink
+            class="mobile-menu__wrapper-item home-menu"
+            :to="localePath('/')"
+          >
             <homeSvg />
-            <span>Bosh sahifa</span>
+            <span>{{ $t('boshSahifa') }}</span>
           </NuxtLink>
         </li>
         <!-- category -->
@@ -398,7 +402,7 @@
             />
           </svg>
 
-          <span>Kategoriyalar</span>
+          <span>{{ $t('kategoriyalar') }}</span>
         </li>
         <!-- cart -->
         <li
@@ -411,18 +415,21 @@
               cartTotalQuantity
             }}</span>
           </div>
-          <span>Savat</span>
+          <span>{{ $t('savat') }}</span>
         </li>
         <!-- like  -->
         <li class="mobile-menu__wrapper-item" v-if="store.userInfo">
-          <NuxtLink to="/saved" class="mobile-menu__wrapper-item">
+          <NuxtLink
+            :to="localePath('/saved')"
+            class="mobile-menu__wrapper-item"
+          >
             <div class="img">
               <span class="header__center-list__quantity">
                 {{ itemCount }}
               </span>
               <likeSvgVue />
             </div>
-            <span>Sevimlilar</span>
+            <span>{{ $t("Sevimlilar") }}</span>
           </NuxtLink>
         </li>
         <li
@@ -434,11 +441,14 @@
             <likeSvgVue />
             <span class="header__center-list__quantity"> {{ itemCount }}</span>
           </div>
-          <span>Sevimlilar</span>
+          <span>{{ $t("Sevimlilar") }}</span>
         </li>
         <!-- user -->
         <li v-if="store.userInfo" class="mobile-menu__wrapper-item">
-          <NuxtLink to="/profile" class="flex flex-col items-center">
+          <NuxtLink
+            :to="localePath('/profile')"
+            class="flex flex-col items-center"
+          >
             <UserSvgVue />
             <span
               style="
@@ -463,7 +473,7 @@
           class="mobile-menu__wrapper-item"
         >
           <UserSvgVue />
-          <span>Kirish</span>
+          <span>{{ $t('kirish') }}</span>
         </li>
       </ul>
     </div>
@@ -485,8 +495,6 @@
 
     <!-- MOBILE MENU END -->
 
-    <!-- <pre>{{ store.like }}</pre> -->
-
     <main>
       <NuxtPage />
     </main>
@@ -495,12 +503,12 @@
     <footer>
       <div class="container">
         <div class="footer-info">
-          <NuxtLink class="footer-logo">
+          <NuxtLink :to="localePath('/')" class="footer-logo">
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
-          <p class="footer-desc">Dushanba - Shanba: 9:00-18:00</p>
-          <p class="footer-desc">Колл-центр: +998991013010</p>
+          <p class="footer-desc">{{ $t('jadval') }}</p>
+          <p class="footer-desc">{{ $t('qongiroq') }}</p>
 
           <ul class="footer-social">
             <!-- telegram -->
@@ -631,15 +639,17 @@
         </div>
 
         <div class="footer-list">
-          <h4 class="footer-list-title">Kategoriyalar</h4>
-          <li v-for="i in 4" :key="i">
-            <NuxtLink to="/">Aravachalar</NuxtLink>
+          <h4 class="footer-list-title">{{ $t('kategoriyalar') }}</h4>
+          <li v-for="item in headerBottomNav" :key="item">
+            <NuxtLink :to="localePath(`/category/${item?.slug}`)">
+              {{ item?.name }}
+            </NuxtLink>
           </li>
         </div>
         <div class="footer-list">
-          <h4 class="footer-list-title">Umumiy Ma'lumot</h4>
-          <li v-for="category in pageCategory" :key="category">
-            <NuxtLink :to="`/page/${category?.id}`">
+          <h4 class="footer-list-title">{{ $t('umumiyMalumot') }}</h4>
+          <li v-for="category in pageCategory?.data" :key="category">
+            <NuxtLink :to="localePath(`/page/${category?.id}`)">
               {{ category?.name }}
             </NuxtLink>
           </li>
@@ -681,25 +691,30 @@ const { locale, locales } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath(); // to="/" -> :to="localePath('/')"
 
+
+// function reload() {
+//   window.location.reload(true)
+// }
 // like count
 const itemCount = computed(() => {
   return store.like?.items?.length || 0;
 });
+
 // fetch
 async function getPageCategory() {
-  const res = await services.getPageInfoCategory();
+  const res = await services.getPageInfoCategory(locale.value);
   pageCategory.value = res;
 }
 async function getHeaderBottomCategorys() {
-  const res = await services.getHeaderBottomCategories();
+  const res = await services.getHeaderBottomCategories(locale.value);
   headerBottomNav.value = res?.data;
 }
 async function getCatalogCategorys() {
-  const res = await services.getCatalogCategories();
+  const res = await services.getCatalogCategories(locale.value);
   katalog.value = res?.data;
 }
 async function searchProduct() {
-  const res = await services.getSearch(searchKey.value.trim());
+  const res = await services.getSearch(searchKey.value.trim(), locale.value);
   searchItem.value = res?.data;
 }
 async function searchProductClear() {

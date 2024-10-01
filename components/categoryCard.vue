@@ -1,11 +1,11 @@
 <template>
   <div class="category-card">
-    <NuxtLink class="category-card__img" :to="`/detail/${product?.slug}`">
+    <NuxtLink class="category-card__img" :to="localePath(`/detail/${product?.slug}`)">
       <img :src="product?.imageUrl" alt="img" />
     </NuxtLink>
 
     <div class="category-card__text-wrapper">
-      <NuxtLink :to="`/detail/${product?.slug}`" class="category-card__title">
+      <NuxtLink :to="localePath(`/detail/${product?.slug}`)" class="category-card__title">
         {{ product?.name }}
       </NuxtLink>
 
@@ -51,6 +51,8 @@ import login from "~/services/login";
 // varible's
 const { product } = defineProps(["product"]);
 const store = useStore();
+const localePath = useLocalePath(); // to="/" -> :to="localePath('/')"
+
 // fetch
 async function getLikeProduct() {
   if (store.token) {

@@ -34,7 +34,7 @@
     <!--  LATEST NEWS OUREFFERS -->
     <div class="products">
       <div class="container">
-        <h3 class="products__title">Sevimlilar</h3>
+        <h3 class="products__title">{{ $t('qiziqarliTaklif') }}</h3>
 
         <div class="products__wrapper">
           <product-card
@@ -49,7 +49,7 @@
     <!-- POPULAR CATEGORY -->
     <div class="popularCategories">
       <div class="container">
-        <h3 class="popularCategories__title">Mashhur Kategoriyalar</h3>
+        <h3 class="popularCategories__title">{{ $t('mashxurKategoriyalar') }}</h3>
 
         <!--    SWIPER     -->
         <div class="popularCategories__swiper-wrapper">
@@ -138,7 +138,7 @@
     <!--  CHEEP PRODUCTS -->
     <div class="products">
       <div class="container">
-        <h3 class="products__title">Arzon Maxsulotlar</h3>
+        <h3 class="products__title">{{ $t('arzonMaxsulot') }}</h3>
 
         <div class="products__wrapper">
           <product-card v-for="i in cheapProducts" :key="i" :product="i" />
@@ -149,7 +149,7 @@
     <!-- BRAENDS -->
     <div class="brends">
       <div class="container">
-        <h2 class="brends__title">Brendlar</h2>
+        <h2 class="brends__title mb-8">{{ $t('brend') }}</h2>
 
         <!-- SWIPER -->
         <div class="brends__wrapper">
@@ -191,18 +191,19 @@ const popularCategory = ref({});
 const bodyBanner = ref({});
 const cheapProducts = ref({});
 const brands = ref({});
+const {locale} = useI18n();
 
 // fetch
 async function HeroBanner() {
-  const res = await services.getHeroBanner();
+  const res = await services.getHeroBanner(locale.value);
   heroBanner.value = res;
 }
 async function OurEffers() {
-  const res = await services.getOurEffers();
+  const res = await services.getOurEffers(locale.value);
   ourEffers.value = res;
 }
 async function PopulalCategory() {
-  const res = await services.getPopularCategory();
+  const res = await services.getPopularCategory(locale.value);
   popularCategory.value = res;
 }
 
@@ -211,11 +212,11 @@ async function Addversting() {
   bodyBanner.value = res;
 }
 async function CheapProducts() {
-  const res = await services.getCheapProducts();
+  const res = await services.getCheapProducts(locale.value);
   cheapProducts.value = res?.data;
 }
 async function Brands() {
-  const res = await services.getBrands();
+  const res = await services.getBrands(locale.value);
   brands.value = res;
 }
 // function

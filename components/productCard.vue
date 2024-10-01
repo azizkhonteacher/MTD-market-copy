@@ -4,7 +4,10 @@
       {{ product?.discount?.toFixed() }}%
     </div>
 
-    <NuxtLink :to="`/detail/${product?.slug}`" class="product-card__img">
+    <NuxtLink
+      :to="localePath(`/detail/${product?.slug}`)"
+      class="product-card__img"
+    >
       <img :src="product?.imageUrl" alt="img" />
     </NuxtLink>
 
@@ -16,16 +19,18 @@
         }}</del>
       </div>
 
-      <NuxtLink :to="`/detail/${product?.slug}`" class="product-card__title">{{
-        product?.name
-      }}</NuxtLink>
+      <NuxtLink
+        :to="localePath(`/detail/${product?.slug}`)"
+        class="product-card__title"
+        >{{ product?.name }}</NuxtLink
+      >
     </div>
 
     <div class="product-card__footer">
       <!-- cart -->
       <button
         @click="addOrRemoveFromCart(cartItem)"
-        :class="{ 'active-svg': isProductInCart}"
+        :class="{ 'active-svg': isProductInCart }"
       >
         <cartSvg />
       </button>
@@ -45,6 +50,8 @@ import login from "~/services/login";
 // varibles
 const { product } = defineProps(["product"]);
 const store = useStore();
+const localePath = useLocalePath(); // to="/" -> :to="localePath('/')"
+
 // fetch
 async function getLikeProduct() {
   if (store.token) {
@@ -124,7 +131,6 @@ const isProductInCart = computed(() => {
     return false;
   }
 });
-
 </script>
 
 <style lang="scss" scoped></style>

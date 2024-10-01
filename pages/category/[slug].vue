@@ -105,18 +105,18 @@
           </div>
 
           <div class="category-filter__range">
-            <h3 class="category-filter__range-title">Narxi (so'm)</h3>
+            <h3 class="category-filter__range-title">{{ $t('narxi') }}</h3>
 
             <ul class="category-filter__range-price-wrapper">
               <li class="category-filter__range-price">
-                Dan
+                {{ $t('dan') }}
                 <span id="slider-range-value1">
                   {{ categoryProducts?.data?.minPrice }}
                 </span>
               </li>
 
               <li class="category-filter__range-price">
-                Gacha
+                {{ $t('gacha') }}
                 <span id="slider-range-value2">
                   {{ categoryProducts?.data?.maxPrice }}
                 </span>
@@ -190,7 +190,7 @@
             </div>
           </div>
 
-          <button class="category-filter__btn">Ko'rsatish</button>
+          <button class="category-filter__btn">{{ $t('korsatish') }}</button>
         </div>
 
         <!--                CARD'S           -->
@@ -222,9 +222,10 @@ import services from "~/services/services";
 const store = useStore();
 const route = useRoute();
 const categoryProducts = ref({});
+const { locale } = useI18n();
 // fetch
 async function categoryDetail() {
-  const res = await services.getCategoryDetail(route.params.slug);
+  const res = await services.getCategoryDetail(route.params.slug, locale.value);
   categoryProducts.value = res;
 }
 // function

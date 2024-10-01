@@ -56,11 +56,11 @@ import services from "~/services/services";
 const store = useStore();
 const route = useRoute();
 const pageDetail = ref({});
+const { locale } = useI18n();
 
 // fetch
 async function PagesDetail() {
-  const res = await services.getPageInfoCategoryDetail(route.params?.id);
-  console.log(res);
+  const res = await services.getPageInfoCategoryDetail(route.params?.id, locale.value);
   pageDetail.value = res;
 }
 // function

@@ -61,9 +61,9 @@
                 {{ detail?.product?.priceFormat }}
               </h4>
               <p class="product__about-count">
-                Sotuvda :
+                {{ $t('sotuvda') }}
                 <span style="font-weight: 700">
-                  {{ detail?.product?.residue_store }} ta
+                  {{ detail?.product?.residue_store }} {{ $t('ta') }}
                 </span>
               </p>
             </div>
@@ -90,14 +90,14 @@
             </div>
           </div>
           <button class="buy-now-btn" @click="addOrRemoveFromCart(cartItem)">
-            Hozir sotib olish
+            {{ $t('hozir') }}
           </button>
 
           <div class="product__about-center__info">
             <div class="product__about-center__info-items">
               <ul class="product__about-center__info-items-wrapper information">
                 <li>
-                  <h4>Umumiy ma'lumot</h4>
+                  <h4>{{ $t('umumiyMalumot') }}</h4>
                   <h5
                     v-if="detail?.product?.description"
                     style="text-align: justify"
@@ -147,18 +147,18 @@
                 fill="#909090"
               />
             </svg>
-            <h2>Savollar Bormi?</h2>
+            <h2>{{ $t('savollar') }}</h2>
           </div>
           <div class="product__about-right-item-text-wrapper">
             <ul>
               <li>
-                Telefon
+                {{ $t('telefon') }}
                 <a class="product__about-link" href="tel:+998905874758"
                   >+998905874758</a
                 >
               </li>
               <li>
-                Telegram
+                {{ $t('telegram') }}
                 <a
                   class="product__about-link"
                   href="https://t.me/mtdmarketplace"
@@ -187,15 +187,15 @@
               />
             </svg>
 
-            <h2>Tolov Usullari:</h2>
+            <h2>{{ $t('tolov') }}</h2>
           </div>
           <div class="product__about-right-item-text-wrapper">
             <ul class="product__about-payment-types">
-              <li>Naqd Pul Orqali To'lash</li>
-              <li>Payme orqali to'lash</li>
-              <li>qabul qilganda naqd pul orqali to'lash</li>
-              <li>qabul qilganda karta orqali to'lash</li>
-              <li>karta orqali to'lash</li>
+             <li>{{ $t('tolov1') }}</li>
+             <li>{{ $t('tolov2') }}</li>
+             <li>{{ $t('tolov3') }}</li>
+             <li>{{ $t('tolov4') }}</li>
+             <li>{{ $t('tolov5') }}</li>
             </ul>
           </div>
         </div>
@@ -218,21 +218,22 @@ const route = useRoute();
 const detail = ref({});
 const index = ref(0);
 const product = ref(detail.value);
+const { locale } = useI18n();
 // fetch
 async function getdetail() {
-  const res = await services.getProductDetail(route.params.slug);
+  const res = await services.getProductDetail(route.params.slug, locale.value);
   detail.value = res?.data;
 }
 async function getLikeProduct() {
   if (store.token) {
-    const res = await login.getLikeProduct(store.token);
+    const res = await login.getLikeProduct(store.token, locale.value);
     store.like = res?.data;
   } else {
     console.log("NO PRODUCT");
   }
 }
 async function postLike() {
-  const res = await login.postLikeProduct(route.params.slug, store.token);
+  const res = await login.postLikeProduct(route.params.slug, store.token, locale.value);
   getLikeProduct();
 }
 // function

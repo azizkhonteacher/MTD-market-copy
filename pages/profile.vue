@@ -36,7 +36,7 @@
             </svg>
           </div>
           <div class="profile-info">
-            <h4>Logout</h4>
+            <h4>{{ $t('chiqish') }}</h4>
           </div>
         </div>
       </div>
@@ -52,13 +52,13 @@
                 <UserSvg />
               </div>
               <div class="profile-info">
-                <h4>Personal Information</h4>
+                <h4>{{ $t('shaxsiy') }}</h4>
               </div>
             </div>
             <button
               @click="(store.overlay = true), (store.updateUserInfo = true)"
             >
-              Change
+              {{ $t('Change') }}
             </button>
           </div>
 
@@ -71,7 +71,7 @@
               }}
             </h4>
             <h4>
-              Phone Number: +{{
+              {{ $t('tRaqam') }} +{{
                 store.userInfo ? store.userInfo?.username : ""
               }}
             </h4>
@@ -128,12 +128,12 @@
                 </svg>
               </div>
               <div class="profile-info">
-                <h4>My orders</h4>
+                <h4>{{ $t('myOrders') }}</h4>
               </div>
             </div>
-            <button :class="{'activeOrderBtn': store.userCurrent}" class="mr-4" @click="store.userCurrent = true">Current</button>
+            <button :class="{'activeOrderBtn': store.userCurrent}" class="mr-4" @click="store.userCurrent = true">{{ $t('Current') }}</button>
 
-            <button :class="{'activeOrderBtn': !store.userCurrent}" @click="store.userCurrent = false">All</button>
+            <button :class="{'activeOrderBtn': !store.userCurrent}" @click="store.userCurrent = false">{{ $t('all') }}</button>
           </div>
 
           <!-- current -->
@@ -149,7 +149,7 @@
                 <ul>
                   <li>
                     <span>Status</span>
-                    <span class="value">Kutoish xolatida</span>
+                    <span class="value">Kutish xolatida</span>
                   </li>
                   <li>
                     <span>Delivery Date:</span>
@@ -172,7 +172,7 @@
                     <span>Order Amount:</span>
                     <span class="value">1 220 000 so'm </span>
                   </li>
-                  <button class="mt-2">Qayta to'lov qilish</button>
+                  <button class="mt-2">{{ $t('qayta') }}</button>
                 </ul>
               </div>
             </div>
