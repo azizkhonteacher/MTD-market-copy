@@ -42,7 +42,6 @@ const totalQuantity = computed(() => {
 });
 
 // maxsulotlarni umumiy narxi
-
 const totalPrice = computed(() => {
   return store.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 });

@@ -56,5 +56,17 @@
   "p1": "Password is less than 8 characters!",
   "p2": "Passwords do not match!",
   "update": "Update",
-  "updatePass": "Update Password"
+  "updatePass": "Update Password",
+  "yOrder": "Your Order",
+  "yBerish": "Delivery",
+  "bSumma": "Order Total:",
+  "tUsul": "Choose Payment Method",
+  "oUsul": "Delivery Method",
+  "dOlib": "In-Store Pickup",
+  "YBM": "Delivery Address",
+  "VILOYAT": "Province / Region",
+  "SHAHAR": "City / District",
+  "UYB": "Home Delivery",
+  "manzil": "Address",
+  "qavat": "Floor"
 }

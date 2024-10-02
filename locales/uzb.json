@@ -46,7 +46,7 @@
   "Register": "Ro'yxatdan o'tish",
   "next": "Keyingi",
   "telRaqam": "Telefon raqamini tering",
-  "verifyText" : "Telefon tasdiqlash uchun 4 raqamli kod yuborildi",
+  "verifyText": "Telefon tasdiqlash uchun 4 raqamli kod yuborildi",
   "back": "Orqaga",
   "SignUp": "Ro'yxatdan o'tish",
   "fName": "Ism",
@@ -56,5 +56,17 @@
   "p1": "Parol 8 ta belgidan kam!",
   "p2": "Parollar mos emas!",
   "update": "Yangilash",
-  "updatePass": "Parolni yangilash"
+  "updatePass": "Parolni yangilash",
+  "yOrder": "Sizning buyurtmangiz",
+  "yBerish": "Yetkazib Berish",
+  "bSumma": "Buyurtma Summasi:",
+  "tUsul": "To'lov usulini tanlang",
+  "oUsul": "Olish usuli",
+  "dOlib": "Do'kondan Olib Ketish",
+  "YBM": "Yetkazib Berish Manzili",
+  "VILOYAT": "Viloyat / Hudud",
+  "SHAHAR": "Shahar / Tuman",
+  "UYB": "Uygacha Yetkazib Berish",
+  "manzil": "Manzil",
+  "qavat": "Qavat"
 }
