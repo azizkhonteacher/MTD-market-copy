@@ -40,7 +40,9 @@
             :key="page"
           >
             <h3>{{ page?.title }}</h3>
-            <p class="leading-8" style="line-height: 30px;">{{ page?.content }}</p>
+            <p class="leading-8" style="line-height: 30px">
+              {{ page?.content }}
+            </p>
           </li>
         </ul>
       </div>
@@ -60,7 +62,12 @@ const { locale } = useI18n();
 
 // fetch
 async function PagesDetail() {
-  const res = await services.getPageInfoCategoryDetail(route.params?.id, locale.value);
+  store.loader = true;
+  const res = await services.getPageInfoCategoryDetail(
+    route.params?.id,
+    locale.value
+  );
+  store.loader = false;
   pageDetail.value = res;
 }
 // function

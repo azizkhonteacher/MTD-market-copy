@@ -120,33 +120,52 @@
                 class="block text-xl font-medium leading-6 text-gray-900"
                 >{{ $t("VILOYAT") }}*</label
               >
+
+              <!--    VILOYAT   -->
               <div class="relative mt-2">
                 <button
+                  @click="openViloyat = !openViloyat"
                   type="button"
                   class="relative w-full cursor-default rounded-md bg-white py-3 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   aria-haspopup="listbox"
                   aria-expanded="true"
                   aria-labelledby="listbox-label"
                 >
-                  <span class="flex items-center"
-                    ><span class="ml-3 block text-xl truncate"
-                      >Qoraqalpog‘iston Respublikasi</span
-                    ></span
-                  ><span
+                  <span class="flex items-center">
+                    <span class="ml-3 block text-xl truncate">
+                      {{ SelectedREgion }}
+                    </span>
+                  </span>
+                  <span
                     class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2"
-                    ><svg
-                      class="h-5 w-5 text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                        clip-rule="evenodd"
-                      ></path></svg
-                  ></span></button
-                ><!---->
+                  >
+                    <deliverButoon />
+                  </span>
+                </button>
+                <!---->
+                <ul
+                  v-if="openViloyat"
+                  class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                  tabindex="-1"
+                  role="listbox"
+                  aria-labelledby="listbox-label"
+                  aria-activedescendant="listbox-option-3"
+                >
+                  <li
+                    v-for="itemReg in region?.data"
+                    :key="itemReg"
+                    @click="Region(itemReg), (openViloyat = false)"
+                    class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
+                    id="listbox-option-0"
+                    role="option"
+                  >
+                    <div class="flex items-center">
+                      <span class="font-normal text-xl ml-3 block truncate">
+                        {{ itemReg?.name }}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
 
@@ -156,33 +175,51 @@
                 class="block text-xl font-medium leading-6 text-gray-900"
                 >{{ $t("SHAHAR") }}*</label
               >
+              <!--    SHAHAR/TUMAN   -->
               <div class="relative mt-2">
                 <button
+                  @click="openShahar = !openShahar"
                   type="button"
                   class="relative w-full cursor-default rounded-md bg-white py-3 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
                   aria-haspopup="listbox"
                   aria-expanded="true"
                   aria-labelledby="listbox-label"
                 >
-                  <span class="flex items-center"
-                    ><span class="ml-3 block text-xl truncate"
-                      >Amudaryo tumani</span
-                    ></span
-                  ><span
+                  <span class="flex items-center">
+                    <span class="ml-3 block text-xl truncate">
+                      {{ SelectedREgionDist }}
+                    </span>
+                  </span>
+                  <span
                     class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2"
-                    ><svg
-                      class="h-5 w-5 text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                        clip-rule="evenodd"
-                      ></path></svg
-                  ></span></button
-                ><!---->
+                  >
+                    <deliverButoon />
+                  </span>
+                </button>
+                <!---->
+                <ul
+                  v-if="openShahar"
+                  class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                  tabindex="-1"
+                  role="listbox"
+                  aria-labelledby="listbox-label"
+                  aria-activedescendant="listbox-option-3"
+                >
+                  <li
+                    v-for="itemRdis in regionDistricts?.data"
+                    :key="itemRdis"
+                    @click="(openShahar = false)"
+                    class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
+                    id="listbox-option-0"
+                    role="option"
+                  >
+                    <div class="flex items-center">
+                      <span @click="RegionDistricts(itemRdis?.id)" class="font-normal text-xl ml-3 block truncate">
+                        {{ itemRdis?.name }}
+                      </span>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -234,22 +271,24 @@
           <div
             class="relative flex gap-4 mt-6 location-card items-end justify-between text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full"
             style="display: flex"
+            v-for="adress in storesAdress?.data"
+            :key="adress"
           >
             <div class="p-6">
               <h5
                 class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
               >
-                Farg‘ona viloyati
+                {{ adress?.regionName }}
               </h5>
               <p
                 class="block font-sans text-base antialiased font-light leading-relaxed text-xl"
               >
-                Farg'ona shahar, Al-Farg'oniy ko'chasi 19 uy
+                {{ adress?.address }}
               </p>
               <p
                 class="block font-sans text-base antialiased font-light leading-relaxed text-xl"
               >
-                8:30 dan 17:00 gacha
+                {{ adress?.work_time }}
               </p>
             </div>
             <div class="p-6 pt-0">
@@ -257,37 +296,7 @@
                 class="whitespace-nowrap align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                 type="button"
               >
-                Men Shu Joydan Olaman
-              </button>
-            </div>
-          </div>
-          <div
-            class="relative flex gap-4 mt-6 location-card items-end justify-between text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-full"
-            style="display: flex"
-          >
-            <div class="p-6">
-              <h5
-                class="block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
-              >
-                Andijon viloyati
-              </h5>
-              <p
-                class="block font-sans text-base antialiased font-light leading-relaxed text-xl"
-              >
-                Farg'ona shaxri. A.Qodiry ko'chasi 6-uy
-              </p>
-              <p
-                class="block font-sans text-base antialiased font-light leading-relaxed text-xl"
-              >
-                10:00 dan 22:00 gacha
-              </p>
-            </div>
-            <div class="p-6 pt-0">
-              <button
-                class="whitespace-nowrap align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-                type="button"
-              >
-                Men Shu Joydan Olaman
+                {{ $t("olaman") }}
               </button>
             </div>
           </div>
@@ -321,8 +330,15 @@
 
 <script setup>
 import { useStore } from "~/store/store";
+import buy from "~/services/buy";
+import deliverButoon from "~/components/icons/deliverButoon.vue";
 const store = useStore();
 const deliveryFee = 20000;
+const storesAdress = ref({});
+const openViloyat = ref(false);
+const openShahar = ref(false);
+const region = ref({});
+const regionDistricts = ref({});
 
 const totalQuantity = computed(() => {
   return store.cart.reduce((total, item) => total + item.quantity, 0);
@@ -349,10 +365,46 @@ const orderTotalPrice = computed(() => {
 
   return total;
 });
+
+//fetch
+// olib ketish punktlari
+async function Stores() {
+  const res = await buy.getStores(store.token);
+  storesAdress.value = res;
+}
+
+let SelectedREgion = ref("");
+let SelectedREgionDist = ref("");
+
+// viloyat
+async function Region(item) {
+  const res = await buy.getRegion();
+
+  if (item) {
+    RegionDistricts(item.id);
+    SelectedREgion.value = item.name;
+  } else {
+    RegionDistricts(res?.data[0].id);
+    SelectedREgion.value = res.data[0].name;
+  }
+  region.value = res;
+}
+
+// shaharlar
+async function RegionDistricts(id) {
+  const res = await buy.getRegionDistricts(id);
+
+  if(id){
+    SelectedREgionDist.value = res?.data[id].name
+  } else{
+    SelectedREgionDist.value = res?.data[0].name
+  }
+  regionDistricts.value = res;
+}
+
+// function's
+Stores();
+Region();
 </script>
 
-<style lang="scss" scoped></style>
-
-<!-- payment qismini style qismini to'g'irlash
-    user login oynalarini to'g'irlash
--->
+<style lang="scss"></style>

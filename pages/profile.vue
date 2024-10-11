@@ -36,7 +36,7 @@
             </svg>
           </div>
           <div class="profile-info">
-            <h4>{{ $t('chiqish') }}</h4>
+            <h4>{{ $t("chiqish") }}</h4>
           </div>
         </div>
       </div>
@@ -52,13 +52,13 @@
                 <UserSvg />
               </div>
               <div class="profile-info">
-                <h4>{{ $t('shaxsiy') }}</h4>
+                <h4>{{ $t("shaxsiy") }}</h4>
               </div>
             </div>
             <button
               @click="(store.overlay = true), (store.updateUserInfo = true)"
             >
-              {{ $t('Change') }}
+              {{ $t("Change") }}
             </button>
           </div>
 
@@ -71,7 +71,7 @@
               }}
             </h4>
             <h4>
-              {{ $t('tRaqam') }} : +{{
+              {{ $t("tRaqam") }} : +{{
                 store.userInfo ? store.userInfo?.username : ""
               }}
             </h4>
@@ -128,12 +128,23 @@
                 </svg>
               </div>
               <div class="profile-info">
-                <h4>{{ $t('myOrders') }}</h4>
+                <h4>{{ $t("myOrders") }}</h4>
               </div>
             </div>
-            <button :class="{'activeOrderBtn': store.userCurrent}" class="mr-4" @click="store.userCurrent = true">{{ $t('Current') }}</button>
+            <button
+              :class="{ activeOrderBtn: store.userCurrent }"
+              class="mr-4"
+              @click="store.userCurrent = true"
+            >
+              {{ $t("Current") }}
+            </button>
 
-            <button :class="{'activeOrderBtn': !store.userCurrent}" @click="store.userCurrent = false">{{ $t('all') }}</button>
+            <button
+              :class="{ activeOrderBtn: !store.userCurrent }"
+              @click="store.userCurrent = false"
+            >
+              {{ $t("all") }}
+            </button>
           </div>
 
           <!-- current -->
@@ -172,7 +183,7 @@
                     <span>Order Amount:</span>
                     <span class="value">1 220 000 so'm </span>
                   </li>
-                  <button class="mt-2">{{ $t('qayta') }}</button>
+                  <button class="mt-2">{{ $t("qayta") }}</button>
                 </ul>
               </div>
             </div>
@@ -237,7 +248,9 @@ const store = useStore();
 // function
 async function logOut() {
   localStorage.clear();
+  store.loader = true;
   window.location = "/";
+  store.loader = false;
 }
 </script>
 

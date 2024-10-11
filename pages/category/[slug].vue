@@ -225,7 +225,9 @@ const categoryProducts = ref({});
 const { locale } = useI18n();
 // fetch
 async function categoryDetail() {
+  store.loader = true;
   const res = await services.getCategoryDetail(route.params.slug, locale.value);
+  store.loader = false;
   categoryProducts.value = res;
 }
 // function

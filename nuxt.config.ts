@@ -11,11 +11,6 @@ export default defineNuxtConfig({
     langDir: "./locales",
     locales: [
       {
-        code: "en",
-        name: "En",
-        file: "eng.json",
-      },
-      {
         code: "uz",
         name: "Uz",
         file: "uzb.json",
@@ -24,6 +19,11 @@ export default defineNuxtConfig({
         code: "ru",
         name: "Ru",
         file: "rus.json",
+      },
+      {
+        code: "en",
+        name: "En",
+        file: "eng.json",
       },
     ],
     defaultLocale: "uz",

@@ -14,7 +14,9 @@ const store = useStore();
 async function getUserInfoFetch() {
   if (store.token) {
     try {
+      store.loader = true;
       const res = await login.getUserInfo(store.token);
+      store.loader = false;
       store.userInfo = res.data;
     } catch (error) {
       console.error("Failed to fetch user info:", error);
@@ -35,10 +37,12 @@ async function getLikeProduct() {
   }
 }
 onMounted(() => {
-  if(process.client){
-    store.cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+  if (process.client) {
+    store.cart = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))
+      : [];
   }
-})
+});
 onMounted(() => {
   if (process.client) {
     store.token = localStorage.getItem("authKey") || null;

@@ -221,7 +221,9 @@ const product = ref(detail.value);
 const { locale } = useI18n();
 // fetch
 async function getdetail() {
+  store.loader = true;
   const res = await services.getProductDetail(route.params.slug, locale.value);
+  store.loader = false;
   detail.value = res?.data;
 }
 async function getLikeProduct() {

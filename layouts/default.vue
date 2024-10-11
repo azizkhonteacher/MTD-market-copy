@@ -43,7 +43,7 @@
                 <NuxtLink
                   class="header__lang-list-link"
                   v-for="{ code, name } in locales"
-                  @click="closeLang(), reload()"
+                  @click="closeLang()"
                   :key="code"
                   :to="switchLocalePath(code)"
                   :class="{ activeLink: code === locale }"
@@ -186,7 +186,7 @@
 
               <button type="submit" class="header__center-form-btn">
                 <img src="~/assets/images/svg/search.svg" alt="search" />
-                <span>{{ $t('qidirish') }}</span>
+                <span>{{ $t("qidirish") }}</span>
               </button>
             </div>
 
@@ -287,7 +287,7 @@
             @click="store.openKategory = !store.openKategory"
           >
             <img src="~/assets/images/svg/list.svg" alt="list" />
-            <span>{{ $t('kategoriyalar') }}</span>
+            <span>{{ $t("kategoriyalar") }}</span>
           </div>
 
           <nav class="header__bottom-nav">
@@ -304,7 +304,7 @@
             <div class="container">
               <!-- catalog-header blogi mediada ishlaydi -->
               <div class="catalog-header">
-                <h2>{{ $t('kategoriyalar') }}</h2>
+                <h2>{{ $t("kategoriyalar") }}</h2>
                 <button
                   @click="(store.openKategory = false), (store.overlay = false)"
                 >
@@ -327,17 +327,21 @@
 
                       <rightArrowSvg />
                     </span>
-                    <ul class="catalog-wrapper__sub-menu" v-if="false">
+                    <ul
+                      class="catalog-wrapper__sub-menu"
+                      id="catalog-wrapper__sub-menu-child"
+                    >
                       <div class="catalog-wrapper__sub-menu-wrapper">
                         <!-- media da ishlaydigan tugma -->
                         <button>
                           <rightArrowSvg />
-                          {{ $t('back') }}
+                          {{ $t("back") }}
                         </button>
                         <!--  -->
 
                         <NuxtLink
-                          :to="localePath(`/category/${catalog?.slug}`)"
+                          @click="closeCategory()"
+                          :to="localePath(`/katalog/${catalog?.slug}`)"
                           class="cotalog-wrapper__sub-menu__title"
                         >
                           {{ catalog?.name }}
@@ -380,7 +384,7 @@
             :to="localePath('/')"
           >
             <homeSvg />
-            <span>{{ $t('boshSahifa') }}</span>
+            <span>{{ $t("boshSahifa") }}</span>
           </NuxtLink>
         </li>
         <!-- category -->
@@ -402,7 +406,7 @@
             />
           </svg>
 
-          <span>{{ $t('kategoriyalar') }}</span>
+          <span>{{ $t("kategoriyalar") }}</span>
         </li>
         <!-- cart -->
         <li
@@ -415,7 +419,7 @@
               cartTotalQuantity
             }}</span>
           </div>
-          <span>{{ $t('savat') }}</span>
+          <span>{{ $t("savat") }}</span>
         </li>
         <!-- like  -->
         <li class="mobile-menu__wrapper-item" v-if="store.userInfo">
@@ -473,7 +477,7 @@
           class="mobile-menu__wrapper-item"
         >
           <UserSvgVue />
-          <span>{{ $t('kirish') }}</span>
+          <span>{{ $t("kirish") }}</span>
         </li>
       </ul>
     </div>
@@ -492,6 +496,7 @@
     <new-reset-password v-if="store.CodeReset" />
     <update-user-info v-if="store.updateUserInfo" />
     <cart-page v-if="store.cartPage" />
+    <loader v-if="store.loader" />
 
     <!-- MOBILE MENU END -->
 
@@ -507,8 +512,8 @@
             <img src="~/assets/images/logo.svg" alt="logo" />
           </NuxtLink>
 
-          <p class="footer-desc">{{ $t('jadval') }}</p>
-          <p class="footer-desc">{{ $t('qongiroq') }}</p>
+          <p class="footer-desc">{{ $t("jadval") }}</p>
+          <p class="footer-desc">{{ $t("qongiroq") }}</p>
 
           <ul class="footer-social">
             <!-- telegram -->
@@ -639,7 +644,7 @@
         </div>
 
         <div class="footer-list">
-          <h4 class="footer-list-title">{{ $t('kategoriyalar') }}</h4>
+          <h4 class="footer-list-title">{{ $t("kategoriyalar") }}</h4>
           <li v-for="item in headerBottomNav" :key="item">
             <NuxtLink :to="localePath(`/category/${item?.slug}`)">
               {{ item?.name }}
@@ -647,7 +652,7 @@
           </li>
         </div>
         <div class="footer-list">
-          <h4 class="footer-list-title">{{ $t('umumiyMalumot') }}</h4>
+          <h4 class="footer-list-title">{{ $t("umumiyMalumot") }}</h4>
           <li v-for="category in pageCategory?.data" :key="category">
             <NuxtLink :to="localePath(`/page/${category?.id}`)">
               {{ category?.name }}
@@ -687,10 +692,10 @@ const headerBottomNav = ref({});
 const katalog = ref({});
 const searchKey = ref("");
 const searchItem = ref({});
-const { locale, locales } = useI18n();
+const { locales } = useI18n();
+const { locale } = useI18n();
 const switchLocalePath = useSwitchLocalePath();
 const localePath = useLocalePath(); // to="/" -> :to="localePath('/')"
-
 
 // function reload() {
 //   window.location.reload(true)
@@ -702,11 +707,16 @@ const itemCount = computed(() => {
 
 // fetch
 async function getPageCategory() {
+  store.loader = true;
   const res = await services.getPageInfoCategory(locale.value);
+  store.loader = false;
   pageCategory.value = res;
+  console.log(res);
 }
 async function getHeaderBottomCategorys() {
+  store.loader = true;  
   const res = await services.getHeaderBottomCategories(locale.value);
+  store.loader = false;
   headerBottomNav.value = res?.data;
 }
 async function getCatalogCategorys() {
@@ -726,6 +736,14 @@ async function searchProductClear() {
 getPageCategory();
 getHeaderBottomCategorys();
 getCatalogCategorys();
+watch(
+  () => locale.value,
+  () => {
+    getPageCategory();
+    getHeaderBottomCategorys();
+    getCatalogCategorys();
+  }
+);
 
 function closeCategory() {
   store.openKategory = false;

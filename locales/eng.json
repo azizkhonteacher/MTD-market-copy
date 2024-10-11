@@ -62,11 +62,12 @@
   "bSumma": "Order Total:",
   "tUsul": "Choose Payment Method",
   "oUsul": "Delivery Method",
-  "dOlib": "In-Store Pickup",
+  "dOlib": "Take From Store",
   "YBM": "Delivery Address",
   "VILOYAT": "Province / Region",
   "SHAHAR": "City / District",
   "UYB": "Home Delivery",
   "manzil": "Address",
-  "qavat": "Floor"
+  "qavat": "Floor",
+  "olaman": "I will pick up from here"
 }

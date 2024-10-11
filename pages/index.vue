@@ -195,7 +195,9 @@ const {locale} = useI18n();
 
 // fetch
 async function HeroBanner() {
+  store.loader = true;
   const res = await services.getHeroBanner(locale.value);
+  store.loader = false;
   heroBanner.value = res;
 }
 async function OurEffers() {

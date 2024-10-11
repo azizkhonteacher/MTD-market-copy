@@ -17,6 +17,7 @@ export const useStore = defineStore("store", () => {
   const userInfo = ref("");
   const like = ref({});
   const cart = ref([]);
+  const loader = ref(false);
 
   // modal's
   const loginModal = ref(false);
