@@ -134,7 +134,6 @@
 
           <!--            check elements         -->
 
-
           <div class="accordion">
             <div
               class="accordion-item"
@@ -154,7 +153,7 @@
                   :key="brends"
                 >
                   <div class="flex items-center h-5">
-                    <input type="checkbox" />
+                    <input @input="selectBrands(brends?.id)" type="checkbox" />
                   </div>
 
                   <div class="ms-3 flex flex-col">
@@ -183,15 +182,18 @@
               <div class="accordion-content">
                 <div
                   class="relative flex items-center"
-                  v-for="i in character?.assigns"
-                  :key="i"
+                  v-for="check in character?.assigns"
+                  :key="check"
                 >
                   <div class="flex items-center h-5">
-                    <input type="checkbox" />
+                    <input
+                      @input="selectCharakters(character?.characterId, check)"
+                      type="checkbox"
+                    />
                   </div>
                   <div class="ms-3 flex flex-col">
                     <label>
-                      {{ i?.value }}
+                      {{ check?.value }}
                     </label>
                   </div>
                 </div>
@@ -199,7 +201,7 @@
             </div>
           </div>
 
-          <button class="category-filter__btn">{{ $t("korsatish") }}</button>
+          <button @click="filter()" class="category-filter__btn">{{ $t("korsatish") }}</button>
         </div>
 
         <!--                CARD'S           -->
@@ -234,17 +236,54 @@ const route = useRoute();
 const categoryProducts = ref({});
 const { locale } = useI18n();
 const SliderValue = ref([100, 200]);
-console.log(SliderValue.value);
+
+//    filter jo'natamiz
+let characters = ref([]);
+let brandCheck = ref([]);
+
+function selectBrands(brandId) {
+  let brendObj = {
+    id: brandId,
+  };
+  brandCheck.value.push(brendObj);
+}
+
+function selectCharakters(charakterId, item) {
+  let checkObj = {
+    id: charakterId,
+    value: item.value,
+  };
+  characters.value.push(checkObj);
+}
+const filter = async () => {
+  const params = new URLSearchParams();
+
+  params.append("slugKey", "smartfonlar");
+  params.append("maxPrice", SliderValue[1]);
+  params.append("minPrice", SliderValue[0]);
+
+  characters.value.forEach(({ id, value }) => {
+    params.append(`filter[${id}][]`, value);
+  });
+
+  brandCheck.value.forEach(({id}) => {
+    params.append(`brandIds[]`, id);
+  })
+  let queryString = decodeURIComponent(params.toString());
+
+  console.log(queryString);
+  
+};
 
 // fetch
 async function categoryDetail() {
   store.loader = true;
   const res = await services.getCategoryDetail(route.params.slug, locale.value);
   store.loader = false;
-  // SliderValue.value = [res.data?.minPrice, res.data?.maxPrice];
+  SliderValue.value = [res.data?.minPrice, res.data?.maxPrice];
   categoryProducts.value = res;
+  console.log(res?.data);
 }
-console.log(SliderValue.value);
 
 // function
 categoryDetail();
