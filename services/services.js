@@ -92,6 +92,16 @@ export default {
       // &filter[2][]=100 sm&filter[2][]=60 sm&filter[2][]=120 sm
     );
   },
+  getKatalogDetail(slug, lang) {
+    return $fetch(
+      `${baseURL}/product-manager/category-product/sub-category?slugKey=${slug}`,
+      {
+        headers: {
+          "Accept-Language": lang,
+        },
+      }
+    );
+  },
   getSearch(search, lang) {
     return $fetch(
       `${baseURL}/product-manager/product/search?searchKey=${search}`,

@@ -61,9 +61,9 @@
                 {{ detail?.product?.priceFormat }}
               </h4>
               <p class="product__about-count">
-                {{ $t('sotuvda') }}
+                {{ $t("sotuvda") }}
                 <span style="font-weight: 700">
-                  {{ detail?.product?.residue_store }} {{ $t('ta') }}
+                  {{ detail?.product?.residue_store }} {{ $t("ta") }}
                 </span>
               </p>
             </div>
@@ -89,15 +89,18 @@
               </button>
             </div>
           </div>
-          <button class="buy-now-btn" @click="addOrRemoveFromCart(cartItem)">
-            {{ $t('hozir') }}
+          <button
+            class="buy-now-btn"
+            @click="toPayment(), addOrRemoveFromCart(cartItem)"
+          >
+            {{ $t("hozir") }}
           </button>
 
           <div class="product__about-center__info">
             <div class="product__about-center__info-items">
               <ul class="product__about-center__info-items-wrapper information">
                 <li>
-                  <h4>{{ $t('umumiyMalumot') }}</h4>
+                  <h4>{{ $t("umumiyMalumot") }}</h4>
                   <h5
                     v-if="detail?.product?.description"
                     style="text-align: justify"
@@ -147,18 +150,18 @@
                 fill="#909090"
               />
             </svg>
-            <h2>{{ $t('savollar') }}</h2>
+            <h2>{{ $t("savollar") }}</h2>
           </div>
           <div class="product__about-right-item-text-wrapper">
             <ul>
               <li>
-                {{ $t('telefon') }}
+                {{ $t("telefon") }}
                 <a class="product__about-link" href="tel:+998905874758"
                   >+998905874758</a
                 >
               </li>
               <li>
-                {{ $t('telegram') }}
+                {{ $t("telegram") }}
                 <a
                   class="product__about-link"
                   href="https://t.me/mtdmarketplace"
@@ -187,15 +190,15 @@
               />
             </svg>
 
-            <h2>{{ $t('tolov') }}</h2>
+            <h2>{{ $t("tolov") }}</h2>
           </div>
           <div class="product__about-right-item-text-wrapper">
             <ul class="product__about-payment-types">
-             <li>{{ $t('tolov1') }}</li>
-             <li>{{ $t('tolov2') }}</li>
-             <li>{{ $t('tolov3') }}</li>
-             <li>{{ $t('tolov4') }}</li>
-             <li>{{ $t('tolov5') }}</li>
+              <li>{{ $t("tolov1") }}</li>
+              <li>{{ $t("tolov2") }}</li>
+              <li>{{ $t("tolov3") }}</li>
+              <li>{{ $t("tolov4") }}</li>
+              <li>{{ $t("tolov5") }}</li>
             </ul>
           </div>
         </div>
@@ -235,8 +238,17 @@ async function getLikeProduct() {
   }
 }
 async function postLike() {
-  const res = await login.postLikeProduct(route.params.slug, store.token, locale.value);
+  const res = await login.postLikeProduct(
+    route.params.slug,
+    store.token,
+    locale.value
+  );
   getLikeProduct();
+}
+
+// to payment
+function toPayment() {
+  window.location = "/payment";
 }
 // function
 getdetail();

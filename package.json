@@ -12,10 +12,13 @@
   "dependencies": {
     "@nuxtjs/i18n": "^8.5.5",
     "@pinia/nuxt": "^0.5.4",
+    "@primevue/nuxt-module": "^4.1.0",
     "i18n": "^0.15.1",
     "nuxt": "^3.13.2",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.2",
+    "primevue": "3.53.0",
+    "tailwindcss-primeui": "^0.3.4",
     "vue": "latest",
     "vue-router": "latest",
     "vue3-otp-input": "^0.5.21"
@@ -23,6 +26,7 @@
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.1",
     "install": "^0.13.0",
+    "nuxt-primevue": "^3.0.0",
     "sass": "^1.78.0",
     "sass-loader": "^16.0.1",
     "typescript": "^5.6.2"

@@ -462,6 +462,11 @@ header {
         -moz-user-select: none;
         user-select: none;
 
+        border-radius: 6px;
+          &:hover{
+            background: #F2F2F2;
+          }
+
         @include media(1230px) {
           border-bottom: 1px solid #222;
           @include font(400, 14px);
@@ -474,6 +479,8 @@ header {
           pointer-events: none;
           gap: 2em;
           @include font(400, 16px, 1.5);
+
+          
 
           img {
             width: 40px;
@@ -496,7 +503,6 @@ header {
       }
       .catalog-wrapper__sub-menu {
         display: none;
-        display: block;
         position: absolute;
         left: 105%;
         top: 0;
@@ -526,6 +532,11 @@ header {
         li {
           height: fit-content;
           width: 350px;
+
+          border-radius: 6px;
+          &:hover{
+            background: #F2F2F2;
+          }
 
           @include media(1230px) {
             border-bottom: 1px solid #222;

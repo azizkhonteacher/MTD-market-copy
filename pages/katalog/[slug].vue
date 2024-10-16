@@ -111,29 +111,24 @@
               <li class="category-filter__range-price">
                 {{ $t("dan") }}
                 <span id="slider-range-value1">
-                  {{ SliderValue[0] || categoryProducts?.data?.minPrice }}
+                  {{ categoryProducts?.data?.minPrice }}
                 </span>
               </li>
 
               <li class="category-filter__range-price">
                 {{ $t("gacha") }}
                 <span id="slider-range-value2">
-                  {{ SliderValue[1] || categoryProducts?.data?.maxPrice }}
+                  {{ categoryProducts?.data?.maxPrice }}
                 </span>
               </li>
             </ul>
 
-            <Slider
-              v-model="SliderValue"
-              range
-              class="w-14rem"
-              :min="categoryProducts?.data?.minPrice || 0"
-              :max="categoryProducts?.data?.maxPrice || 1000"
-            />
+            <div class="mb-6 px-2">
+              <div class="filter-slider">
+                <Slider v-model="SliderValue" range class="w-14rem" />
+              </div>
+            </div>
           </div>
-
-          <!--            check elements         -->
-
 
           <div class="accordion">
             <div
@@ -223,7 +218,7 @@
 </template>
 
 <script setup>
-// import Slider from "primevue/slider";
+import Slider from "primevue/slider";
 import closeSvg from "~/components/icons/closeSvg.vue";
 import rightArrowSvg from "~/components/icons/rightArrowSvg.vue";
 import { useStore } from "~/store/store";
@@ -233,21 +228,21 @@ const store = useStore();
 const route = useRoute();
 const categoryProducts = ref({});
 const { locale } = useI18n();
-const SliderValue = ref([100, 200]);
-console.log(SliderValue.value);
-
+const SliderValue = ref([20, 80]);
 // fetch
 async function categoryDetail() {
   store.loader = true;
-  const res = await services.getCategoryDetail(route.params.slug, locale.value);
+  const res = await services.getKatalogDetail(route.params.slug, locale.value);
   store.loader = false;
-  // SliderValue.value = [res.data?.minPrice, res.data?.maxPrice];
   categoryProducts.value = res;
 }
-console.log(SliderValue.value);
-
 // function
 categoryDetail();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.filter-slider {
+  display: flex;
+  justify-self: start;
+}
+</style>

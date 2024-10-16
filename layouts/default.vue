@@ -320,6 +320,7 @@
                     class="catalog-wrapper__item"
                     v-for="catalog in katalog"
                     :key="catalog"
+                    @click="open(catalog, $event)" :data-i="item"
                   >
                     <span>
                       <img :src="catalog?.iconUrl" alt="icon" />
@@ -330,6 +331,7 @@
                     <ul
                       class="catalog-wrapper__sub-menu"
                       id="catalog-wrapper__sub-menu-child"
+                      :data-index="catalog"
                     >
                       <div class="catalog-wrapper__sub-menu-wrapper">
                         <!-- media da ishlaydigan tugma -->
@@ -341,7 +343,7 @@
 
                         <NuxtLink
                           @click="closeCategory()"
-                          :to="localePath(`/katalog/${catalog?.slug}`)"
+                          :to="localePath(`/category/${catalog?.slug}`)"
                           class="cotalog-wrapper__sub-menu__title"
                         >
                           {{ catalog?.name }}
@@ -353,8 +355,8 @@
                         >
                           <div class="cotalog-wrapper__sub-menu__name">
                             <NuxtLink
-                              :to="localePath(`/category/${categories?.slug}`)"
-                              @click="closeCategory()"
+                              :to="localePath(`/katalog/${categories?.slug}`)"
+                              @click="closeCategory(), store.overlay"
                             >
                               {{ categories?.name }}
                             </NuxtLink>
@@ -711,13 +713,12 @@ async function getPageCategory() {
   const res = await services.getPageInfoCategory(locale.value);
   store.loader = false;
   pageCategory.value = res;
-  console.log(res);
 }
 async function getHeaderBottomCategorys() {
   store.loader = true;  
   const res = await services.getHeaderBottomCategories(locale.value);
   store.loader = false;
-  headerBottomNav.value = res?.data;
+  headerBottomNav.value = res?.data;  
 }
 async function getCatalogCategorys() {
   const res = await services.getCatalogCategories(locale.value);
@@ -755,6 +756,17 @@ const cartTotalQuantity = computed(() => {
 function closeLang() {
   store.openLang = false;
 }
+
+function open(id, e) {
+  document.querySelectorAll(".catalog-wrapper__item").forEach((el, i) =>{
+    if(e.target == el) {
+      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display = "block"
+    } else {
+      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display = "none"
+    }
+  })
+}
+
 </script>
 
 <style lang="scss" scoped>

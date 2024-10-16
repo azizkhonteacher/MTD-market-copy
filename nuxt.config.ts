@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "@pinia/nuxt",
     "@nuxtjs/i18n",
+    "nuxt-primevue",
   ],
   i18n: {
     lazy: true,
@@ -29,7 +30,13 @@ export default defineNuxtConfig({
     defaultLocale: "uz",
     strategy: "prefix_except_default",
   },
-  css: ["~/assets/styles/main.scss"],
+  css: [
+    "primevue/resources/themes/lara-light-teal/theme.css", // PrimeIcons (for icons)
+    "~/assets/styles/main.scss",
+  ],
+  build: {
+    transpile: ["primevue"],
+  },
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
 });

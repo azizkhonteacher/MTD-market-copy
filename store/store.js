@@ -68,6 +68,7 @@ export const useStore = defineStore("store", () => {
     like,
     cartPage,
     cart,
+    loader,
 
     // model's
     closeModal,
