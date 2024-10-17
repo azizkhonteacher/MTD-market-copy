@@ -10,6 +10,7 @@ export const useStore = defineStore("store", () => {
   const paymentMethod = ref(false);
   const paymentMethodCheck = ref(false);
   const userCurrent = ref(true);
+  const openFilter = ref(false);
   // varibles
   const phone = ref("");
   const code = ref("");
@@ -69,6 +70,7 @@ export const useStore = defineStore("store", () => {
     cartPage,
     cart,
     loader,
+    openFilter,
 
     // model's
     closeModal,

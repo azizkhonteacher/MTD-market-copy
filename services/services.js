@@ -83,7 +83,7 @@ export default {
   },
   getCategoryDetail(slug, lang) {
     return $fetch(
-      `${baseURL}/product-manager/category-product/category?slugKey=${slug}`,
+      `${baseURL}/product-manager/category-product/category?${slug}`,
       {
         headers: {
           "Accept-Language": lang,
@@ -94,7 +94,7 @@ export default {
   },
   getKatalogDetail(slug, lang) {
     return $fetch(
-      `${baseURL}/product-manager/category-product/sub-category?slugKey=${slug}`,
+      `${baseURL}/product-manager/category-product/sub-category?${slug}`,
       {
         headers: {
           "Accept-Language": lang,

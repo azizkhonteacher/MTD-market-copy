@@ -10,6 +10,10 @@
           </h3>
 
           <!-- btn's -->
+          <button @click="store.openFilter = true" class="filterOpenBtn">
+            <FilterSvg />
+          </button>
+
           <div class="category__header-bottom__btns">
             <button
               class="grid-view-btn"
@@ -95,11 +99,14 @@
     <div class="category__main">
       <div class="container">
         <!--                FILTER           -->
-        <div class="category-filter">
+        <div class="category-filter" :class="{ openFilter: store.openFilter }">
           <div class="category-filter__top">
             <h2 class="category-filter__title">Filterlash</h2>
 
-            <button class="category-filter__close-btn">
+            <button
+              @click="store.openFilter = false"
+              class="category-filter__close-btn"
+            >
               <closeSvg />
             </button>
           </div>
@@ -111,33 +118,39 @@
               <li class="category-filter__range-price">
                 {{ $t("dan") }}
                 <span id="slider-range-value1">
-                  {{ categoryProducts?.data?.minPrice }}
+                  {{ SliderValue[0] || categoryProducts?.data?.minPrice }}
                 </span>
               </li>
 
               <li class="category-filter__range-price">
                 {{ $t("gacha") }}
                 <span id="slider-range-value2">
-                  {{ categoryProducts?.data?.maxPrice }}
+                  {{ SliderValue[1] || categoryProducts?.data?.maxPrice }}
                 </span>
               </li>
             </ul>
 
-            <div class="mb-6 px-2">
-              <div class="filter-slider">
-                <Slider v-model="SliderValue" range class="w-14rem" />
-              </div>
-            </div>
+            <Slider
+              v-model="SliderValue"
+              range
+              class="w-14rem"
+              :min="categoryProducts?.data?.minPrice || 0"
+              :max="categoryProducts?.data?.maxPrice || 1000"
+            />
           </div>
+
+          <!--            check elements         -->
 
           <div class="accordion">
             <div
               class="accordion-item"
-              @click="store.viewAccardion = !store.viewAccardion"
-              :class="{ 'active-accordion': store.viewAccardion }"
+              :class="{ 'active-accordion': openBrand }"
             >
-              <div class="accordion-header category-filter__chekbox-list-title">
-                Brendlar
+              <div
+                @click="openBrand = !openBrand"
+                class="accordion-header category-filter__chekbox-list-title"
+              >
+                {{ $t("brend") }}
                 <rightArrowSvg />
               </div>
 
@@ -149,52 +162,56 @@
                   :key="brends"
                 >
                   <div class="flex items-center h-5">
-                    <input type="checkbox" />
+                    <input @input="selectBrands(brends?.id)" type="checkbox" :id="brends?.name" />
                   </div>
 
                   <div class="ms-3 flex flex-col">
-                    <label>{{ brends?.name }}</label>
+                    <label :for="brends?.name">{{ brends?.name }}</label>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
+          <!--     HARAKTERLAR    -->
           <div class="accordion">
-            <!-- active-accordion class qo'shiladi -->
-            <!--     HARAKTERLAR    -->
             <div
               class="accordion-item"
               v-for="character in categoryProducts?.data?.characters"
               :key="character"
-              @click="store.viewAccardion = !store.viewAccardion"
-              :class="{ 'active-accordion': store.viewAccardion }"
+              
+              
             >
-              <div class="accordion-header category-filter__chekbox-list-title">
+              <div
+                @click="open(character, $event)"
+                :data-i="item"
+                class="accordion-header category-filter__chekbox-list-title"
+              >
                 {{ character?.characterName }}
-                <rightArrowSvg />
+                <rightArrowSvg/>
               </div>
 
-              <div class="accordion-content">
+              <div class="accordion-content" :data-index="character">
                 <div
-                  class="relative flex items-center"
-                  v-for="i in character?.assigns"
-                  :key="i"
+                  class="accordion-content-items"
+                  v-for="check in character?.assigns"
+                  :key="check"
                 >
-                  <div class="flex items-center h-5">
-                    <input type="checkbox" />
-                  </div>
-                  <div class="ms-3 flex flex-col">
-                    <label>
-                      {{ i?.value }}
-                    </label>
-                  </div>
+                  <input
+                    @input="selectCharakters(character?.characterId, check)"
+                    type="checkbox" :id="check?.value"
+                  />
+                  <label :for="check?.value">
+                    {{ check?.value }}
+                  </label>
                 </div>
               </div>
             </div>
           </div>
 
-          <button class="category-filter__btn">{{ $t("korsatish") }}</button>
+          <button @click="FilterCategoryDetail()" class="category-filter__btn">
+            {{ $t("korsatish") }}
+          </button>
         </div>
 
         <!--                CARD'S           -->
@@ -218,31 +235,96 @@
 </template>
 
 <script setup>
-import Slider from "primevue/slider";
+// import Slider from "primevue/slider";
 import closeSvg from "~/components/icons/closeSvg.vue";
 import rightArrowSvg from "~/components/icons/rightArrowSvg.vue";
+import FilterSvg from "~/components/icons/filterSvg.vue";
 import { useStore } from "~/store/store";
 import services from "~/services/services";
 // varible's
 const store = useStore();
 const route = useRoute();
 const categoryProducts = ref({});
+
+const minPrice = ref("");
+const maxPrice = ref("");
+
 const { locale } = useI18n();
-const SliderValue = ref([20, 80]);
+// const SliderValue = ref([categoryProducts.value.data?.minPrice, categoryProducts.value.data?.maxPrice]);
+const SliderValue = ref([minPrice.value, maxPrice.value]);
+let openBrand = ref(false);
+
+//    filter jo'natamiz
+let characters = ref([]);
+let brandCheck = ref([]);
+
+function selectBrands(brandId) {
+  let brendObj = {
+    id: brandId,
+  };
+  brandCheck.value.push(brendObj);
+}
+
+function selectCharakters(charakterId, item) {
+  let checkObj = {
+    id: charakterId,
+    value: item.value,
+  };
+  characters.value.push(checkObj);
+}
+const filter = async () => {};
+
+function open(id, e) {
+  const headers = document.querySelectorAll(".accordion-header");
+  const items = document.querySelectorAll(".accordion-item");
+
+  headers.forEach((el, i) => {
+    if (e.target === el) {
+      const item = items[i];
+
+      if (item.classList.contains("active-accordion")) {
+        item.classList.remove("active-accordion");
+      } else {
+        item.classList.add("active-accordion");
+      }
+    } else {
+      items[i].classList.remove("active-accordion");
+    }
+  });
+}
 // fetch
 async function categoryDetail() {
   store.loader = true;
-  const res = await services.getKatalogDetail(route.params.slug, locale.value);
+
+  const params = new URLSearchParams();
+
+  params.append("slugKey", route.params.slug);
+  params.append("maxPrice", SliderValue.value[1]);
+  params.append("minPrice", SliderValue.value[0]);
+  characters.value.forEach(({ id, value }) => {
+    params.append(`filter[${id}][]`, value);
+  });
+  brandCheck.value.forEach(({ id }) => {
+    params.append(`brandIds[]`, id);
+  });
+
+  let queryString = decodeURIComponent(params.toString());
+
+  const res = await services.getKatalogDetail(queryString, locale.value);
+
   store.loader = false;
+  SliderValue.value = [res.data?.minPrice, res.data?.maxPrice];
+  minPrice.value = res?.data?.minPrice;
+  maxPrice.value = res?.data?.maxPrice;
   categoryProducts.value = res;
+  console.log(res?.data);
 }
+async function FilterCategoryDetail() {
+  await categoryDetail();
+}
+
 // function
 categoryDetail();
 </script>
 
-<style lang="scss" scoped>
-.filter-slider {
-  display: flex;
-  justify-self: start;
-}
-</style>
+<style lang="scss" scoped></style>

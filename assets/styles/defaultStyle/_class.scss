@@ -2,6 +2,9 @@
   transform: translate(0) !important;
   transition: all 0.3s ease;
 }
+.openFilter {
+  transform: translate(0) !important;
+}
 .openKategory {
   display: flex !important;
   transition: all 0.3s ease !important;
@@ -12,6 +15,18 @@
 .activeOrderBtn {
   background: #fff !important;
   color: $siteColor !important;
+}
+.filterOpenBtn{
+  display: none !important;
+  svg{
+    path{
+      fill: $siteColor !important;
+    }
+  }
+
+  @include media(1200px){
+    display: block !important;
+  }
 }
 .cards {
   display: grid !important;
@@ -25,6 +40,7 @@
   transform: translate(0) !important;
 }
 .active-accordion {
+  height: 100% !important;
   .accordion-content {
     padding: 12px 0 !important;
     max-height: 1000px !important;
@@ -196,7 +212,6 @@
   // left: 100% !important;
   width: 18px;
   height: 18px;
-  
 }
 
 // .p-slider-range {
@@ -208,13 +223,12 @@
 
 // }
 
-
-.open-header-bottom-kategory{
+.open-header-bottom-kategory {
   display: block;
   background: #f2f2f2;
 }
 
-.p-slider-horizontal{
+.p-slider-horizontal {
   height: 4px;
 }
 .p-slider {
