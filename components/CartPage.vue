@@ -24,7 +24,7 @@
         <h2>{{ totalPriceFormat }} so'm</h2>
       </div>
 
-      <button>{{ $t('xarid') }}</button>
+      <button @click="paymentOpen()">{{ $t('xarid') }}</button>
     </div>
   </div>
 </template>
@@ -54,7 +54,10 @@ const totalPriceFormat = computed(() => {
   return total.toLocaleString("en-US").replace(/,/g, " ");
 });
 
-console.log(totalQuantity);
+function paymentOpen() {
+  window.location = "/payment";
+}
+
 </script>
 
 <style lang="scss" scoped></style>

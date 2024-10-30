@@ -38,7 +38,12 @@
         <div class="payment-types">
           <!-- item-1 -->
           <div class="payment-types-item">
-            <input type="radio" id="payme" name="payment" />
+            <input
+              @click="paymentTypeCheck(2)"
+              type="radio"
+              id="payme"
+              name="payment"
+            />
             <label for="payme">
               <span></span>
               <h4>{{ $t("tolov2") }}</h4>
@@ -48,7 +53,12 @@
 
           <!-- item-2 -->
           <div class="payment-types-item">
-            <input type="radio" id="moneyHome" name="payment" />
+            <input
+              @click="paymentTypeCheck(4)"
+              type="radio"
+              id="moneyHome"
+              name="payment"
+            />
             <label for="moneyHome">
               <span></span>
               <h4>{{ $t("tolov3") }}</h4>
@@ -58,7 +68,12 @@
 
           <!-- item-3 -->
           <div class="payment-types-item">
-            <input type="radio" id="card" name="payment" />
+            <input
+              @click="paymentTypeCheck(6)"
+              type="radio"
+              id="card"
+              name="payment"
+            />
             <label for="card">
               <span></span>
               <h4>{{ $t("tolov5") }}</h4>
@@ -68,7 +83,12 @@
 
           <!-- item-4 -->
           <div class="payment-types-item">
-            <input type="radio" id="money" name="payment" />
+            <input
+              @click="paymentTypeCheck(3)"
+              type="radio"
+              id="money"
+              name="payment"
+            />
             <label for="money">
               <span></span>
               <h4>{{ $t("tolov1") }}</h4>
@@ -78,7 +98,12 @@
 
           <!-- item-5 -->
           <div class="payment-types-item">
-            <input type="radio" id="cardHome" name="payment" />
+            <input
+              @click="paymentTypeCheck(5)"
+              type="radio"
+              id="cardHome"
+              name="payment"
+            />
             <label for="cardHome">
               <span></span>
               <h4>{{ $t("tolov2") }}</h4>
@@ -142,7 +167,9 @@
                     <deliverButoon />
                   </span>
                 </button>
-                <!---->
+
+                <!----------------------------------------->
+
                 <ul
                   v-if="openViloyat"
                   class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
@@ -160,7 +187,10 @@
                     role="option"
                   >
                     <div class="flex items-center">
-                      <span class="font-normal text-xl ml-3 block truncate">
+                      <span
+                        @click="FcheckRegion(itemReg?.id)"
+                        class="font-normal text-xl ml-3 block truncate"
+                      >
                         {{ itemReg?.name }}
                       </span>
                     </div>
@@ -168,6 +198,8 @@
                 </ul>
               </div>
             </div>
+
+            <!--    SHAHAR/TUMAN   -->
 
             <div class="payment-method-select">
               <label
@@ -187,7 +219,7 @@
                 >
                   <span class="flex items-center">
                     <span class="ml-3 block text-xl truncate">
-                      {{ SelectedREgionDist }}
+                      {{ shaharNomi?.name }}
                     </span>
                   </span>
                   <span
@@ -208,13 +240,16 @@
                   <li
                     v-for="itemRdis in regionDistricts?.data"
                     :key="itemRdis"
-                    @click="(openShahar = false)"
+                    @click="openShahar = false"
                     class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9"
                     id="listbox-option-0"
                     role="option"
                   >
                     <div class="flex items-center">
-                      <span @click="RegionDistricts(itemRdis?.id)" class="font-normal text-xl ml-3 block truncate">
+                      <span
+                        @click="shahar(itemRdis), FcheckDistrict(itemRdis?.id)"
+                        class="font-normal text-xl ml-3 block truncate"
+                      >
                         {{ itemRdis?.name }}
                       </span>
                     </div>
@@ -249,6 +284,7 @@
                 required=""
                 class="relative w-full cursor-default rounded-md bg-white py-3 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset text-xl ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 type="text"
+                v-model="address"
               />
             </div>
             <div class="paymnet-input">
@@ -258,7 +294,8 @@
                 >{{ $t("qavat") }}</label
               ><input
                 class="relative w-full cursor-default rounded-md bg-white py-3 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset text-xl ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                type="number"
+                type="text"
+                v-model="floor"
               />
             </div>
           </div>
@@ -295,6 +332,8 @@
               <button
                 class="whitespace-nowrap align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
                 type="button"
+                @click="FstoreId(adress?.id)"
+                v-if="!(storeId == adress?.id)"
               >
                 {{ $t("olaman") }}
               </button>
@@ -313,16 +352,25 @@
           >
           <h4>{{ totalPrice }} so'm</h4>
         </div>
+        <!-- do'kondan olib ketish -->
         <div class="payment-right-item" v-if="!store.paymentMethod">
           <span>{{ $t("yBerish") }}</span>
-          <h4>20 000 so'm</h4>
+          <h4>{{ takeShopFormat }}</h4>
         </div>
-        <!---->
+
+        <!-- uygacha yetkazib berish -->
+        <div class="payment-right-item" v-if="store.paymentMethodCheck">
+          <span>Uygacha yetkazib berish</span>
+          <h4>{{ homePriceFormat }}</h4>
+        </div>
+        <!----------------------------------------------->
         <div class="payment-right-bottom-item">
           <span>{{ $t("bSumma") }}</span>
           <h4>{{ orderTotalPrice }} so'm</h4>
         </div>
-        <button>{{ $t("xarid") }}</button>
+        <button @click="orderProcessing()">
+          {{ $t("xarid") }}
+        </button>
       </div>
     </div>
   </div>
@@ -333,12 +381,17 @@ import { useStore } from "~/store/store";
 import buy from "~/services/buy";
 import deliverButoon from "~/components/icons/deliverButoon.vue";
 const store = useStore();
-const deliveryFee = 20000;
 const storesAdress = ref({});
 const openViloyat = ref(false);
 const openShahar = ref(false);
 const region = ref({});
 const regionDistricts = ref({});
+const { locale } = useI18n();
+const takeShop = ref(25000);
+const takeShopFormat = ref("25000 so'm");
+
+const homePrice = ref();
+const homePriceFormat = ref("");
 
 const totalQuantity = computed(() => {
   return store.cart.reduce((total, item) => total + item.quantity, 0);
@@ -352,6 +405,13 @@ const totalPrice = computed(() => {
   );
 });
 
+// fetch
+async function getHomePirice() {
+  const res = await buy.getHome();
+  homePrice.value = res?.data?.home_delivery_price;
+  homePriceFormat.value = res?.data?.homeDeliveryPriceFormat;
+}
+
 //  Agar yetkazib berish tanlangan bo'lsa, 20 000 qo'shiladi
 const orderTotalPrice = computed(() => {
   let total = store.cart.reduce(
@@ -359,10 +419,11 @@ const orderTotalPrice = computed(() => {
     0
   );
 
-  if (!store.paymentMethod) {
-    total += deliveryFee;
+  if (store.paymentMethodCheck & !store.paymentMethod) {
+    total += homePrice.value + takeShop.value;
+  } else if (!store.paymentMethod) {
+    total += takeShop.value;
   }
-
   return total;
 });
 
@@ -391,20 +452,122 @@ async function Region(item) {
 }
 
 // shaharlar
+const shaharNomi = ref({});
 async function RegionDistricts(id) {
   const res = await buy.getRegionDistricts(id);
-
-  if(id){
-    SelectedREgionDist.value = res?.data[id].name
-  } else{
-    SelectedREgionDist.value = res?.data[0].name
-  }
   regionDistricts.value = res;
+
+  shaharNomi.value = res?.data?.[0] || {};
+  console.log();
+}
+
+function shahar(res) {
+  console.log(res);
+  homePrice.value = res?.delivery_price;
+  homePriceFormat.value = res?.deliveryPriceFormat;
+  shaharNomi.value = res;
+}
+
+// rasmiylashtirish
+const paymentType = ref(2);
+const checkRegion = ref(1);
+const checkDistrict = ref(null);
+const checkUy = ref(0);
+let address = ref("");
+let floor = ref("");
+const cartData = ref([]);
+const storeId = ref(null);
+// const cartData = JSON.parse(localStorage.getItem("cart")) || [];
+function paymentTypeCheck(value) {
+  paymentType.value = value;
+}
+function FcheckRegion(value) {
+  checkRegion.value = value;
+}
+function FcheckDistrict(value) {
+  checkDistrict.value = value;
+}
+function FstoreId(value) {
+  storeId.value = value;
+}
+watch(
+  () => store.paymentMethodCheck,
+  (newValue) => {
+    checkUy.value = newValue ? 1 : 0;
+  }
+);
+
+onMounted(() => {
+  cartData.value = JSON.parse(localStorage.getItem("cart")) || [];
+});
+
+paymentTypeCheck();
+FcheckRegion();
+FcheckDistrict();
+FstoreId();
+
+async function BuyurtmaberishYetkazibBerish() {
+  const res = await buy.postBuyurtmaberishYetkazibBerish(
+    store.token,
+    locale.value,
+    paymentType.value,
+    checkRegion.value,
+    checkDistrict.value,
+    checkUy.value,
+    address.value,
+    floor.value,
+    cartData.value
+  );
+  if (res.status == 200) {
+    console.log(res);
+    if (res?.data) {
+      window.location.href = `https://payme.uz/${res?.data?.url}${locale.value}`;
+    } else {
+      window.location = "/";
+    }
+  }
+  localStorage.removeItem("cart");
+}
+
+async function DukondanOlibKetish() {
+  const res = await buy.postDukondanOlibKetish(
+    store.token,
+    locale.value,
+    paymentType.value,
+    storeId.value,
+    cartData.value
+  );
+  if (res.status == 200) {
+    console.log(res);
+    if (res?.data) {
+      window.location.href = `https://payme.uz/${res?.data?.url}${locale.value}`;
+    } else {
+      window.location = "/";
+    }
+  }
+  localStorage.removeItem("cart");
+}
+
+function orderProcessing() {
+  if (!store.paymentMethod) {
+    BuyurtmaberishYetkazibBerish();
+  } else if (store.paymentMethod) {
+    DukondanOlibKetish();
+  }
 }
 
 // function's
 Stores();
 Region();
+getHomePirice();
+RegionDistricts();
+shahar();
 </script>
 
 <style lang="scss"></style>
+
+<!-- 
+
+shaharNomi o'zgaruvchida shahar lar keladi
+
+-->
