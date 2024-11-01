@@ -1,8 +1,12 @@
 <template>
   <div>
+    <!-- message's -->
+    <Message v-if="store.success" severity="success">Success Message</Message>
+    <Message v-if="store.warn" severity="warn">Warn Message</Message>
+    <Message v-if="store.error" severity="error">Error Message</Message>
+
     <!-- HEADER STAR -->
     <header>
-
       <!-- HEADER TOP START -->
       <div class="header__top">
         <div class="container">
@@ -158,8 +162,6 @@
         </div>
       </div>
       <!-- HEADER MENU END -->
-
-      <!-- <Message severity="info">Info Message</Message> -->
 
       <!-- HEADER CENTER START -->
       <div class="header__center">
@@ -323,7 +325,8 @@
                     class="catalog-wrapper__item"
                     v-for="catalog in katalog"
                     :key="catalog"
-                    @click="open(catalog, $event)" :data-i="item"
+                    @click="open(catalog, $event)"
+                    :data-i="item"
                   >
                     <span>
                       <img :src="catalog?.iconUrl" alt="icon" />
@@ -718,10 +721,10 @@ async function getPageCategory() {
   pageCategory.value = res;
 }
 async function getHeaderBottomCategorys() {
-  store.loader = true;  
+  store.loader = true;
   const res = await services.getHeaderBottomCategories(locale.value);
   store.loader = false;
-  headerBottomNav.value = res?.data;  
+  headerBottomNav.value = res?.data;
 }
 async function getCatalogCategorys() {
   const res = await services.getCatalogCategories(locale.value);
@@ -761,15 +764,16 @@ function closeLang() {
 }
 
 function open(id, e) {
-  document.querySelectorAll(".catalog-wrapper__item").forEach((el, i) =>{
-    if(e.target == el) {
-      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display = "block"
+  document.querySelectorAll(".catalog-wrapper__item").forEach((el, i) => {
+    if (e.target == el) {
+      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display =
+        "block";
     } else {
-      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display = "none"
+      document.querySelectorAll(".catalog-wrapper__sub-menu")[i].style.display =
+        "none";
     }
-  })
+  });
 }
-
 </script>
 
 <style lang="scss" scoped>

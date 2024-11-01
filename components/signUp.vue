@@ -2,7 +2,7 @@
   <div class="login modal">
     <!--        TOP      -->
     <div class="modal-top">
-      <h2 class="modal-title">{{$t('SignUp')}}</h2>
+      <h2 class="modal-title">{{ $t("SignUp") }}</h2>
       <button @click="store.closeModal" class="modal-close">
         <closeSvg />
       </button>
@@ -13,7 +13,7 @@
       <form class="modal-form" @submit.prevent="postSignUp()">
         <!-- firstname -->
         <div>
-          <label class="modal-label" for="firstname">{{ $t('fName') }}</label>
+          <label class="modal-label" for="firstname">{{ $t("fName") }}</label>
           <div class="input__wrap">
             <input
               v-model="firstname"
@@ -28,7 +28,7 @@
 
         <!-- lastname -->
         <div>
-          <label class="modal-label" for="lastname">{{ $t('lName') }}</label>
+          <label class="modal-label" for="lastname">{{ $t("lName") }}</label>
           <div class="input__wrap">
             <input
               v-model="lastname"
@@ -44,8 +44,8 @@
         <!-- password -->
         <div>
           <div class="fcs">
-            <label class="modal-label" for="password">{{ $t('parol') }}</label>
-            <p v-if="false" class="modal-error">{{ $t('p1') }}</p>
+            <label class="modal-label" for="password">{{ $t("parol") }}</label>
+            <p v-if="false" class="modal-error">{{ $t("p1") }}</p>
           </div>
           <div class="input__wrap">
             <input
@@ -61,10 +61,10 @@
         <!-- password_repeat -->
         <div>
           <div class="fcs">
-            <label class="modal-label" for="password_repeat"
-              >{{ $t('tParol') }}</label
-            >
-            <p v-if="false" class="modal-error">{{ $t('p2') }}</p>
+            <label class="modal-label" for="password_repeat">{{
+              $t("tParol")
+            }}</label>
+            <p v-if="false" class="modal-error">{{ $t("p2") }}</p>
           </div>
           <div class="input__wrap">
             <input
@@ -77,7 +77,7 @@
           </div>
         </div>
 
-        <button class="modal-login-btn">{{ $t('send') }}</button>
+        <button class="modal-login-btn">{{ $t("send") }}</button>
       </form>
     </div>
   </div>
@@ -111,6 +111,8 @@ async function postSignUp() {
     store.token = res.data.auth_key;
     store.overlay = false;
     store.signUp = false;
+    store.success = true;
+    store.closeMessage();
   }
 }
 </script>

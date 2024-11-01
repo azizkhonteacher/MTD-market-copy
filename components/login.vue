@@ -1,7 +1,7 @@
 <template>
   <div class="login modal">
     <div class="modal-top">
-      <h2 class="modal-title">{{$t('kirish')}}</h2>
+      <h2 class="modal-title">{{ $t("kirish") }}</h2>
       <button class="modal-close" @click="store.closeModal()">
         <closeSvg />
       </button>
@@ -11,7 +11,7 @@
       <form class="modal-form" @submit.prevent="Login()">
         <!-- number -->
         <div>
-          <label class="modal-label" for="phone">{{$t('tRaqam')}}</label>
+          <label class="modal-label" for="phone">{{ $t("tRaqam") }}</label>
           <div class="input__wrap">
             <input
               v-model="username"
@@ -30,7 +30,7 @@
         <!-- password -->
         <div>
           <div class="fcs">
-            <label class="modal-label" for="password">{{ $t('parol') }}</label>
+            <label class="modal-label" for="password">{{ $t("parol") }}</label>
             <button
               @click="
                 (store.loginModal = false), (store.enterPhoneReset = true)
@@ -38,7 +38,7 @@
               type="button"
               class="modal-label__btn"
             >
-              {{ $t('forgotPassword') }}
+              {{ $t("forgotPassword") }}
             </button>
           </div>
           <div class="input__wrap">
@@ -52,13 +52,13 @@
           </div>
         </div>
 
-        <button class="modal-login-btn">{{ $t('kirish') }}</button>
+        <button class="modal-login-btn">{{ $t("kirish") }}</button>
         <button
           @click="(store.enterPhone = true), (store.loginModal = false)"
           type="button"
           class="modal-register"
         >
-          {{ $t('Register') }}
+          {{ $t("Register") }}
         </button>
       </form>
     </div>
@@ -88,7 +88,11 @@ async function Login() {
     localStorage.setItem("authKey", res.data.auth_key);
     store.token = res.data.auth_key;
     store.closeModal();
-    console.log(res);
+    store.success = true;
+    store.closeMessage();
+  } else {
+    store.error = true;
+    store.closeMessage();
   }
 }
 // mask

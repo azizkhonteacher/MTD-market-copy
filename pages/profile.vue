@@ -260,6 +260,8 @@ async function logOut() {
   store.loader = true;
   window.location = "/";
   store.loader = false;
+  store.success = true;
+  store.closeMessage();
 }
 
 const CurrentOrder = ref({});
@@ -277,7 +279,3 @@ currentOrder();
 </script>
 
 <style lang="scss" scoped></style>
-
-<!-- 
-    current va all ichidagi cardlar ichiga ma'limotlar qayerdan keladi
--->

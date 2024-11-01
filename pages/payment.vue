@@ -524,6 +524,11 @@ async function BuyurtmaberishYetkazibBerish() {
     } else {
       window.location = "/";
     }
+    store.success = true;
+    store.closeMessage();
+  } else {
+    store.error = true;
+    store.closeMessage();
   }
   localStorage.removeItem("cart");
 }
@@ -543,6 +548,11 @@ async function DukondanOlibKetish() {
     } else {
       window.location = "/";
     }
+    store.success = true;
+    store.closeMessage();
+  } else {
+    store.error = true;
+    store.closeMessage();
   }
   localStorage.removeItem("cart");
 }

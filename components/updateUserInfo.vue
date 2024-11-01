@@ -2,7 +2,7 @@
   <div class="login modal">
     <!--    TOP -->
     <div class="modal-top">
-      <h2 class="modal-title">{{ $t('shaxsiy') }}</h2>
+      <h2 class="modal-title">{{ $t("shaxsiy") }}</h2>
       <button class="modal-close" @click="store.closeModal()">
         <closeSvg />
       </button>
@@ -13,7 +13,7 @@
       <form class="modal-form" @submit.prevent="updateUserName()">
         <!-- firstname -->
         <div>
-          <label class="modal-label" for="firstname">{{ $t('fName') }}</label>
+          <label class="modal-label" for="firstname">{{ $t("fName") }}</label>
           <div class="input__wrap">
             <input
               v-model="firstName"
@@ -27,7 +27,7 @@
 
         <!-- lastname -->
         <div>
-          <label class="modal-label" for="lastname">{{ $t('lName') }}</label>
+          <label class="modal-label" for="lastname">{{ $t("lName") }}</label>
           <div class="input__wrap">
             <input
               v-model="lastName"
@@ -39,7 +39,7 @@
           </div>
         </div>
 
-        <button class="modal-login-btn">{{ $t('update') }}</button>
+        <button class="modal-login-btn">{{ $t("update") }}</button>
         <button
           @click="
             (store.updateUserInfo = false), (store.updateUserPhone = true)
@@ -47,7 +47,7 @@
           type="button"
           class="modal-register"
         >
-          {{ $t('telRaqam') }}
+          {{ $t("telRaqam") }}
         </button>
       </form>
     </div>
@@ -88,6 +88,11 @@ async function updateUserName() {
     store.overlay = false;
     store.updateUserInfo = false;
     getUserInfoFetch();
+    store.success = true;
+    store.closeMessage();
+  } else {
+    store.error = true;
+    store.closeMessage();
   }
 }
 </script>

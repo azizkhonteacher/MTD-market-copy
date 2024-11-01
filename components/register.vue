@@ -73,6 +73,12 @@ function postPhoneNumber() {
         store.phone = p;
         store.enterPhone = false;
         store.verifyCode = true;
+        store.success = true;
+        store.closeMessage();
+      }
+      else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return postPhone();
@@ -88,6 +94,11 @@ function postPhoneNumber() {
         store.phone = p;
         store.enterPhoneReset = false;
         store.verifyCodeReset = true;
+        store.success = true;
+        store.closeMessage();
+      }else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return postPhoneReset();
@@ -104,6 +115,11 @@ function postPhoneNumber() {
         store.updateUserPhone = false;
         store.updateUserPhoneCode = true;
         getUserInfoFetch();
+        store.success = true;
+        store.closeMessage();
+      }else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return updatePhone();

@@ -86,6 +86,9 @@ function VerifyCode() {
         store.code = code.value;
         store.verifyCodeReset = false;
         store.CodeReset = true;
+      }else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return postResetVerifyPhone();
@@ -101,6 +104,11 @@ function VerifyCode() {
         store.updateUserPhoneCode = false;
         store.overlay = false;
         getUserInfoFetch();
+        store.success = true;
+        store.closeMessage();
+      }else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return updatePhoneCode();
@@ -111,6 +119,11 @@ function VerifyCode() {
         store.code = code.value;
         store.verifyCode = false;
         store.signUp = true;
+        store.success = true;
+        store.closeMessage();
+      }else{
+        store.error = true;
+        store.closeMessage();
       }
     }
     return postVerifyPhone();

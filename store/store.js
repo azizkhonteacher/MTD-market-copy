@@ -32,6 +32,10 @@ export const useStore = defineStore("store", () => {
   const updateUserPhone = ref(false);
   const updateUserPhoneCode = ref(false);
   const cartPage = ref(false);
+  // message's
+  const error = ref(false);
+  const warn = ref(false);
+  const success = ref(false);
 
   // function
   function closeModal() {
@@ -49,6 +53,13 @@ export const useStore = defineStore("store", () => {
     openHeaderMenu.value = false;
     openKategory.value = false;
     cartPage.value = false;
+  }
+  function closeMessage() {
+    setTimeout(() => {
+      error.value = false;
+      warn.value = false;
+      success.value = false;
+    }, 15000);
   }
 
   return {
@@ -84,5 +95,11 @@ export const useStore = defineStore("store", () => {
     updateUserInfo,
     updateUserPhone,
     updateUserPhoneCode,
+
+    // message's
+    error,
+    warn,
+    success,
+    closeMessage,
   };
 });
