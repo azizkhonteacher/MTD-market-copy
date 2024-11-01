@@ -2,6 +2,7 @@
   <div>
     <!-- HEADER STAR -->
     <header>
+
       <!-- HEADER TOP START -->
       <div class="header__top">
         <div class="container">
@@ -157,6 +158,8 @@
         </div>
       </div>
       <!-- HEADER MENU END -->
+
+      <!-- <Message severity="info">Info Message</Message> -->
 
       <!-- HEADER CENTER START -->
       <div class="header__center">

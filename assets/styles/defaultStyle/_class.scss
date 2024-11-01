@@ -242,3 +242,13 @@
 .p-slider {
   position: relative;
 }
+
+.p-message{
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+}
+.p-message-text {
+  margin: 0 25px;
+}
