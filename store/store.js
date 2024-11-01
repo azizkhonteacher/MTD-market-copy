@@ -59,7 +59,7 @@ export const useStore = defineStore("store", () => {
       error.value = false;
       warn.value = false;
       success.value = false;
-    }, 15000);
+    }, 10000);
   }
 
   return {
