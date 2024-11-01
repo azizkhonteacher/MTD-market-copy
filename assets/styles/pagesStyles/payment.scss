@@ -286,6 +286,9 @@
     gap: 30px;
     grid-template-columns: 1fr 1fr;
     margin-bottom: 30px;
+    @include media(770px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
   &-method-select {
     label {
@@ -297,6 +300,12 @@
     display: grid;
     gap: 30px;
     grid-template-columns: 1fr 1fr 1fr;
+    @include media(770px){
+      grid-template-columns: 1fr;
+      input{
+        width: 100%;
+      }
+    }
 
     .first {
       grid-column: 1 / 3;
