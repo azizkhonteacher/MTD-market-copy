@@ -72,4 +72,19 @@ export default {
       },
     });
   },
+  // my order
+  getCurrentOrder(token) {
+    return $fetch(`${baseURL}/order-manager/my-order/currently`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
+  getAllOrder(token) {
+    return $fetch(`${baseURL}/order-manager/my-order/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 };

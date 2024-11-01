@@ -462,7 +462,6 @@ async function RegionDistricts(id) {
 }
 
 function shahar(res) {
-  console.log(res);
   homePrice.value = res?.delivery_price;
   homePriceFormat.value = res?.deliveryPriceFormat;
   shaharNomi.value = res;

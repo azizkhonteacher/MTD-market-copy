@@ -150,38 +150,42 @@
           <!-- current -->
           <div class="user-info-main cards" v-if="store.userCurrent">
             <!--        CARD START -->
-            <div class="user-info">
+            <div
+              class="user-info"
+              v-for="item in CurrentOrder?.data"
+              :key="item"
+            >
               <div class="user-info-header">
                 <div class="profile-item">
-                  <h4>#342</h4>
+                  <h4>#{{ item?.id }}</h4>
                 </div>
               </div>
               <div class="user-info-main">
                 <ul>
                   <li>
                     <span>Status</span>
-                    <span class="value">Kutish xolatida</span>
+                    <span class="value">{{ item?.statusName }}</span>
                   </li>
                   <li>
                     <span>Delivery Date:</span>
-                    <span class="value"></span>
+                    <span class="value">{{ item?.delivery_date }}</span>
                   </li>
                   <li>
                     <span>Recipient</span>
-                    <span class="value">Azizxon Esonov</span>
+                    <span class="value">{{ item?.user }}</span>
                   </li>
                   <li>
                     <span>Delivery Address</span>
-                    <span class="value"
-                      >Qoraqalpog‘iston RespublikasiAmudaryo tumani
+                    <span class="value">
+                      {{ item?.address }}
                     </span>
                   </li>
                   <div class="user-info-order-images">
-                    <img src="https://picsum.photos/70" alt="img" />
+                    <img :src="item?.images" alt="img" />
                   </div>
                   <li>
                     <span>Order Amount:</span>
-                    <span class="value">1 220 000 so'm </span>
+                    <span class="value">{{ item?.totalSumFormat }}</span>
                   </li>
                   <button class="mt-2">{{ $t("qayta") }}</button>
                 </ul>
@@ -193,40 +197,44 @@
           <!-- all -->
           <div class="user-info-main cards" v-if="!store.userCurrent">
             <!--        CARD START -->
-            <div class="user-info" v-if="false">
+            <div
+              class="user-info"
+              v-for="item in AllOrder?.data?.items"
+              :key="item"
+            >
               <div class="user-info-header">
                 <div class="profile-item">
-                  <h4>#342</h4>
+                  <h4>#{{ item?.id }}</h4>
                 </div>
               </div>
               <div class="user-info-main">
                 <ul>
                   <li>
                     <span>Status</span>
-                    <span class="value">Kutoish xolatida</span>
+                    <span class="value">{{ item?.statusName }}</span>
                   </li>
                   <li>
                     <span>Delivery Date:</span>
-                    <span class="value"></span>
+                    <span class="value">{{ item?.delivery_date }}</span>
                   </li>
                   <li>
                     <span>Recipient</span>
-                    <span class="value">Azizxon Esonov</span>
+                    <span class="value">{{ item?.user }}</span>
                   </li>
                   <li>
                     <span>Delivery Address</span>
-                    <span class="value"
-                      >Qoraqalpog‘iston RespublikasiAmudaryo tumani
+                    <span class="value">
+                      {{ item?.address }}
                     </span>
                   </li>
                   <div class="user-info-order-images">
-                    <img src="https://picsum.photos/70" alt="img" />
+                    <img :src="item?.images" alt="img" />
                   </div>
                   <li>
                     <span>Order Amount:</span>
-                    <span class="value">1 220 000 so'm </span>
+                    <span class="value">{{ item?.totalSumFormat }}</span>
                   </li>
-                  <button class="mt-2">Qayta to'lov qilish</button>
+                  <button class="mt-2">{{ $t("qayta") }}</button>
                 </ul>
               </div>
             </div>
@@ -243,6 +251,7 @@
 // import's
 import UserSvg from "~/components/icons/UserSvg.vue";
 import { useStore } from "~/store/store";
+import buy from "~/services/buy";
 // varible's
 const store = useStore();
 // function
@@ -252,6 +261,19 @@ async function logOut() {
   window.location = "/";
   store.loader = false;
 }
+
+const CurrentOrder = ref({});
+const AllOrder = ref({});
+async function currentOrder() {
+  const res = await buy.getCurrentOrder(store.token);
+  CurrentOrder.value = res;
+}
+async function allOrder() {
+  const res = await buy.getAllOrder(store.token);
+  AllOrder.value = res;
+}
+allOrder();
+currentOrder();
 </script>
 
 <style lang="scss" scoped></style>
