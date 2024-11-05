@@ -118,14 +118,20 @@
         </h2>
 
         <div class="payment-method-obtaing">
-          <div class="payment-type-item" @click="store.paymentMethod = false">
+          <div
+            class="payment-type-item"
+            @click="(store.paymentMethod = false), (store.btnCheck = true)"
+          >
             <input type="radio" id="delivery" name="method" />
             <label for="delivery"
               ><span></span>
               <h4>{{ $t("yBerish") }}</h4></label
             >
           </div>
-          <div class="payment-type-item" @click="store.paymentMethod = true">
+          <div
+            class="payment-type-item"
+            @click="(store.paymentMethod = true), (store.btnCheck = true)"
+          >
             <input type="radio" id="store" name="method" /><label for="store"
               ><span></span>
               <h4>{{ $t("dOlib") }}</h4></label
@@ -468,7 +474,7 @@ function shahar(res) {
 }
 
 // rasmiylashtirish
-const paymentType = ref(2);
+const paymentType = ref(null);
 const checkRegion = ref(1);
 const checkDistrict = ref(null);
 const checkUy = ref(0);
@@ -556,12 +562,26 @@ async function DukondanOlibKetish() {
   }
   localStorage.removeItem("cart");
 }
-
 function orderProcessing() {
-  if (!store.paymentMethod) {
-    BuyurtmaberishYetkazibBerish();
-  } else if (store.paymentMethod) {
-    DukondanOlibKetish();
+  if (store.token) {
+    if (!store.paymentMethod) {
+      if (paymentType.value && store.btnCheck) {
+        BuyurtmaberishYetkazibBerish();
+      } else {
+        store.error = true;
+        store.closeMessage();
+      }
+    } else if (store.paymentMethod) {
+      if (paymentType.value && store.btnCheck) {
+        DukondanOlibKetish();
+      } else {
+        store.error = true;
+        store.closeMessage();
+      }
+    }
+  } else {
+    store.loginModal = true;
+    store.overlay = true;
   }
 }
 
@@ -574,9 +594,3 @@ shahar();
 </script>
 
 <style lang="scss"></style>
-
-<!-- 
-
-shaharNomi o'zgaruvchida shahar lar keladi
-
--->

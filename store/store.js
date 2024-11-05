@@ -19,6 +19,7 @@ export const useStore = defineStore("store", () => {
   const like = ref({});
   const cart = ref([]);
   const loader = ref(false);
+  const btnCheck = ref(false);
 
   // modal's
   const loginModal = ref(false);
@@ -82,6 +83,7 @@ export const useStore = defineStore("store", () => {
     cart,
     loader,
     openFilter,
+    btnCheck,
 
     // model's
     closeModal,

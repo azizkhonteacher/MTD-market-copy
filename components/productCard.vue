@@ -31,6 +31,7 @@
       <button
         @click="addOrRemoveFromCart(cartItem)"
         :class="{ 'active-svg': isProductInCart }"
+        id="addToCart"
       >
         <cartSvg />
       </button>
