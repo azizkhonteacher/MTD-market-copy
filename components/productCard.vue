@@ -118,7 +118,8 @@ const addOrRemoveFromCart = (product, e) => {
     // Agar mahsulot savatda bo'lmasa, uni savatga qo'shamiz
     store.cart.push(product);
 
-    // asosiy otasini tutamiz
+
+    // asosiy otasini tutamiz va animatsiya qo'shamiz
 
     let target_parent = e.target.closest(".product-card");
     let shop =
