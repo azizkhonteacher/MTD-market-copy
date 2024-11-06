@@ -270,8 +270,11 @@
             </li>
 
             <!-- CART BTN -->
-            <li @click="(store.cartPage = true), (store.overlay = true)">
-              <div class="img">
+            <li
+              @click="(store.cartPage = true), (store.overlay = true)"
+              class="shopping-cart"
+            >
+              <div class="img cart-img-icon">
                 <span class="header__center-list__quantity">{{
                   cartTotalQuantity
                 }}</span>
@@ -326,7 +329,7 @@
                     v-for="catalog in katalog"
                     :key="catalog"
                     @click="open(catalog, $event)"
-                    :data-i="item"
+                    :data-i="catalog"
                   >
                     <span>
                       <img :src="catalog?.iconUrl" alt="icon" />
@@ -418,7 +421,7 @@
         </li>
         <!-- cart -->
         <li
-          class="mobile-menu__wrapper-item"
+          class="mobile-menu__wrapper-item shopping-cart-2"
           @click="(store.cartPage = true), (store.overlay = true)"
         >
           <div class="img">
@@ -787,9 +790,3 @@ function open(id, e) {
   background: rgba(32, 32, 32, 0.3);
 }
 </style>
-
-<!-- 
-
-search qismi, like, cart, til ni biritirish
-
--->

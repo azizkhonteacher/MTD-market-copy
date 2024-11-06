@@ -29,9 +29,8 @@
     <div class="product-card__footer">
       <!-- cart -->
       <button
-        @click="addOrRemoveFromCart(cartItem)"
+        @click="addOrRemoveFromCart(cartItem, $event)"
         :class="{ 'active-svg': isProductInCart }"
-        id="addToCart"
       >
         <cartSvg />
       </button>
@@ -108,7 +107,7 @@ const cartItem = computed(() => {
 });
 
 // localga saqlash
-const addOrRemoveFromCart = (product) => {
+const addOrRemoveFromCart = (product, e) => {
   const item = toRaw(store.cart).find((el) => el.id == product.id);
 
   // Agar mahsulot savatda bo'lsa, uni olib tashlaymiz
@@ -118,6 +117,48 @@ const addOrRemoveFromCart = (product) => {
   } else {
     // Agar mahsulot savatda bo'lmasa, uni savatga qo'shamiz
     store.cart.push(product);
+
+    // asosiy otasini tutamiz
+
+    let target_parent = e.target.closest(".product-card");
+    let shop =
+      target_parent.parentNode.parentNode.parentNode.parentNode.parentNode
+        .parentNode;
+    const shopping_card = shop
+      .querySelector(".shopping-cart")
+      .getBoundingClientRect();
+
+    let img = target_parent.querySelector("img");
+    let flying_img = img.cloneNode();
+    flying_img.classList.add("flying-img");
+    target_parent.appendChild(flying_img);
+    target_parent.style.zIndex = "100";
+
+    // position nuqtasini aniqlaymiz
+    const flying_img_pos = flying_img.getBoundingClientRect();
+    const shopping_card_pos = shopping_card;
+
+    const shopping_Card = shop.querySelector(".shopping-cart");
+    shopping_Card.classList.add("shopping-cart-active");
+
+    let data = {
+      left:
+        shopping_card_pos.left -
+        (shopping_card_pos.width / 2 +
+          flying_img_pos.left +
+          flying_img_pos.width / 2),
+      top: shopping_card_pos.bottom - flying_img_pos.bottom + 65,
+    };
+
+    flying_img.style.cssText = `
+                            --left: ${data.left.toFixed(2)}px;
+                            --top: ${data.top.toFixed(2)}px;
+    `;
+    setTimeout(() => {
+      shopping_Card.classList.remove("shopping-cart-active");
+      target_parent.style.zIndex = "";
+      target_parent.removeChild(flying_img);
+    }, 1000);
   }
 
   // Savatdagi ma'lumotlarni localStorage'ga yozish

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--  HERO  -->
-    <div class="hero">
+    <div class="hero" v-if="false">
       <div class="container">
         <div class="hero__swiper-wrapper">
           <Swiper
@@ -228,6 +228,9 @@ PopulalCategory();
 Addversting();
 CheapProducts();
 Brands();
+
+
+
 </script>
 
 <style lang="scss" scoped></style>

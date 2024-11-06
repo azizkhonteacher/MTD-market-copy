@@ -6,7 +6,7 @@
   height: 100%;
   justify-content: space-between;
   position: relative;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
@@ -85,14 +85,24 @@
       background: none;
       cursor: pointer;
 
+      z-index: 10;
+      svg {
+        z-index: -1;
+        path {
+          z-index: -1;
+        }
+      }
+
       &:nth-child(2) {
         border-left: 1px solid #f2f2f2;
       }
       &:hover {
         svg {
+          z-index: -1;
           path {
             fill: $siteColor;
             stroke: $siteColor;
+            z-index: -1;
           }
         }
       }

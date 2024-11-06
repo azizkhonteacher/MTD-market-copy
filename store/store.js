@@ -21,6 +21,11 @@ export const useStore = defineStore("store", () => {
   const loader = ref(false);
   const btnCheck = ref(false);
 
+  const handleClick = ref(null); 
+  function setHandleClick(value) {
+    handleClick.value = value; 
+  }
+
   // modal's
   const loginModal = ref(false);
   const enterPhone = ref(false);
@@ -84,6 +89,8 @@ export const useStore = defineStore("store", () => {
     loader,
     openFilter,
     btnCheck,
+    handleClick,
+    setHandleClick,
 
     // model's
     closeModal,

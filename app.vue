@@ -50,12 +50,14 @@ onMounted(() => {
   getUserInfoFetch();
   getLikeProduct();
 });
+
 watch(
   () => store.token,
   () => {
     getUserInfoFetch();
     getLikeProduct();
-  }
+  },
+  
 );
 </script>
 
