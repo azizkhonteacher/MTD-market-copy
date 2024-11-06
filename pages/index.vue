@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--  HERO  -->
-    <div class="hero" v-if="false">
+    <div class="hero">
       <div class="container">
         <div class="hero__swiper-wrapper">
           <Swiper
