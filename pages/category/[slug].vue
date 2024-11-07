@@ -184,7 +184,7 @@
             >
               <div
                 @click="open(character, $event)"
-                :data-i="item"
+                :data-i="character"
                 class="accordion-header category-filter__chekbox-list-title"
               >
                 {{ character?.characterName }}
@@ -317,7 +317,6 @@ async function categoryDetail() {
   minPrice.value = res?.data?.minPrice;
   maxPrice.value = res?.data?.maxPrice;
   categoryProducts.value = res;
-  console.log(res?.data);
 }
 async function FilterCategoryDetail() {
   await categoryDetail();

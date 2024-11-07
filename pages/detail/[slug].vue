@@ -15,7 +15,7 @@
                 :key="images"
               >
                 <img
-                  class="big-swiper"
+                  class="big-swiper product-detail-img"
                   :src="detail?.product?.images[index]"
                   alt="img"
                 />
@@ -73,7 +73,7 @@
               <!-- cart -->
               <button
                 class="cart"
-                @click="addOrRemoveFromCart(cartItem)"
+                @click="addOrRemoveFromCart(cartItem, $event)"
                 :class="{ 'active-svg': isProductInCart }"
               >
                 <cartSvg />
@@ -287,7 +287,7 @@ const cartItem = computed(() => {
 });
 
 // localga saqlash
-const addOrRemoveFromCart = (product) => {
+const addOrRemoveFromCart = (product, e) => {
   const item = toRaw(store.cart).find((el) => el.id == product.id);
 
   // Agar mahsulot savatda bo'lsa, uni olib tashlaymiz
@@ -296,7 +296,7 @@ const addOrRemoveFromCart = (product) => {
     store.cart.splice(index, 1); // Mahsulotni savatdan olib tashlash
   } else {
     // Agar mahsulot savatda bo'lmasa, uni savatga qo'shamiz
-    store.cart.push(product);
+    store.cart.push(product);  
   }
 
   // Savatdagi ma'lumotlarni localStorage'ga yozish
