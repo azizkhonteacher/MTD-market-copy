@@ -159,7 +159,7 @@ const addOrRemoveFromCart = (product, e) => {
       shopping_Card.classList.remove("shopping-cart-active");
       target_parent.style.zIndex = "";
       target_parent.removeChild(flying_img);
-    }, 1000);
+    }, 900);
   }
 
   // Savatdagi ma'lumotlarni localStorage'ga yozish
