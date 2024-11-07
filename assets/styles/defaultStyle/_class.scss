@@ -277,6 +277,10 @@
 .flying-img {
   position: absolute;
   animation: fly_to_cart 1s ease-in-out;
+
+  @include media(1230px){
+  animation: fly_to_cart_2 1s ease-in-out !important;
+  }
 }
 
 @keyframes fly_to_cart {
@@ -299,5 +303,25 @@
     left: calc(var(--left) + 40px);
     top: var(--top);
     transform: scale(0.2);
+  }
+}
+@keyframes fly_to_cart_2 {
+  0% {
+      left: 0;
+      top: 0;
+  }
+  45%, 50% {
+      left: var(--left);
+      top: 60px; /* Manfiy qiymat elementni yuqoriga siljitadi */
+  }
+  80%, 90% {
+      left: var(--left);
+      top: calc(var(--top) - 30px); /* top qiymatini yuqoriga o'zgartirildi */
+      transform: scale(.2);
+  }
+  100% {
+      left: calc(var(--left) + 40px);
+      top: calc(var(--top) - 30px); /* top qiymatini yuqoriga o'zgartirildi */
+      transform: scale(.2);
   }
 }
